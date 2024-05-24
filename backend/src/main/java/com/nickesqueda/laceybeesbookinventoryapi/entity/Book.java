@@ -1,6 +1,7 @@
 package com.nickesqueda.laceybeesbookinventoryapi.entity;
 
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
+import com.nickesqueda.laceybeesbookinventoryapi.util.ValidationConstants;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class Book extends BaseEntity {
 
   @Column
   private String edition;
+
+  @Column(length = ValidationConstants.BOOK_NOTES_MAX_SIZE)
+  private String notes;
 
   @Column
   @Enumerated(EnumType.STRING)
