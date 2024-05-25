@@ -19,7 +19,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .perform(get(allBookCategoriesUri))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)));
+        .andExpect(jsonPath("$", hasSize(bookCategoryCount)));
   }
 
   @Test
