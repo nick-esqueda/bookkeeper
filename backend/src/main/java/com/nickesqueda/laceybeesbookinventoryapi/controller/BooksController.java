@@ -20,7 +20,7 @@ public class BooksController {
 
   @PutMapping("/{bookId}")
   @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-  public void updateBook() {}
+  public void editBook() {}
 
   @DeleteMapping("/{bookId}")
   @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
