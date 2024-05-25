@@ -53,6 +53,30 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
+  @Transactional
+  void createBookCategory_ShouldReturn400WithErrorResponse_GivenInvalidData() throws Exception {
+    mockMvc
+        .perform(
+            post(allBookCategoriesUri)
+                .contentType(APPLICATION_JSON)
+                .content(INVALID_BOOK_CATEGORY_REQUEST_JSON_NULL))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.errorMessage").isNotEmpty())
+        .andExpect(jsonPath("$.errorDetails", hasSize(1)));
+
+    mockMvc
+        .perform(
+            post(allBookCategoriesUri)
+                .contentType(APPLICATION_JSON)
+                .content(INVALID_BOOK_CATEGORY_REQUEST_JSON_EMPTY_STRING))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.errorMessage").isNotEmpty())
+        .andExpect(jsonPath("$.errorDetails", hasSize(1)));
+  }
+
+  @Test
   void getBookCategory_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
         .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
@@ -80,7 +104,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .perform(
             put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
                 .contentType(APPLICATION_JSON)
-                .content(UPDATE_BOOK_CATEGORY_REQUEST_JSON))
+                .content(EDIT_BOOK_CATEGORY_REQUEST_JSON))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").isNotEmpty())
@@ -102,6 +126,30 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
+  void editBookCategory_ShouldReturn400WithErrorResponse_GivenInvalidData() throws Exception {
+    mockMvc
+        .perform(
+            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(INVALID_BOOK_CATEGORY_REQUEST_JSON_NULL))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.errorMessage").isNotEmpty())
+        .andExpect(jsonPath("$.errorDetails", hasSize(1)));
+
+    mockMvc
+        .perform(
+            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(INVALID_BOOK_CATEGORY_REQUEST_JSON_EMPTY_STRING))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.errorMessage").isNotEmpty())
+        .andExpect(jsonPath("$.errorDetails", hasSize(1)));
+  }
+
+  @Test
+  @Transactional
   void editBookCategory_ShouldReturn404WithErrorResponse_GivenBookCategoryDoesNotExist()
       throws Exception {
 
@@ -109,7 +157,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .perform(
             put(bookCategoryUriBuilder.buildAndExpand(nonExistentBookCategoryId).toUri())
                 .contentType(APPLICATION_JSON)
-                .content(UPDATE_BOOK_CATEGORY_REQUEST_JSON))
+                .content(EDIT_BOOK_CATEGORY_REQUEST_JSON))
         .andDo(print())
         .andExpect(status().isNotFound())
         .andExpect(jsonPath("$.errorMessage").isNotEmpty());
@@ -126,8 +174,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
-  void deleteBookCategory_ShouldStillReturn204_GivenBookCategoryDoesNotExist()
-      throws Exception {
+  void deleteBookCategory_ShouldStillReturn204_GivenBookCategoryDoesNotExist() throws Exception {
 
     mockMvc
         .perform(delete(bookCategoryUriBuilder.buildAndExpand(nonExistentBookCategoryId).toUri()))

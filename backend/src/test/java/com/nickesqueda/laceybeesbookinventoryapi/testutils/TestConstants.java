@@ -13,7 +13,7 @@ public final class TestConstants {
       """
           .formatted(TEST_STRING);
 
-  public static final String UPDATE_BOOK_CATEGORY_REQUEST_JSON =
+  public static final String EDIT_BOOK_CATEGORY_REQUEST_JSON =
       """
       {
         "name": "%s"
@@ -24,8 +24,22 @@ public final class TestConstants {
   public static final String UNAVAILABLE_BOOK_CATEGORY_REQUEST_JSON =
       """
       {
-        "name": "%S"
+        "name": "%s"
       }
       """
           .formatted(UNAVAILABLE_BOOK_CATEGORY);
+
+  public static final String INVALID_BOOK_CATEGORY_REQUEST_JSON_EMPTY_STRING =
+      """
+      {
+        "name": ""
+      }
+      """;
+
+  public static final String INVALID_BOOK_CATEGORY_REQUEST_JSON_NULL =
+      """
+      {
+        "name": null
+      }
+      """;
 }

@@ -1,3 +1,5 @@
 package com.nickesqueda.laceybeesbookinventoryapi.exception;
 
-public record ErrorResponse(String errorMessage) {}
+import java.util.Collection;
+
+public record ErrorResponse(String errorMessage, Collection<?> errorDetails) {}

@@ -3,6 +3,7 @@ package com.nickesqueda.laceybeesbookinventoryapi.controller;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BookCategoriesService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class BookCategoriesController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public BookCategoryResponseDto createBookCategory(
-      @RequestBody BookCategoryRequestDto bookCategoryRequestDto) {
+      @RequestBody @Valid BookCategoryRequestDto bookCategoryRequestDto) {
     return bookCategoriesService.createBookCategory(bookCategoryRequestDto);
   }
 
@@ -39,7 +40,7 @@ public class BookCategoriesController {
   @ResponseStatus(HttpStatus.OK)
   public BookCategoryResponseDto editBookCategory(
       @PathVariable int bookCategoryId,
-      @RequestBody BookCategoryRequestDto bookCategoryRequestDto) {
+      @RequestBody @Valid BookCategoryRequestDto bookCategoryRequestDto) {
     return bookCategoriesService.editBookCategory(bookCategoryId, bookCategoryRequestDto);
   }
 
