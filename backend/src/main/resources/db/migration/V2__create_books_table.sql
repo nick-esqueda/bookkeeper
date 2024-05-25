@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS books (
     read_status ENUM('READ', 'UNREAD', 'DID_NOT_FINISH') NOT NULL,
     created_at DATETIME(6) NOT NULL,
     updated_at DATETIME(6),
-    PRIMARY KEY (id)
-    FOREIGN KEY (book_category_id) REFERENCES book_categories(id);
+    PRIMARY KEY (id),
+    FOREIGN KEY (book_category_id) REFERENCES book_categories(id)
 );
