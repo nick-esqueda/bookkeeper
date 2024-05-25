@@ -36,8 +36,12 @@ public class BookCategoriesController {
   }
 
   @PutMapping("/{bookCategoryId}")
-  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-  public void editBookCategory() {}
+  @ResponseStatus(HttpStatus.OK)
+  public BookCategoryResponseDto editBookCategory(
+      @PathVariable int bookCategoryId,
+      @RequestBody BookCategoryRequestDto bookCategoryRequestDto) {
+    return bookCategoriesService.editBookCategory(bookCategoryId, bookCategoryRequestDto);
+  }
 
   @DeleteMapping("/{bookCategoryId}")
   @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)

@@ -10,4 +10,6 @@ public interface BookCategoriesService {
   BookCategoryResponseDto createBookCategory(BookCategoryRequestDto bookCategoryRequestDto);
 
   BookCategoryResponseDto getBookCategory(int bookCategoryId);
+
+  BookCategoryResponseDto editBookCategory(int bookCategoryId, BookCategoryRequestDto bookCategoryRequestDto);
 }

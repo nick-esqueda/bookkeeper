@@ -37,4 +37,14 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
     BookCategory bookCategoryEntity = bookCategoryRepository.retrieveOrElseThrow(bookCategoryId);
     return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
   }
+
+  @Override
+  public BookCategoryResponseDto editBookCategory(
+      int bookCategoryId, BookCategoryRequestDto bookCategoryRequestDto) {
+
+    BookCategory bookCategoryEntity = bookCategoryRepository.retrieveOrElseThrow(bookCategoryId);
+    modelMapper.map(bookCategoryRequestDto, bookCategoryEntity);
+    bookCategoryEntity = bookCategoryRepository.save(bookCategoryEntity);
+    return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
+  }
 }
