@@ -1,7 +1,8 @@
 package com.nickesqueda.laceybeesbookinventoryapi.entity;
 
+import static com.nickesqueda.laceybeesbookinventoryapi.util.ValidationConstants.*;
+
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
-import com.nickesqueda.laceybeesbookinventoryapi.util.ValidationConstants;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,19 +20,19 @@ import org.hibernate.annotations.OnDeleteAction;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book extends BaseEntity {
-  @Column(nullable = false)
+  @Column(nullable = false, length = BOOK_TITLE_MAX_SIZE)
   private String title;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = BOOK_AUTHOR_MAX_SIZE)
   private String author;
 
-  @Column
+  @Column(length = BOOK_EDITION_MAX_SIZE)
   private String edition;
 
-  @Column(length = ValidationConstants.BOOK_NOTES_MAX_SIZE)
+  @Column(length = BOOK_NOTES_MAX_SIZE)
   private String notes;
 
-  @Column
+  @Column(nullable = false)
   @Enumerated(EnumType.STRING)
   private ReadStatus readStatus;
 
