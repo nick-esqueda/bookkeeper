@@ -41,6 +41,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   @Transactional
   void createBookCategory_ShouldReturn400WithErrorResponse_GivenNameAlreadyExists()
       throws Exception {
+
     mockMvc
         .perform(
             post(allBookCategoriesUri)
@@ -64,6 +65,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   @Test
   void getBookCategory_ShouldReturn404WithErrorResponse_GivenBookCategoryDoesNotExist()
       throws Exception {
+
     mockMvc
         .perform(get(bookCategoryUriBuilder.buildAndExpand(nonExistentBookCategoryId).toUri()))
         .andDo(print())
@@ -100,9 +102,35 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
+  void editBookCategory_ShouldReturn404WithErrorResponse_GivenBookCategoryDoesNotExist()
+      throws Exception {
+
+    mockMvc
+        .perform(
+            put(bookCategoryUriBuilder.buildAndExpand(nonExistentBookCategoryId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(UPDATE_BOOK_CATEGORY_REQUEST_JSON))
+        .andDo(print())
+        .andExpect(status().isNotFound())
+        .andExpect(jsonPath("$.errorMessage").isNotEmpty());
+  }
+
+  @Test
+  @Transactional
   void deleteBookCategory_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
         .perform(delete(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
+        .andDo(print())
+        .andExpect(status().isNoContent());
+  }
+
+  @Test
+  @Transactional
+  void deleteBookCategory_ShouldStillReturn204_GivenBookCategoryDoesNotExist()
+      throws Exception {
+
+    mockMvc
+        .perform(delete(bookCategoryUriBuilder.buildAndExpand(nonExistentBookCategoryId).toUri()))
         .andDo(print())
         .andExpect(status().isNoContent());
   }
