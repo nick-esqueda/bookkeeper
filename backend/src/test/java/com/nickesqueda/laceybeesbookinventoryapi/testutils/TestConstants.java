@@ -49,7 +49,7 @@ public final class TestConstants {
         """
         {
           "title": %s,
-          "author": %s",
+          "author": %s,
           "edition": %s,
           "notes": %s,
           "readStatus": %s,
@@ -77,7 +77,7 @@ public final class TestConstants {
         BOOK_REQUEST_JSON.replace("\"" + READ_STATUS_READ + "\"", NULL_STRING);
 
     public static final String BOOK_REQUEST_NULL_BOOK_CATEGORY_ID =
-        BOOK_REQUEST_JSON.replace("\"" + TEST_BOOK_CATEGORY_ID + "\"", NULL_STRING);
+        BOOK_REQUEST_JSON.replace(TEST_BOOK_CATEGORY_ID, NULL_STRING);
 
     public static final String BOOK_REQUEST_EMPTY_TITLE =
         BOOK_REQUEST_JSON.replace(TEST_TITLE, EMPTY_STRING);

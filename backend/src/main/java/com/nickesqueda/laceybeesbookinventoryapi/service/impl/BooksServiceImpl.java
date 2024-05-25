@@ -1,7 +1,10 @@
 package com.nickesqueda.laceybeesbookinventoryapi.service.impl;
 
+import com.nickesqueda.laceybeesbookinventoryapi.dto.BookRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.entity.Book;
+import com.nickesqueda.laceybeesbookinventoryapi.entity.BookCategory;
+import com.nickesqueda.laceybeesbookinventoryapi.repository.BookCategoryRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.repository.BookRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BooksService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +18,7 @@ import java.util.List;
 public class BooksServiceImpl implements BooksService {
 
   private final BookRepository bookRepository;
+  private final BookCategoryRepository bookCategoryRepository;
   private final ModelMapper modelMapper;
 
   @Override
@@ -26,8 +30,15 @@ public class BooksServiceImpl implements BooksService {
   }
 
   @Override
-  public BookResponseDto createBook() {
-    return null;
+  public BookResponseDto createBook(BookRequestDto bookRequestDto) {
+    BookCategory bookCategoryEntity =
+        bookCategoryRepository.retrieveOrElseThrow(bookRequestDto.getBookCategoryId());
+
+    Book bookEntity = modelMapper.map(bookRequestDto, Book.class);
+    bookEntity.setBookCategory(bookCategoryEntity);
+    bookEntity = bookRepository.save(bookEntity);
+
+    return modelMapper.map(bookEntity, BookResponseDto.class);
   }
 
   @Override
