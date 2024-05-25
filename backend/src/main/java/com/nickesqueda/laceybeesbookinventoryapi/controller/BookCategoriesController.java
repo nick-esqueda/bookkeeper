@@ -1,5 +1,6 @@
 package com.nickesqueda.laceybeesbookinventoryapi.controller;
 
+import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BookCategoriesService;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,11 @@ public class BookCategoriesController {
   }
 
   @PostMapping
-  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-  public void createBookCategory() {}
+  @ResponseStatus(HttpStatus.CREATED)
+  public BookCategoryResponseDto createBookCategory(
+      @RequestBody BookCategoryRequestDto bookCategoryRequestDto) {
+    return bookCategoriesService.createBookCategory(bookCategoryRequestDto);
+  }
 
   @GetMapping("/{bookCategoryId}")
   @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)

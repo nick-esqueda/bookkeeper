@@ -27,6 +27,8 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
 
   @Override
   public BookCategoryResponseDto createBookCategory(BookCategoryRequestDto bookCategoryRequestDto) {
-    return null;
+    BookCategory bookCategoryEntity = modelMapper.map(bookCategoryRequestDto, BookCategory.class);
+    bookCategoryEntity = bookCategoryRepository.save(bookCategoryEntity);
+    return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
   }
 }
