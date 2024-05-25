@@ -12,4 +12,10 @@ public class GlobalExceptionHandler {
   public ErrorResponse handleResourceNotFoundException(ResourceNotFoundException e) {
     return new ErrorResponse(e.getMessage());
   }
+
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  @ExceptionHandler(RuntimeException.class)
+  public ErrorResponse unhandledException(RuntimeException e) {
+    return new ErrorResponse("Unhandled exception: " + e.toString());
+  }
 }

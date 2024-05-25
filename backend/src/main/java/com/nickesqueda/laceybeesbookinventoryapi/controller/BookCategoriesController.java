@@ -44,6 +44,8 @@ public class BookCategoriesController {
   }
 
   @DeleteMapping("/{bookCategoryId}")
-  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-  public void deleteBookCategory() {}
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteBookCategory(@PathVariable int bookCategoryId) {
+    bookCategoriesService.deleteBookCategory(bookCategoryId);
+  }
 }

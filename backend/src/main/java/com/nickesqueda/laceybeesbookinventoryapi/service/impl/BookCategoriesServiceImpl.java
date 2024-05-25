@@ -5,11 +5,10 @@ import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.entity.BookCategory;
 import com.nickesqueda.laceybeesbookinventoryapi.repository.BookCategoryRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BookCategoriesService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +45,10 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
     modelMapper.map(bookCategoryRequestDto, bookCategoryEntity);
     bookCategoryEntity = bookCategoryRepository.save(bookCategoryEntity);
     return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
+  }
+
+  @Override
+  public void deleteBookCategory(int bookCategoryId) {
+    bookCategoryRepository.deleteById(bookCategoryId);
   }
 }

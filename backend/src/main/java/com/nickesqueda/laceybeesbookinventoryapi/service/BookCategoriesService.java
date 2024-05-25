@@ -12,4 +12,6 @@ public interface BookCategoriesService {
   BookCategoryResponseDto getBookCategory(int bookCategoryId);
 
   BookCategoryResponseDto editBookCategory(int bookCategoryId, BookCategoryRequestDto bookCategoryRequestDto);
+
+  void deleteBookCategory(int bookCategoryId);
 }
