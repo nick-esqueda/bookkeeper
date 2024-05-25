@@ -36,7 +36,7 @@ public class Book extends BaseEntity {
   private ReadStatus readStatus;
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "post_id", nullable = false)
+  @JoinColumn(name = "book_category_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BookCategory bookCategory;
 }

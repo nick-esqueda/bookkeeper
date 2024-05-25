@@ -16,5 +16,5 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class BookCategory extends BaseEntity {
   @Column(nullable = false)
-  private String categoryName;
+  private String name;
 }
