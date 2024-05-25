@@ -22,7 +22,7 @@ public class BookCategoriesController {
   @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
   public void editBookCategory() {}
 
-  @PutMapping("/{bookCategoryId}")
+  @DeleteMapping("/{bookCategoryId}")
   @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
   public void deleteBookCategory() {}
 }
