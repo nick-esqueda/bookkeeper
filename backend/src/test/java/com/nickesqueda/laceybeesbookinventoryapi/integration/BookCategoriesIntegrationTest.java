@@ -1,6 +1,7 @@
 package com.nickesqueda.laceybeesbookinventoryapi.integration;
 
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.*;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -37,6 +38,20 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
+  @Transactional
+  void createBookCategory_ShouldReturn400WithErrorResponse_GivenNameAlreadyExists()
+      throws Exception {
+    mockMvc
+        .perform(
+            post(allBookCategoriesUri)
+                .contentType(APPLICATION_JSON)
+                .content(UNAVAILABLE_BOOK_CATEGORY_REQUEST_JSON))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.errorMessage", containsString("unique")));
+  }
+
+  @Test
   void getBookCategory_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
         .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
@@ -68,6 +83,19 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").isNotEmpty())
         .andExpect(jsonPath("$.name").value(TEST_STRING2));
+  }
+
+  @Test
+  @Transactional
+  void editBookCategory_ShouldReturn400WithErrorResponse_GivenNameAlreadyExists() throws Exception {
+    mockMvc
+        .perform(
+            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(UNAVAILABLE_BOOK_CATEGORY_REQUEST_JSON))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.errorMessage", containsString("unique")));
   }
 
   @Test

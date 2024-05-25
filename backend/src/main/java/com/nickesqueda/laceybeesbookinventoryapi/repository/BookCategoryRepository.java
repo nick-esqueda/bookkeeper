@@ -5,6 +5,8 @@ import com.nickesqueda.laceybeesbookinventoryapi.exception.ResourceNotFoundExcep
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookCategoryRepository extends JpaRepository<BookCategory, Integer> {
+  boolean existsByName(String name);
+
   default BookCategory retrieveOrElseThrow(int bookCategoryId) {
     return this.findById(bookCategoryId)
         .orElseThrow(() -> new ResourceNotFoundException(BookCategory.class, bookCategoryId));

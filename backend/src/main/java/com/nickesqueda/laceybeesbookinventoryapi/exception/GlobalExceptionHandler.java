@@ -13,6 +13,12 @@ public class GlobalExceptionHandler {
     return new ErrorResponse(e.getMessage());
   }
 
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(UniqueConstraintViolationException.class)
+  public ErrorResponse handleUniqueConstraintViolationException(UniqueConstraintViolationException e) {
+    return new ErrorResponse(e.getMessage());
+  }
+
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler(RuntimeException.class)
   public ErrorResponse unhandledException(RuntimeException e) {

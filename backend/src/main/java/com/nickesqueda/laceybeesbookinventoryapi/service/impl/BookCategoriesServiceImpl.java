@@ -3,6 +3,7 @@ package com.nickesqueda.laceybeesbookinventoryapi.service.impl;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.entity.BookCategory;
+import com.nickesqueda.laceybeesbookinventoryapi.exception.UniqueConstraintViolationException;
 import com.nickesqueda.laceybeesbookinventoryapi.repository.BookCategoryRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BookCategoriesService;
 import java.util.List;
@@ -26,6 +27,11 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
 
   @Override
   public BookCategoryResponseDto createBookCategory(BookCategoryRequestDto bookCategoryRequestDto) {
+    String bookCategoryName = bookCategoryRequestDto.getName();
+    if (bookCategoryRepository.existsByName(bookCategoryName)) {
+      throw new UniqueConstraintViolationException(BookCategory.class, "name", bookCategoryName);
+    }
+
     BookCategory bookCategoryEntity = modelMapper.map(bookCategoryRequestDto, BookCategory.class);
     bookCategoryEntity = bookCategoryRepository.save(bookCategoryEntity);
     return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
@@ -41,9 +47,15 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
   public BookCategoryResponseDto editBookCategory(
       int bookCategoryId, BookCategoryRequestDto bookCategoryRequestDto) {
 
+    String bookCategoryName = bookCategoryRequestDto.getName();
+    if (bookCategoryRepository.existsByName(bookCategoryName)) {
+      throw new UniqueConstraintViolationException(BookCategory.class, "name", bookCategoryName);
+    }
+
     BookCategory bookCategoryEntity = bookCategoryRepository.retrieveOrElseThrow(bookCategoryId);
     modelMapper.map(bookCategoryRequestDto, bookCategoryEntity);
     bookCategoryEntity = bookCategoryRepository.save(bookCategoryEntity);
+
     return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
   }
 

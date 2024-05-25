@@ -15,6 +15,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookCategory extends BaseEntity {
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String name;
 }
