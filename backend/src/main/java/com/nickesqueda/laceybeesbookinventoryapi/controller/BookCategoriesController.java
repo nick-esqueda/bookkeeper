@@ -30,8 +30,10 @@ public class BookCategoriesController {
   }
 
   @GetMapping("/{bookCategoryId}")
-  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-  public void getBookCategory() {}
+  @ResponseStatus(HttpStatus.OK)
+  public BookCategoryResponseDto getBookCategory(@PathVariable int bookCategoryId) {
+    return bookCategoriesService.getBookCategory(bookCategoryId);
+  }
 
   @PutMapping("/{bookCategoryId}")
   @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)

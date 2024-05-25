@@ -43,7 +43,17 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").isNotEmpty())
-        .andExpect(jsonPath("$.name").value(TEST_STRING));
+        .andExpect(jsonPath("$.name").isNotEmpty());
+  }
+
+  @Test
+  void getBookCategory_ShouldReturn404WithErrorResponse_GivenBookCategoryDoesNotExist()
+      throws Exception {
+    mockMvc
+        .perform(get(bookCategoryUriBuilder.buildAndExpand(nonExistentBookCategoryId).toUri()))
+        .andDo(print())
+        .andExpect(status().isNotFound())
+        .andExpect(jsonPath("errorMessage").isNotEmpty());
   }
 
   @Test

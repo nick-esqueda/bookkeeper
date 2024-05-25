@@ -24,11 +24,13 @@ public abstract class BaseIntegrationTest {
   static URI allBookCategoriesUri;
   static UriComponentsBuilder bookCategoryUriBuilder;
   static int bookCategoryId;
+  static int nonExistentBookCategoryId;
   static int bookCategoryCount;
 
   @BeforeAll
   static void setUp() {
     bookCategoryId = 1;
+    nonExistentBookCategoryId = 1000;
 
     baseUri = UriComponentsBuilder.newInstance().path("/api/v1").build().toUri();
     allBookCategoriesUri =

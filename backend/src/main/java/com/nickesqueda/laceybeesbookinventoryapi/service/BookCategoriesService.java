@@ -8,4 +8,6 @@ public interface BookCategoriesService {
   List<BookCategoryResponseDto> getBookCategories();
 
   BookCategoryResponseDto createBookCategory(BookCategoryRequestDto bookCategoryRequestDto);
+
+  BookCategoryResponseDto getBookCategory(int bookCategoryId);
 }
