@@ -2,21 +2,41 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchBooks } from "./booksApi";
 
 const initialState = {
-  entities: [],
+  entities: {},
   ids: [],
   loading: false,
-  error: null
+  error: null,
 };
 
 const booksSlice = createSlice({
-  name: 'books',
+  name: "books",
   initialState,
   reducers: {
     setBooks: (state, action) => {
-      state.entities = action.payload;
-      state.ids = action.payload.map(bookCategory => bookCategory.id);
+      state.entities = {};
+      state.ids = [];
+      action.payload.forEach((book) => {
+        state.entities[book.id] = book;
+        state.ids.push(book.id);
+      });
       state.loading = false;
       state.error = null;
+    },
+    addBook: (state, action) => {
+      const book = action.payload;
+      state.entities[book.id] = book;
+      state.ids.push(book.id);
+    },
+    updateBook: (state, action) => {
+      const book = action.payload;
+      if (state.entities[book.id]) {
+        state.entities[book.id] = book;
+      }
+    },
+    removeBook: (state, action) => {
+      const id = action.payload;
+      delete state.entities[id];
+      state.ids = state.ids.filter((bookId) => bookId !== id);
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -24,11 +44,18 @@ const booksSlice = createSlice({
     setError: (state, action) => {
       state.loading = false;
       state.error = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
-export const { setBooks, setLoading, setError } = booksSlice.actions;
+export const {
+  setBooks,
+  addBook,
+  updateBook,
+  removeBook,
+  setLoading,
+  setError,
+} = booksSlice.actions;
 
 export const fetchBooksAsync = () => async (dispatch) => {
   dispatch(setLoading(true));
