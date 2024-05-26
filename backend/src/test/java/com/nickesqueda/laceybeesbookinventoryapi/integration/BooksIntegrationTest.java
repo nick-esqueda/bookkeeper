@@ -182,7 +182,7 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
   void editBook_ShouldReturn404WithErrorResponse_GivenBookDoesNotExist() throws Exception {
     mockMvc
         .perform(
-            put(bookUriBuilder.buildAndExpand(bookId).toUri())
+            put(bookUriBuilder.buildAndExpand(nonExistentBookId).toUri())
                 .contentType(APPLICATION_JSON)
                 .content(BOOK_REQUEST_UPDATED_READ_STATUS))
         .andDo(print())

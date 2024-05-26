@@ -6,11 +6,9 @@ import com.nickesqueda.laceybeesbookinventoryapi.dto.BookRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BooksService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/books")
@@ -38,8 +36,11 @@ public class BooksController {
   }
 
   @PutMapping("/{bookId}")
-  @ResponseStatus(NOT_IMPLEMENTED)
-  public void editBook() {}
+  @ResponseStatus(OK)
+  public BookResponseDto editBook(
+      @PathVariable int bookId, @RequestBody @Valid BookRequestDto bookRequestDto) {
+    return booksService.editBook(bookId, bookRequestDto);
+  }
 
   @DeleteMapping("/{bookId}")
   @ResponseStatus(NOT_IMPLEMENTED)

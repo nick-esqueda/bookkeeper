@@ -48,8 +48,12 @@ public class BooksServiceImpl implements BooksService {
   }
 
   @Override
-  public BookResponseDto editBook() {
-    return null;
+  public BookResponseDto editBook(int bookId, BookRequestDto bookRequestDto) {
+    Book bookEntity = bookRepository.retrieveOrElseThrow(bookId);
+    modelMapper.map(bookRequestDto, bookEntity);
+    bookEntity = bookRepository.save(bookEntity);
+
+    return modelMapper.map(bookEntity, BookResponseDto.class);
   }
 
   @Override
