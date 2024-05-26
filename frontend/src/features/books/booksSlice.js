@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBookCategories } from "./bookCategoriesApi";
+import { fetchBooks } from "./booksApi";
 
 const initialState = {
   entities: [],
@@ -8,11 +8,11 @@ const initialState = {
   error: null
 };
 
-const bookCategoriesSlice = createSlice({
-  name: 'bookCategories',
+const booksSlice = createSlice({
+  name: 'books',
   initialState,
   reducers: {
-    setBookCategories: (state, action) => {
+    setBooks: (state, action) => {
       state.entities = action.payload;
       state.ids = action.payload.map(bookCategory => bookCategory.id);
       state.loading = false;
@@ -28,16 +28,16 @@ const bookCategoriesSlice = createSlice({
   }
 })
 
-export const { setBookCategories, setLoading, setError } = bookCategoriesSlice.actions;
+export const { setBooks, setLoading, setError } = booksSlice.actions;
 
-export const fetchBookCategoriesAsync = () => async (dispatch) => {
+export const fetchBooksAsync = () => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const books = await fetchBookCategories();
-    dispatch(setBookCategories(books));
+    const books = await fetchBooks();
+    dispatch(setBooks(books));
   } catch (error) {
     dispatch(setError(error.message));
   }
 };
 
-export default bookCategoriesSlice.reducer;
+export default booksSlice.reducer;
