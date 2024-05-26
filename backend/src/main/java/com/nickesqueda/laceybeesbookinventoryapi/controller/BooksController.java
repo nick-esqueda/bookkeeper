@@ -1,5 +1,7 @@
 package com.nickesqueda.laceybeesbookinventoryapi.controller;
 
+import static org.springframework.http.HttpStatus.*;
+
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BooksService;
@@ -18,26 +20,28 @@ public class BooksController {
   private final BooksService booksService;
 
   @GetMapping
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(OK)
   public List<BookResponseDto> getBooks() {
     return booksService.getBooks();
   }
 
   @PostMapping
-  @ResponseStatus(HttpStatus.CREATED)
+  @ResponseStatus(CREATED)
   public BookResponseDto createBook(@RequestBody @Valid BookRequestDto bookRequestDto) {
     return booksService.createBook(bookRequestDto);
   }
 
   @GetMapping("/{bookId}")
-  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-  public void getBook() {}
+  @ResponseStatus(OK)
+  public BookResponseDto getBook(@PathVariable int bookId) {
+    return booksService.getBook(bookId);
+  }
 
   @PutMapping("/{bookId}")
-  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+  @ResponseStatus(NOT_IMPLEMENTED)
   public void editBook() {}
 
   @DeleteMapping("/{bookId}")
-  @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+  @ResponseStatus(NOT_IMPLEMENTED)
   public void deleteBook() {}
 }

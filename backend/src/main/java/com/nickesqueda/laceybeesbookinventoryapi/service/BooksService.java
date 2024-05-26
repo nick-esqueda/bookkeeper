@@ -9,7 +9,7 @@ public interface BooksService {
 
   BookResponseDto createBook(BookRequestDto bookRequestDto);
 
-  BookResponseDto getBook();
+  BookResponseDto getBook(int bookId);
 
   BookResponseDto editBook();
 
