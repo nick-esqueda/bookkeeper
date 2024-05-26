@@ -13,5 +13,5 @@ public interface BooksService {
 
   BookResponseDto editBook(int bookId, BookRequestDto bookRequestDto);
 
-  void deleteBook();
+  void deleteBook(int bookId);
 }

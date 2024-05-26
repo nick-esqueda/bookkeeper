@@ -4,10 +4,7 @@ import static com.nickesqueda.laceybeesbookinventoryapi.util.ValidationConstants
 
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -15,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "books")
 @Data
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor

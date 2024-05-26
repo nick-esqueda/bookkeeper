@@ -43,6 +43,8 @@ public class BooksController {
   }
 
   @DeleteMapping("/{bookId}")
-  @ResponseStatus(NOT_IMPLEMENTED)
-  public void deleteBook() {}
+  @ResponseStatus(NO_CONTENT)
+  public void deleteBook(@PathVariable int bookId) {
+    booksService.deleteBook(bookId);
+  }
 }

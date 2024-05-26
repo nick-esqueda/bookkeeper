@@ -57,5 +57,7 @@ public class BooksServiceImpl implements BooksService {
   }
 
   @Override
-  public void deleteBook() {}
+  public void deleteBook(int bookId) {
+    bookRepository.deleteById(bookId);
+  }
 }
