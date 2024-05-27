@@ -15,9 +15,10 @@ export const createBook = async (book) => {
       "Content-Type": "application/json",
     },
   });
+
   if (!response.ok) {
-    console.error("Error response from createBook(): ", response);
     throw new Error("Failed to create book");
   }
+
   return response.json();
 };
