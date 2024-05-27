@@ -29,6 +29,7 @@ const BooksPage = () => {
   return (
     <Container>
       <h2>Books</h2>
+      <p>Click a book to see it's details.</p>
       <Row>
         {bookIds.map((id) => (
           <Col key={id} xs={12} sm={6} md={4} lg={3} className="mt-4">
