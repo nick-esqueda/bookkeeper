@@ -52,7 +52,7 @@ const BookForm = ({ onHide }) => {
       onHide();
       navigate(`/books/${createdBook.id}`);
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug!");
+      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
     }
   };
 

@@ -17,6 +17,8 @@ export const createBook = async (book) => {
   });
 
   if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error("Error response from createBook(): ", errorResponse);
     throw new Error("Failed to create book");
   }
 

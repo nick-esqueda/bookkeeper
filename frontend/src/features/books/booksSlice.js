@@ -74,7 +74,6 @@ export const createBookAsync = (book) => async (dispatch) => {
     dispatch(addBook(createdBook));
     return createdBook;
   } catch (error) {
-    console.error("Error response from createBook(): ", error);
     dispatch(setError(error.message));
     throw error;
   } finally {
