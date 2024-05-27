@@ -9,6 +9,7 @@ const BooksPage = () => {
   
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.entities);
+  const bookIds = useSelector((state) => state.books.ids);
   const loading = useSelector((state) => state.bookCategories.loading);
   const error = useSelector((state) => state.bookCategories.error);
   
@@ -29,13 +30,13 @@ const BooksPage = () => {
     <div>
       <h2>Books</h2>
       <ul>
-        {books.map((book) => (
-          <li key={book.id}>
+        {bookIds.map((id) => (
+          <li key={id}>
             <div>
-              <div>{book.title}</div>
-              <div>{book.author}</div>
-              <div>{book.readStatus}</div>
-              <div>{book.bookCategory.name}</div>
+              <div>{books[id].title}</div>
+              <div>{books[id].author}</div>
+              <div>{books[id].readStatus}</div>
+              <div>{books[id].bookCategory.name}</div>
             </div>
           </li>
         ))}

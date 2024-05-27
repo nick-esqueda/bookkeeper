@@ -6,9 +6,10 @@ import { fetchBookCategoriesAsync } from '../features/bookCategories/bookCategor
 const CategoriesPage = () => {
   const dispatch = useDispatch();
   const bookCategories = useSelector((state) => state.bookCategories.entities);
+  const bookCategoryIds = useSelector((state) => state.bookCategories.ids);
   const loading = useSelector((state) => state.bookCategories.loading);
   const error = useSelector((state) => state.bookCategories.error);
-
+  
   useEffect(() => {
     dispatch(fetchBookCategoriesAsync());
   }, [dispatch]);
@@ -25,8 +26,8 @@ const CategoriesPage = () => {
     <div>
       <h2>Book Categories</h2>
       <ul>
-        {bookCategories.map((bookCategory) => (
-          <li key={bookCategory.id}>{bookCategory.name}</li>
+        {bookCategoryIds.map((id) => (
+          <li key={id}>{bookCategories[id].name}</li>
         ))}
       </ul>
     </div>
