@@ -5,10 +5,12 @@ import CategoryPage from './pages/CategoryPage';
 import BooksPage from './pages/BooksPage';
 import BookPage from './pages/BookPage';
 import StatsPage from './pages/StatsPage';
+import Header from './components/Header';
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path='/categories' element={<CategoriesPage />} exact={true} />
         <Route path='/categories/:categoryId' element={<CategoryPage />} />
