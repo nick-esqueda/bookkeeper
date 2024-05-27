@@ -1,48 +1,43 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchBooksAsync } from '../features/books/booksSlice';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchBooksAsync } from "../features/books/booksSlice";
+import { Col, Container, Row } from "react-bootstrap";
+import BookCard from "../components/BookCard";
 
 const BooksPage = () => {
   // show and find books in the inventory.
   // MVP: list all books, search through books, filter by category & read status
   // GOAL: searching, sorting, filtering, pagination, page sizes
-  
+
   const dispatch = useDispatch();
-  const books = useSelector((state) => state.books.entities);
   const bookIds = useSelector((state) => state.books.ids);
   const loading = useSelector((state) => state.bookCategories.loading);
   const error = useSelector((state) => state.bookCategories.error);
-  
+
   useEffect(() => {
     dispatch(fetchBooksAsync());
   }, [dispatch]);
-  
 
   if (loading) {
     return <p>Loading...</p>;
   }
-  
+
   if (error) {
     return <p>Error: {error}</p>;
   }
 
   return (
-    <div>
+    <Container>
       <h2>Books</h2>
-      <ul>
+      <Row>
         {bookIds.map((id) => (
-          <li key={id}>
-            <div>
-              <div>{books[id].title}</div>
-              <div>{books[id].author}</div>
-              <div>{books[id].readStatus}</div>
-              <div>{books[id].bookCategory.name}</div>
-            </div>
-          </li>
+          <Col key={id} xs={12} sm={6} md={4} lg={3} className="mt-4">
+            <BookCard key={id} bookId={id} />
+          </Col>
         ))}
-      </ul>
-    </div>
-  )
-}
+      </Row>
+    </Container>
+  );
+};
 
 export default BooksPage;

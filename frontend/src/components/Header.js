@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Header = () => {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary" fixed='top'>
       <Container>
         <Navbar.Brand as={Link} to="/categories">
           Lacey Bee's Book Inventory
