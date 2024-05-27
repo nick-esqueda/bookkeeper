@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Card } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -20,6 +21,9 @@ const BookCard = ({ bookId }) => {
       borderColor = "warning";
       break;
     }
+    default: {
+      borderColor = "";
+    }
   }
 
   return (
@@ -39,7 +43,9 @@ const BookCard = ({ bookId }) => {
               {book.author}
             </Card.Subtitle>
           </div>
-          <Card.Text className="fw-lighter fst-italic">{book.edition}</Card.Text>
+          <Card.Text className="fw-lighter fst-italic">
+            {book.edition}
+          </Card.Text>
           <div>
             <Button variant="primary">Edit Book</Button>
           </div>
