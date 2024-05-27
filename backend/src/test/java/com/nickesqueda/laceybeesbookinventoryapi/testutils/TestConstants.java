@@ -73,6 +73,12 @@ public final class TestConstants {
     public static final String BOOK_REQUEST_NULL_AUTHOR =
         BOOK_REQUEST_JSON.replace("\"" + TEST_AUTHOR + "\"", NULL_STRING);
 
+    public static final String BOOK_REQUEST_NULL_EDITION =
+        BOOK_REQUEST_JSON.replace("\"" + TEST_EDITION + "\"", NULL_STRING);
+
+    public static final String BOOK_REQUEST_NULL_NOTES =
+        BOOK_REQUEST_JSON.replace("\"" + TEST_NOTES + "\"", NULL_STRING);
+
     public static final String BOOK_REQUEST_NULL_READ_STATUS =
         BOOK_REQUEST_JSON.replace("\"" + READ_STATUS_READ + "\"", NULL_STRING);
 

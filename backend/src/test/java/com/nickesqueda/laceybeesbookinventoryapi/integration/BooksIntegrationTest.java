@@ -1,6 +1,5 @@
 package com.nickesqueda.laceybeesbookinventoryapi.integration;
 
-import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.*;
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.Books.*;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -48,6 +47,24 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
+  void createBook_ShouldAllowNullableFieldsToBeEmpty_GivenNullFields() throws Exception {
+    List<String> validRequestBodies =
+        List.of(
+            BOOK_REQUEST_NULL_EDITION,
+            BOOK_REQUEST_NULL_NOTES,
+            BOOK_REQUEST_EMPTY_EDITION,
+            BOOK_REQUEST_EMPTY_NOTES);
+
+    for (String validRequestBody : validRequestBodies) {
+      mockMvc
+          .perform(post(allBooksUri).contentType(APPLICATION_JSON).content(validRequestBody))
+          .andDo(print())
+          .andExpect(status().isCreated());
+    }
+  }
+
+  @Test
+  @Transactional
   void createBook_ShouldReturn400WithErrorResponse_GivenInvalidData() throws Exception {
     List<String> invalidRequestBodies =
         List.of(
@@ -57,8 +74,6 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
             BOOK_REQUEST_NULL_BOOK_CATEGORY_ID,
             BOOK_REQUEST_EMPTY_TITLE,
             BOOK_REQUEST_EMPTY_AUTHOR,
-            BOOK_REQUEST_EMPTY_EDITION,
-            BOOK_REQUEST_EMPTY_NOTES,
             BOOK_REQUEST_EMPTY_READ_STATUS,
             BOOK_REQUEST_MAX_SIZE_TITLE,
             BOOK_REQUEST_MAX_SIZE_AUTHOR,
@@ -146,6 +161,27 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
+  void editBook_ShouldAllowNullableFieldsToBeEmpty_GivenNullFields() throws Exception {
+    List<String> validRequestBodies =
+        List.of(
+            BOOK_REQUEST_NULL_EDITION,
+            BOOK_REQUEST_NULL_NOTES,
+            BOOK_REQUEST_EMPTY_EDITION,
+            BOOK_REQUEST_EMPTY_NOTES);
+
+    for (String validRequestBody : validRequestBodies) {
+      mockMvc
+          .perform(
+              put(bookUriBuilder.buildAndExpand(bookId).toUri())
+                  .contentType(APPLICATION_JSON)
+                  .content(validRequestBody))
+          .andDo(print())
+          .andExpect(status().isOk());
+    }
+  }
+
+  @Test
+  @Transactional
   void editBook_ShouldReturn400WithErrorResponse_GivenInvalidData() throws Exception {
     List<String> invalidRequestBodies =
         List.of(
@@ -155,8 +191,6 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
             BOOK_REQUEST_NULL_BOOK_CATEGORY_ID,
             BOOK_REQUEST_EMPTY_TITLE,
             BOOK_REQUEST_EMPTY_AUTHOR,
-            BOOK_REQUEST_EMPTY_EDITION,
-            BOOK_REQUEST_EMPTY_NOTES,
             BOOK_REQUEST_EMPTY_READ_STATUS,
             BOOK_REQUEST_MAX_SIZE_TITLE,
             BOOK_REQUEST_MAX_SIZE_AUTHOR,

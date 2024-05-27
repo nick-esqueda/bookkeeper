@@ -18,11 +18,9 @@ public class BookRequestDto {
   @Size(max = BOOK_AUTHOR_MAX_SIZE)
   private String author;
 
-  @NotEmpty
   @Size(max = BOOK_EDITION_MAX_SIZE)
   private String edition;
 
-  @NotEmpty
   @Size(max = BOOK_NOTES_MAX_SIZE)
   private String notes;
 
