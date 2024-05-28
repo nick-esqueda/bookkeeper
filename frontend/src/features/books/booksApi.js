@@ -7,6 +7,15 @@ export const fetchBooks = async () => {
   return response.json();
 };
 
+export const fetchBook = async (bookId) => {
+  const response = await fetch(`${process.env.REACT_APP_BASE_URL}/books/${bookId}`);
+  if (!response.ok) {
+    console.error("Error response: ", response);
+    throw new Error(`Failed to fetch book: #${bookId}`);
+  }
+  return response.json();
+};
+
 export const createBook = async (book) => {
   const response = await fetch(`${process.env.REACT_APP_BASE_URL}/books`, {
     method: "POST",

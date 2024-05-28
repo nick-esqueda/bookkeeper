@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBooks, createBook } from "./booksApi";
+import { fetchBooks, fetchBook, createBook } from "./booksApi";
 
 const initialState = {
   entities: {},
@@ -66,6 +66,19 @@ export const fetchBooksAsync = () => async (dispatch) => {
     dispatch(setError(error.message));
   }
 };
+
+export const fetchBookAsync = (bookId) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const book = await fetchBook(bookId);
+    dispatch(addBook(book));
+  } catch (error) {
+    dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+}
 
 export const createBookAsync = (book) => async (dispatch) => {
   dispatch(setLoading(true));
