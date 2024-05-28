@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBooks, fetchBook, createBook } from "./booksApi";
+import { fetchBooks, fetchBook, createBook, deleteBook } from "./booksApi";
 
 const initialState = {
   entities: {},
@@ -24,8 +24,10 @@ const booksSlice = createSlice({
     },
     addBook: (state, action) => {
       const book = action.payload;
-      state.entities[book.id] = book;
-      state.ids.push(book.id);
+      if (!state.entities[book.id]) {
+        state.entities[book.id] = book;
+        state.ids.push(book.id);
+      }
     },
     updateBook: (state, action) => {
       const book = action.payload;
@@ -78,7 +80,7 @@ export const fetchBookAsync = (bookId) => async (dispatch) => {
   } finally {
     dispatch(setLoading(false));
   }
-}
+};
 
 export const createBookAsync = (book) => async (dispatch) => {
   dispatch(setLoading(true));
@@ -92,6 +94,19 @@ export const createBookAsync = (book) => async (dispatch) => {
   } finally {
     dispatch(setLoading(false));
   }
-}
+};
+
+export const deleteBookAsync = (bookId) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    await deleteBook(bookId);
+    dispatch(removeBook(bookId));
+  } catch (error) {
+    dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
 
 export default booksSlice.reducer;

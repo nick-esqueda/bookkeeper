@@ -18,13 +18,8 @@ const BooksPage = () => {
     dispatch(fetchBooksAsync());
   }, [dispatch]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <Container>
@@ -32,7 +27,7 @@ const BooksPage = () => {
       <p>Click a book to see it's details.</p>
       <Row>
         {bookIds.map((id) => (
-          <Col key={id} xs={12} sm={6} md={4} lg={3} className="mt-4">
+          <Col key={id} xs={12} sm={6} md={4} lg={3} className="mt-4 p-3">
             <BookCard key={id} bookId={id} />
           </Col>
         ))}
