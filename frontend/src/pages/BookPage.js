@@ -41,13 +41,13 @@ const BookPage = () => {
 
   return (
     <Container>
-      <Row className="m-4 p-4 h-100 ">
+      <Row className="m-4 p-4 h-100">
         <Col
           xs={12}
           sm={12}
-          md={6}
+          md={12}
           lg={6}
-          className="border-end border-3 rounded-end d-flex flex-column justify-content-center"
+          className="d-flex flex-column justify-content-center mb-4 border-end border-3 rounded-end"
         >
           <h2 className="fs-1 fw-bold mb-4">{book.title}</h2>
           <h3 className="fs-2 fw-normal mb-3">{book.author}</h3>
@@ -55,34 +55,28 @@ const BookPage = () => {
             <h4 className="fw-lighter fst-italic">{book.edition}</h4>
           )}
         </Col>
-        <Col xs={12} sm={12} md={6} lg={6} className="p-4">
-          <div className="d-flex flex-column justify-content-around gap-4">
-            <Card className="text-center">
-              <Card.Header>Category</Card.Header>
-              <Card.Body>
-                <Card.Title>{book.bookCategory.name}</Card.Title>
-                <Card.Link as={Link} to={`/categories/${book.bookCategory.id}`}>
-                  View Category
-                </Card.Link>
-              </Card.Body>
-            </Card>
-            <Button variant={`outline-${readStatusStyle}`} size="md" disabled>
-              {book.readStatus}
-            </Button>
-            <Card>
-              <Card.Header>My Notes</Card.Header>
-              <Card.Body>
-                {book.notes ? (
-                  <Card.Text>{book.notes}</Card.Text>
-                ) : (
-                  <Card.Text className="text-muted">
-                    Edit to add notes...
-                  </Card.Text>
-                )}
-              </Card.Body>
-            </Card>
-          </div>
-          <Row className="mt-5">
+        <Col xs={12} sm={12} md={12} lg={6} className="p-4">
+          <Row>
+            <Col className="d-flex flex-column justify-content-around gap-4 mb-4">
+              <Card className="text-center">
+                <Card.Header>Category</Card.Header>
+                <Card.Body>
+                  <Card.Title>{book.bookCategory.name}</Card.Title>
+                  <Card.Link
+                    as={Link}
+                    to={`/categories/${book.bookCategory.id}`}
+                    className="fw-lighter"
+                  >
+                    See Category
+                  </Card.Link>
+                </Card.Body>
+              </Card>
+              <Button variant={`outline-${readStatusStyle}`} size="md" disabled>
+                {book.readStatus}
+              </Button>
+            </Col>
+          </Row>
+          <Row className="mt-4">
             <Col className="text-muted d-flex align-items-end">
               <small className="">Last update: {updatedAt}</small>
             </Col>
@@ -93,6 +87,22 @@ const BookPage = () => {
               </Button>
             </Col>
           </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Header>My Notes</Card.Header>
+            <Card.Body>
+              {book.notes ? (
+                <Card.Text>{book.notes}</Card.Text>
+              ) : (
+                <Card.Text className="text-muted">
+                  Edit to add notes...
+                </Card.Text>
+              )}
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
