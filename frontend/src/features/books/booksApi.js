@@ -36,6 +36,27 @@ export const createBook = async (book) => {
   return response.json();
 };
 
+export const editBook = async (book) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/books/${book.id}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(book),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error("Error response from deleteBook(): ", errorResponse);
+    throw new Error("Failed to edit book");
+  }
+
+  return response.json();
+};
+
 export const deleteBook = async (bookId) => {
   const response = await fetch(
     `${process.env.REACT_APP_BASE_URL}/books/${bookId}`,

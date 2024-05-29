@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteBookAsync, fetchBookAsync } from "../features/books/booksSlice";
 import { getReadStatusStyle } from "../utils/styleUtils";
+import EditBookModal from "../components/EditBookModal";
 
 const BookPage = () => {
   // view and edit book details.
@@ -15,6 +16,7 @@ const BookPage = () => {
   const book = useSelector((state) => state.books.entities[bookId]);
   const loading = useSelector((state) => state.books.loading);
   const error = useSelector((state) => state.books.error);
+  const [editBookModalShow, setEditBookModalShow] = useState(false);
 
   useEffect(() => {
     dispatch(fetchBookAsync(bookId));
@@ -41,7 +43,7 @@ const BookPage = () => {
 
   return (
     <Container>
-      <Row className="m-4 p-4 h-100">
+      <Row className="m-5 h-100">
         <Col
           xs={12}
           sm={12}
@@ -77,11 +79,36 @@ const BookPage = () => {
             </Col>
           </Row>
           <Row className="mt-4">
-            <Col className="text-muted d-flex align-items-end">
-              <small className="">Last update: {updatedAt}</small>
+            <Col
+              xs={12}
+              sm={12}
+              md={4}
+              lg={4}
+              className="text-muted d-flex align-items-end d-md-block d-none"
+            >
+              <small className="">
+                Last update: <br />
+                {updatedAt}
+              </small>
             </Col>
-            <Col className="d-flex justify-content-end gap-4 ">
-              <Button variant="outline-info">Edit Book</Button>
+            <Col
+              xs={12}
+              sm={12}
+              md={8}
+              lg={8}
+              className="d-flex justify-content-end gap-4 "
+            >
+              <EditBookModal
+                show={editBookModalShow}
+                onHide={() => setEditBookModalShow(false)}
+                book={book}
+              />
+              <Button
+                variant="outline-info"
+                onClick={() => setEditBookModalShow(true)}
+              >
+                Edit Book
+              </Button>
               <Button variant="outline-danger" onClick={handleDelete}>
                 Delete Book
               </Button>

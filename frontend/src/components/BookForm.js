@@ -5,10 +5,11 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategoriesSlice";
-import { createBookAsync } from "../features/books/booksSlice";
+import { createBookAsync, editBookAsync } from "../features/books/booksSlice";
 import { useNavigate } from "react-router-dom";
+import BookFormData from "../models/BookFormData";
 
-const BookForm = ({ onHide }) => {
+const BookForm = ({ onHide, book }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const bookCategories = useSelector((state) => state.bookCategories.entities);
@@ -16,14 +17,9 @@ const BookForm = ({ onHide }) => {
   const loading = useSelector((state) => state.bookCategories.loading);
   const error = useSelector((state) => state.bookCategories.error);
   const [validated, setValidated] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    author: "",
-    edition: "",
-    bookCategoryId: "",
-    readStatus: "",
-    notes: "",
-  });
+  const [formData, setFormData] = useState(
+    book ? BookFormData.createFromBook(book) : BookFormData.createEmpty()
+  );
 
   useEffect(() => {
     dispatch(fetchBookCategoriesAsync());
@@ -47,10 +43,27 @@ const BookForm = ({ onHide }) => {
       return;
     }
 
+    if (book) {
+      handleEdit();
+    } else {
+      handleCreate();
+    }
+  };
+
+  const handleCreate = async () => {
     try {
       const createdBook = await dispatch(createBookAsync(formData));
       onHide();
       navigate(`/books/${createdBook.id}`);
+    } catch (error) {
+      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+    }
+  };
+
+  const handleEdit = async () => {
+    try {
+      await dispatch(editBookAsync(formData));
+      onHide();
     } catch (error) {
       alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
     }
@@ -193,7 +206,7 @@ const BookForm = ({ onHide }) => {
           Exit
         </Button>
         <Button variant="success" type="submit" className="ms-3">
-          Submit
+          Save
         </Button>
       </div>
     </Form>

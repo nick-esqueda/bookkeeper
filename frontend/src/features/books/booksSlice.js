@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBooks, fetchBook, createBook, deleteBook } from "./booksApi";
+import { fetchBooks, fetchBook, createBook, deleteBook, editBook } from "./booksApi";
 
 const initialState = {
   entities: {},
@@ -95,6 +95,19 @@ export const createBookAsync = (book) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
+
+export const editBookAsync = (book) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const editedBook = await editBook(book);
+    dispatch(updateBook(editedBook));
+  } catch (error) {
+    dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+}
 
 export const deleteBookAsync = (bookId) => async (dispatch) => {
   dispatch(setLoading(true));
