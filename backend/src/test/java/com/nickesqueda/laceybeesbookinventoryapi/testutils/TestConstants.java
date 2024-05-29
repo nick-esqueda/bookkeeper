@@ -43,6 +43,7 @@ public final class TestConstants {
     public static final String READ_STATUS_READ = "READ";
     public static final String READ_STATUS_UNREAD = "UNREAD";
     public static final String TEST_BOOK_CATEGORY_ID = "1";
+    public static final String TEST_BOOK_CATEGORY_ID_2 = "2";
     public static final String NON_EXISTENT_BOOK_CATEGORY_ID = "1000";
 
     public static final String BOOK_REQUEST_JSON =
@@ -64,8 +65,23 @@ public final class TestConstants {
                 "\"" + READ_STATUS_READ + "\"",
                 TEST_BOOK_CATEGORY_ID);
 
+    public static final String BOOK_REQUEST_UPDATED_TITLE =
+        BOOK_REQUEST_JSON.replace(TEST_TITLE, TEST_STRING);
+
+    public static final String BOOK_REQUEST_UPDATED_AUTHOR =
+        BOOK_REQUEST_JSON.replace(TEST_AUTHOR, TEST_STRING);
+
+    public static final String BOOK_REQUEST_UPDATED_EDITION =
+        BOOK_REQUEST_JSON.replace(TEST_EDITION, TEST_STRING);
+
+    public static final String BOOK_REQUEST_UPDATED_NOTES =
+        BOOK_REQUEST_JSON.replace(TEST_NOTES, TEST_STRING);
+
     public static final String BOOK_REQUEST_UPDATED_READ_STATUS =
         BOOK_REQUEST_JSON.replace(READ_STATUS_READ, READ_STATUS_UNREAD);
+
+    public static final String BOOK_REQUEST_UPDATED_CATEGORY_ID =
+        BOOK_REQUEST_JSON.replace(TEST_BOOK_CATEGORY_ID, TEST_BOOK_CATEGORY_ID_2);
 
     public static final String BOOK_REQUEST_NULL_TITLE =
         BOOK_REQUEST_JSON.replace("\"" + TEST_TITLE + "\"", NULL_STRING);

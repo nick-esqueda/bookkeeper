@@ -1,6 +1,7 @@
 package com.nickesqueda.laceybeesbookinventoryapi.integration;
 
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.Books.*;
+import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.TEST_STRING;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -157,6 +158,36 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.bookCategory.updatedAt").isNotEmpty())
         .andExpect(jsonPath("$.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.updatedAt").isNotEmpty());
+  }
+
+  @Test
+  @Transactional
+  void editBook_ShouldUpdateValueSuccessfully_GivenAnyUpdatableField() throws Exception {
+    List<List<String>> updateRequestInfo =
+        List.of(
+            List.of(BOOK_REQUEST_UPDATED_TITLE, "$.title", TEST_STRING),
+            List.of(BOOK_REQUEST_UPDATED_AUTHOR, "$.author", TEST_STRING),
+            List.of(BOOK_REQUEST_UPDATED_EDITION, "$.edition", TEST_STRING),
+            List.of(BOOK_REQUEST_UPDATED_NOTES, "$.notes", TEST_STRING),
+            List.of(BOOK_REQUEST_UPDATED_READ_STATUS, "$.readStatus", READ_STATUS_UNREAD),
+            List.of(BOOK_REQUEST_UPDATED_CATEGORY_ID, "bookCategory.id", TEST_BOOK_CATEGORY_ID_2));
+
+    for (List<String> info : updateRequestInfo) {
+      performPutAndValidateUpdatedField(info.get(0), info.get(1), info.get(2));
+    }
+  }
+
+  void performPutAndValidateUpdatedField(String requestBody, String jsonPath, String updatedValue)
+      throws Exception {
+
+    mockMvc
+        .perform(
+            put(bookUriBuilder.buildAndExpand(bookId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(requestBody))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath(jsonPath).value(updatedValue));
   }
 
   @Test
