@@ -9,7 +9,7 @@ public final class TestConstants {
   public static final String EMPTY_STRING = "";
 
   public static final class BookCategories {
-    public static final String UNAVAILABLE_BOOK_CATEGORY = "fiction";
+    public static final String UNAVAILABLE_BOOK_CATEGORY = "Fiction";
 
     public static final String BOOK_CATEGORY_REQUEST_JSON =
         """
