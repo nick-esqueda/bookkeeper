@@ -3,8 +3,11 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteBookAsync, fetchBookAsync } from "../features/books/booksSlice";
-import { getReadStatusStyle } from "../utils/styleUtils";
 import EditBookModal from "../components/EditBookModal";
+import {
+  readStatusButtonColorMap,
+  readStatusTextMap,
+} from "../utils/dataTransformationUtils";
 
 const BookPage = () => {
   // view and edit book details.
@@ -38,7 +41,6 @@ const BookPage = () => {
   if (loading || !book) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const readStatusStyle = getReadStatusStyle(book.readStatus);
   let updatedAt = new Date(book.updatedAt * 1000).toDateString();
 
   return (
@@ -73,8 +75,12 @@ const BookPage = () => {
                   </Card.Link>
                 </Card.Body>
               </Card>
-              <Button variant={`outline-${readStatusStyle}`} size="md" disabled>
-                {book.readStatus}
+              <Button
+                variant={`outline-${readStatusButtonColorMap[book.readStatus]}`}
+                size="md"
+                disabled
+              >
+                {readStatusTextMap[book.readStatus]}
               </Button>
             </Col>
           </Row>

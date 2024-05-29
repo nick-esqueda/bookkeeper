@@ -1,5 +1,4 @@
 class BookFormData {
-  constructor() {}
 
   static createFromBook(book) {
     const instance = new BookFormData();

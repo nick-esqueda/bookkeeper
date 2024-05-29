@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getReadStatusStyle } from "../utils/styleUtils";
+import { readStatusButtonColorMap } from "../utils/dataTransformationUtils";
 
 const BookCard = ({ bookId }) => {
   const book = useSelector((state) => state.books.entities[bookId]);
@@ -14,7 +14,7 @@ const BookCard = ({ bookId }) => {
       style={{ textDecoration: "none", color: "inherit" }}
     >
       <Card
-        border={getReadStatusStyle(book.readStatus)}
+        border={readStatusButtonColorMap[book.readStatus]}
         className="h-100 border-top-0 border-bottom-0 border-end-0 border-2"
       >
         <Card.Header>{book.bookCategory.name}</Card.Header>
