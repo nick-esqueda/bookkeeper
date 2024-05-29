@@ -3,13 +3,13 @@ class BookFormData {
 
   static createFromBook(book) {
     const instance = new BookFormData();
-    instance.id = book.id;
-    instance.title = book.title;
-    instance.author = book.author;
-    instance.edition = book.edition;
-    instance.readStatus = book.readStatus;
-    instance.notes = book.notes;
-    instance.bookCategoryId = book.bookCategory.id;
+    instance.id = book.id || "";
+    instance.title = book.title || "";
+    instance.author = book.author || "";
+    instance.edition = book.edition || "";
+    instance.readStatus = book.readStatus || "";
+    instance.notes = book.notes || "";
+    instance.bookCategoryId = book.bookCategory.id || "";
     return instance;
   }
 
