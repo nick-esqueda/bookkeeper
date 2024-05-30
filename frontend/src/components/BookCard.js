@@ -8,11 +8,8 @@ import { readStatusButtonColorMap } from "../utils/dataTransformationUtils";
 const BookCard = ({ bookId }) => {
   const book = useSelector((state) => state.books.entities[bookId]);
 
-  return book && (
-    <Link
-      to={`/books/${bookId}`}
-      style={{ textDecoration: "none", color: "inherit" }}
-    >
+  return (
+    book && (
       <Card
         border={readStatusButtonColorMap[book.readStatus]}
         className="h-100 border-top-0 border-bottom-0 border-end-0 border-2"
@@ -28,12 +25,19 @@ const BookCard = ({ bookId }) => {
           <Card.Text className="fw-lighter fst-italic">
             {book.edition}
           </Card.Text>
-          <div>
-            <Button variant="primary">Edit Book</Button>
-          </div>
+          <Card.Text>
+            <Button
+              as={Link}
+              to={`/books/${bookId}`}
+              variant="outline-primary"
+              className="w-100"
+            >
+              View Book
+            </Button>
+          </Card.Text>
         </Card.Body>
       </Card>
-    </Link>
+    )
   );
 };
 
