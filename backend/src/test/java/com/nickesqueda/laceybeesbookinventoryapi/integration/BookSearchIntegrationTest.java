@@ -11,6 +11,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.transaction.annotation.Transactional;
 
 public class BookSearchIntegrationTest extends BaseIntegrationTest {
+  // refer to src/test/resources/db/migration/V1__test_seed_books.sql for book values.
 
   @Test
   void getBooks_ShouldReturnPaginatedListOfBooks_GivenNoRequestParams() throws Exception {
@@ -177,13 +178,7 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
   @Test
   void getBooks_ShouldReturnAccurateResultsBasedOnNotes_GivenValidSearchQuery() throws Exception {
     mockMvc
-        .perform(
-            get(
-                allBooksUriBuilder
-                    .path("?")
-                    .queryParam("query", "am a note")
-                    .build()
-                    .toUri()))
+        .perform(get(allBooksUriBuilder.path("?").queryParam("query", "am a note").build().toUri()))
         .andDo(print())
         .andExpect(jsonPath("$.content", hasSize(1)))
         .andExpect(jsonPath("$.content[0].notes").value("I am a note."));
@@ -207,13 +202,7 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
   @Test
   void getBooks_ShouldReturnCorrectResults_GivenReadStatusFilter() throws Exception {
     mockMvc
-        .perform(
-            get(
-                allBooksUriBuilder
-                    .path("?")
-                    .queryParam("readStatus", "READ")
-                    .build()
-                    .toUri()))
+        .perform(get(allBooksUriBuilder.path("?").queryParam("readStatus", "READ").build().toUri()))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content", hasSize(3)))
@@ -240,13 +229,7 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
   @Test
   void getBooks_ShouldReturnCorrectResults_GivenBookCategoryFilter() throws Exception {
     mockMvc
-        .perform(
-            get(
-                allBooksUriBuilder
-                    .path("?")
-                    .queryParam("bookCategoryId", 1)
-                    .build()
-                    .toUri()))
+        .perform(get(allBooksUriBuilder.path("?").queryParam("bookCategoryId", 1).build().toUri()))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content", hasSize(2)))
@@ -258,12 +241,7 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
   void getBooks_ShouldReturnEmptyList_GivenInvalidCategoryFilter() throws Exception {
     mockMvc
         .perform(
-            get(
-                allBooksUriBuilder
-                    .path("?")
-                    .queryParam("bookCategoryId", 10000)
-                    .build()
-                    .toUri()))
+            get(allBooksUriBuilder.path("?").queryParam("bookCategoryId", 10000).build().toUri()))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content", hasSize(0)));
@@ -323,13 +301,7 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
   @Test
   void getBooks_ShouldReturnDefaultAscSortedList_GivenSortByWithoutSortDir() throws Exception {
     mockMvc
-        .perform(
-            get(
-                allBooksUriBuilder
-                    .path("?")
-                    .queryParam("sortBy", "title")
-                    .build()
-                    .toUri()))
+        .perform(get(allBooksUriBuilder.path("?").queryParam("sortBy", "title").build().toUri()))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content[0].title").value("Apple"))
@@ -338,13 +310,7 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.content[3].title").value("Date Date"));
 
     mockMvc
-        .perform(
-            get(
-                allBooksUriBuilder
-                    .path("?")
-                    .queryParam("sortBy", "author")
-                    .build()
-                    .toUri()))
+        .perform(get(allBooksUriBuilder.path("?").queryParam("sortBy", "author").build().toUri()))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.content[0].author").value("Sydney Sydney"))
@@ -483,13 +449,7 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.errorMessage").isNotEmpty());
 
     mockMvc
-        .perform(
-            get(
-                allBooksUriBuilder
-                    .path("?")
-                    .queryParam("sortBy", "invalid")
-                    .build()
-                    .toUri()))
+        .perform(get(allBooksUriBuilder.path("?").queryParam("sortBy", "invalid").build().toUri()))
         .andDo(print())
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.errorMessage").isNotEmpty());
@@ -525,7 +485,8 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
-  void getBooks_ShouldReturnAccurateResults_GivenSearchFilterSortAndPaginationParams() throws Exception {
+  void getBooks_ShouldReturnAccurateResults_GivenSearchFilterSortAndPaginationParams()
+      throws Exception {
     mockMvc
         .perform(
             get(

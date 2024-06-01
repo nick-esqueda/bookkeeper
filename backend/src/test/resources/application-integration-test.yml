@@ -4,7 +4,4 @@ spring:
     username: user
     password: password
   flyway:
-    enabled: false
-  jpa:
-    hibernate:
-      ddl-auto: update
+    locations: classpath:db/migration,test/resources/db/migration
