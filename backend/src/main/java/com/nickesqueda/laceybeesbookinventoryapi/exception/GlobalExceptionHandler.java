@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -55,6 +56,18 @@ public class GlobalExceptionHandler {
 
     List<String> errorDetails = List.of(errorDetail);
     return new ErrorResponse(errorMessage, errorDetails);
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ErrorResponse handleIllegalArgumentException(IllegalArgumentException e) {
+    return new ErrorResponse("Invalid value in request", List.of(e.getMessage()));
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(HandlerMethodValidationException.class)
+  public ErrorResponse handleHandlerMethodValidationException(HandlerMethodValidationException e) {
+    return new ErrorResponse("Invalid value in request", List.of(e.getMessage()));
   }
 
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -6,8 +6,11 @@ import com.nickesqueda.laceybeesbookinventoryapi.dto.BookRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BooksService;
 import jakarta.validation.Valid;
-import java.util.List;
+import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,8 +22,30 @@ public class BooksController {
 
   @GetMapping
   @ResponseStatus(OK)
-  public List<BookResponseDto> getBooks() {
-    return booksService.getBooks();
+  public Page<BookResponseDto> getBooks(
+      @RequestParam(required = false) String query,
+      @RequestParam(required = false) String readStatus,
+      @RequestParam(required = false) Integer bookCategoryId,
+      @RequestParam(defaultValue = "0") Integer pageNum,
+      @RequestParam(defaultValue = "10") Integer pageSize,
+      @RequestParam(defaultValue = "title")
+          @Pattern(regexp = "title|author|edition", flags = Pattern.Flag.CASE_INSENSITIVE)
+          String sortBy,
+      @RequestParam(defaultValue = "asc")
+          @Pattern(regexp = "asc|desc", flags = Pattern.Flag.CASE_INSENSITIVE)
+          String sortDir) {
+
+    Sort sort =
+        sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())
+            ? Sort.by(sortBy).ascending()
+            : Sort.by(sortBy).descending();
+    PageRequest pageRequest = PageRequest.of(pageNum, pageSize, sort);
+
+    if (query != null && !query.isEmpty()) {
+      return booksService.searchBooks(query, readStatus, bookCategoryId, pageRequest);
+    } else {
+      return booksService.getBooks(readStatus, bookCategoryId, pageRequest);
+    }
   }
 
   @PostMapping

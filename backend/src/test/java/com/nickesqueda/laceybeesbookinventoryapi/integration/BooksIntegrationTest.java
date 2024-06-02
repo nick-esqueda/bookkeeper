@@ -16,15 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class BooksIntegrationTest extends BaseIntegrationTest {
 
   @Test
-  void getBooks_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
-    mockMvc
-        .perform(get(allBooksUri))
-        .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(bookCount)));
-  }
-
-  @Test
   @Transactional
   void createBook_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
