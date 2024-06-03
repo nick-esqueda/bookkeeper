@@ -211,6 +211,32 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
+  void getBooks_ShouldHandleEmptyFilterParamsAsNull_GivenFilterParamsWithEmptyString()
+      throws Exception {
+    mockMvc
+        .perform(
+            get(
+                UriComponentsBuilder.fromUri(allBooksUri)
+                    .queryParam("readStatus", "")
+                    .build()
+                    .toUriString()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content", hasSize(bookCount)));
+
+    mockMvc
+        .perform(
+            get(
+                UriComponentsBuilder.fromUri(allBooksUri)
+                    .queryParam("bookCategoryId", "")
+                    .build()
+                    .toUriString()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content", hasSize(bookCount)));
+  }
+
+  @Test
   void getBooks_ShouldReturnEmptyList_GivenInvalidReadStatusFilter() throws Exception {
     mockMvc
         .perform(
@@ -300,6 +326,18 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.content", hasSize(1)))
         .andExpect(jsonPath("$.content[0].notes", containsString("notes")))
         .andExpect(jsonPath("$.content[0].readStatus", containsString("UNREAD")));
+  }
+
+  @Test
+  void getBooks_ShouldReturnAscSortedListByTitle_GivenNoSortingParams() throws Exception {
+    mockMvc
+        .perform(get(UriComponentsBuilder.fromUri(allBooksUri).build().toUriString()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content[0].title").value("Apple"))
+        .andExpect(jsonPath("$.content[1].title").value("Banana Banana"))
+        .andExpect(jsonPath("$.content[2].title").value("Cucumber"))
+        .andExpect(jsonPath("$.content[3].title").value("Date Date"));
   }
 
   @Test

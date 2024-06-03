@@ -6,6 +6,7 @@ import com.nickesqueda.laceybeesbookinventoryapi.dto.BookRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BooksService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,7 @@ public class BooksController {
   public Page<BookResponseDto> getBooks(
       @RequestParam(required = false) String query,
       @RequestParam(required = false) String readStatus,
-      @RequestParam(required = false) Integer bookCategoryId,
+      @RequestParam(required = false) @Min(1) Integer bookCategoryId,
       @RequestParam(defaultValue = "0") Integer pageNum,
       @RequestParam(defaultValue = "10") Integer pageSize,
       @RequestParam(defaultValue = "title")
@@ -40,6 +41,13 @@ public class BooksController {
             ? Sort.by(sortBy).ascending()
             : Sort.by(sortBy).descending();
     PageRequest pageRequest = PageRequest.of(pageNum, pageSize, sort);
+
+    if ("".equalsIgnoreCase(readStatus)) {
+      readStatus = null;
+    }
+    if (bookCategoryId != null && bookCategoryId == 0) {
+      bookCategoryId = null;
+    }
 
     if (query != null && !query.isEmpty()) {
       return booksService.searchBooks(query, readStatus, bookCategoryId, pageRequest);
