@@ -8,6 +8,7 @@ import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategor
 import { createBookAsync, editBookAsync } from "../features/books/booksSlice";
 import { useNavigate } from "react-router-dom";
 import BookFormData from "../models/BookFormData";
+import { handleFormChange } from "../utils/formUtils";
 
 const BookForm = ({ onHide, book }) => {
   const dispatch = useDispatch();
@@ -24,14 +25,6 @@ const BookForm = ({ onHide, book }) => {
   useEffect(() => {
     dispatch(fetchBookCategoriesAsync());
   }, [dispatch]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,7 +77,7 @@ const BookForm = ({ onHide, book }) => {
               placeholder="Enter title"
               name="title"
               value={formData.title}
-              onChange={handleChange}
+              onChange={handleFormChange(setFormData)}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
@@ -101,7 +94,7 @@ const BookForm = ({ onHide, book }) => {
               placeholder="Enter author"
               name="author"
               value={formData.author}
-              onChange={handleChange}
+              onChange={handleFormChange(setFormData)}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
@@ -120,7 +113,7 @@ const BookForm = ({ onHide, book }) => {
               placeholder="Enter edition (optional)"
               name="edition"
               value={formData.edition}
-              onChange={handleChange}
+              onChange={handleFormChange(setFormData)}
             />
           </Form.Group>
         </Col>
@@ -131,13 +124,13 @@ const BookForm = ({ onHide, book }) => {
               required
               name="bookCategoryId"
               value={formData.bookCategoryId}
-              onChange={handleChange}
+              onChange={handleFormChange(setFormData)}
             >
               <option value="" disabled>
                 Select a category
               </option>
               {bookCategoryIds.map((id) => (
-                <option key={id} value={bookCategories[id].id}>
+                <option key={id} value={id}>
                   {bookCategories[id].name}
                 </option>
               ))}
@@ -161,7 +154,7 @@ const BookForm = ({ onHide, book }) => {
             value="READ"
             label="Read"
             checked={formData.readStatus === "READ"}
-            onChange={handleChange}
+            onChange={handleFormChange(setFormData)}
             inline
           />
           <Form.Check
@@ -172,7 +165,7 @@ const BookForm = ({ onHide, book }) => {
             value="UNREAD"
             label="Unread"
             checked={formData.readStatus === "UNREAD"}
-            onChange={handleChange}
+            onChange={handleFormChange(setFormData)}
             inline
           />
           <Form.Check
@@ -183,7 +176,7 @@ const BookForm = ({ onHide, book }) => {
             value="DID_NOT_FINISH"
             label="DNF"
             checked={formData.readStatus === "DID_NOT_FINISH"}
-            onChange={handleChange}
+            onChange={handleFormChange(setFormData)}
             inline
           />
         </div>
@@ -197,7 +190,7 @@ const BookForm = ({ onHide, book }) => {
           placeholder="Enter book notes (optional)"
           name="notes"
           value={formData.notes}
-          onChange={handleChange}
+          onChange={handleFormChange(setFormData)}
         />
       </Form.Group>
 

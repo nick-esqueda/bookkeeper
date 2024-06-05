@@ -1,8 +1,10 @@
-export const fetchBooks = async () => {
-  const response = await fetch(`${process.env.REACT_APP_BASE_URL}/books`);
+export const fetchBooks = async (queryParams) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/books?${queryParams.toString()}`
+  );
   if (!response.ok) {
     console.error("Error response: ", response);
-    throw new Error("Failed to fetch books");
+    throw new Error("Failed to fetch books. Params: ", queryParams.toString());
   }
   return response.json();
 };
