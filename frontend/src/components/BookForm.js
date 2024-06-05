@@ -196,7 +196,7 @@ const BookForm = ({ onHide, book }) => {
 
       <div className="d-flex justify-content-end mt-4">
         <Button variant="outline-danger" onClick={onHide}>
-          Exit
+          Cancel
         </Button>
         <Button variant="success" type="submit" className="ms-3">
           Save

@@ -50,8 +50,8 @@ const CategoryPage = () => {
 
   return (
     <Container>
-      <h2>{category.name}</h2>
-      <p>
+      <h2 className="text-center">{category.name}</h2>
+      <p className="text-center">
         All books in the {category.name} category.
         <br />
         Click View Book to see it's details.
