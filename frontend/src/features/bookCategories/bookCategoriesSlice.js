@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBookCategories } from "./bookCategoriesApi";
+import { fetchBookCategories, fetchBookCategory } from "./bookCategoriesApi";
 
 const initialState = {
   entities: {},
@@ -19,13 +19,13 @@ const bookCategoriesSlice = createSlice({
         state.entities[bookCategory.id] = bookCategory;
         state.ids.push(bookCategory.id);
       });
-      state.loading = false;
-      state.error = null;
     },
     addBookCategory: (state, action) => {
       const bookCategory = action.payload;
-      state.entities[bookCategory.id] = bookCategory;
-      state.ids.push(bookCategory.id);
+      if (!state.entities[bookCategory.id]) {
+        state.entities[bookCategory.id] = bookCategory;
+        state.ids.push(bookCategory.id);
+      }
     },
     updateBookCategory: (state, action) => {
       const bookCategory = action.payload;
@@ -60,10 +60,26 @@ export const {
 export const fetchBookCategoriesAsync = () => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const books = await fetchBookCategories();
-    dispatch(setBookCategories(books));
+    const bookCategories = await fetchBookCategories();
+    dispatch(setBookCategories(bookCategories));
   } catch (error) {
     dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const fetchBookCategoryAsync = (bookCategoryId) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const bookCategory = await fetchBookCategory(bookCategoryId);
+    dispatch(addBookCategory(bookCategory));
+  } catch (error) {
+    dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
   }
 };
 
