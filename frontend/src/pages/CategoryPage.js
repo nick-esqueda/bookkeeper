@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Badge, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBookCategoryAsync } from "../features/bookCategories/bookCategoriesSlice";
@@ -34,6 +34,14 @@ const CategoryPage = () => {
     <Container>
       <h2 className="text-center">{category.name}</h2>
       <p className="text-center">All books in the {category.name} category.</p>
+      <p className="d-flex justify-content-center gap-3">
+        <Badge bg="success">
+          {category.readBookCount} Read
+        </Badge>
+        <Badge bg="primary">
+          {category.totalBookCount} Total
+        </Badge>
+      </p>
 
       <Row>
         <BookList queryParams={{ bookCategoryId: categoryId }} />

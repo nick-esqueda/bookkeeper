@@ -23,9 +23,9 @@ const bookCategoriesSlice = createSlice({
     addBookCategory: (state, action) => {
       const bookCategory = action.payload;
       if (!state.entities[bookCategory.id]) {
-        state.entities[bookCategory.id] = bookCategory;
         state.ids.push(bookCategory.id);
       }
+      state.entities[bookCategory.id] = bookCategory;
     },
     updateBookCategory: (state, action) => {
       const bookCategory = action.payload;
