@@ -9,18 +9,14 @@ const CategoryCard = ({ categoryId }) => {
   );
 
   return (
-    <Link
-      to={`/categories/${category.id}`}
-      style={{ textDecoration: "none", color: "inherit" }}
-    >
-      <Card>
-        <Card.Header>Category</Card.Header>
+    <Link to={`/categories/${category.id}`} style={{ textDecoration: "none" }}>
+      <Card className="shadow-lg">
+        <Card.Header className="text-center">Category</Card.Header>
         <Card.Body>
-          <Card.Title as={"h3"}>{category.name}</Card.Title>
+          <Card.Title as={"h3"} className="text-center m-5">
+            {category.name}
+          </Card.Title>
         </Card.Body>
-        <Card.Footer>
-          <Card.Text>Total Books: 7</Card.Text>
-        </Card.Footer>
       </Card>
     </Link>
   );

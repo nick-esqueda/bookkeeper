@@ -12,7 +12,7 @@ const BookCard = ({ bookId }) => {
     book && (
       <Card
         border={readStatusButtonColorMap[book.readStatus]}
-        className="h-100 border-top-0 border-bottom-0 border-end-0 border-2"
+        className="h-100 border-2 border-top-0 border-bottom-0 border-end-0 shadow"
       >
         <Card.Header>{book.bookCategory.name}</Card.Header>
         <Card.Body className="d-flex flex-column justify-content-between">
