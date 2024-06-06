@@ -4,7 +4,9 @@ import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.entity.BookCategory;
 import com.nickesqueda.laceybeesbookinventoryapi.exception.UniqueConstraintViolationException;
+import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
 import com.nickesqueda.laceybeesbookinventoryapi.repository.BookCategoryRepository;
+import com.nickesqueda.laceybeesbookinventoryapi.repository.BookRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BookCategoriesService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookCategoriesServiceImpl implements BookCategoriesService {
   private final BookCategoryRepository bookCategoryRepository;
+  private final BookRepository bookRepository;
   private final ModelMapper modelMapper;
 
   @Override
@@ -40,7 +43,11 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
   @Override
   public BookCategoryResponseDto getBookCategory(int bookCategoryId) {
     BookCategory bookCategoryEntity = bookCategoryRepository.retrieveOrElseThrow(bookCategoryId);
-    return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
+    int totalBookCount = bookRepository.countByBookCategoryId(bookCategoryId);
+    int readBookCount = bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.READ);
+
+    BookCategoryResponseDto bookCategoryDto = modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
+    return bookCategoryDto.toBuilder().totalBookCount(totalBookCount).readBookCount(readBookCount).build();
   }
 
   @Override

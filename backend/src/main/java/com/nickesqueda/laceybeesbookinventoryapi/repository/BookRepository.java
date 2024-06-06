@@ -2,6 +2,7 @@ package com.nickesqueda.laceybeesbookinventoryapi.repository;
 
 import com.nickesqueda.laceybeesbookinventoryapi.entity.Book;
 import com.nickesqueda.laceybeesbookinventoryapi.exception.ResourceNotFoundException;
+import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,6 +35,10 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
       @Param("readStatus") String readStatus,
       @Param("bookCategoryId") Integer bookCategoryId,
       Pageable pageable);
+
+  int countByBookCategoryId(int bookCategoryId);
+
+  int countByBookCategoryIdAndReadStatus(int bookCategoryId, ReadStatus readStatus);
 
   default Book retrieveOrElseThrow(int bookId) {
     return this.findById(bookId)

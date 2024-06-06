@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 public class BookCategoryResponseDto {
   private int id;
   private String name;
+  private int totalBookCount;
+  private int readBookCount;
   private Instant createdAt;
   private Instant updatedAt;
 }

@@ -83,10 +83,22 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").isNotEmpty())
+        .andExpect(jsonPath("$.id").value(bookCategoryId))
         .andExpect(jsonPath("$.name").isNotEmpty())
         .andExpect(jsonPath("$.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.updatedAt").isNotEmpty());
+  }
+
+  @Test
+  void getBookCategory_ShouldReturnBookAndReadBookCounts_GivenValidRequest() throws Exception {
+    mockMvc
+        .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(bookCategoryId))
+        .andExpect(jsonPath("$.name").isNotEmpty())
+        .andExpect(jsonPath("$.totalBookCount").isNotEmpty())
+        .andExpect(jsonPath("$.readBookCount").isNotEmpty());
   }
 
   @Test
