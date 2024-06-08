@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategoriesSlice";
 import CategoryCard from "../components/CategoryCard";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import CreateCategoryModal from "../components/CreateCategoryModal";
 
 const CategoriesPage = () => {
   const dispatch = useDispatch();
   const bookCategoryIds = useSelector((state) => state.bookCategories.ids);
   const loading = useSelector((state) => state.bookCategories.loading);
   const error = useSelector((state) => state.bookCategories.error);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchBookCategoriesAsync());
@@ -32,6 +34,23 @@ const CategoriesPage = () => {
             <CategoryCard key={id} categoryId={id} />
           </Col>
         ))}
+      </Row>
+
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <Button
+            variant="outline-primary"
+            size="lg"
+            className="w-50 m-5"
+            onClick={() => setShowModal(true)}
+          >
+            Create Category
+          </Button>
+          <CreateCategoryModal
+            show={showModal}
+            onHide={() => setShowModal(false)}
+          />
+        </Col>
       </Row>
     </Container>
   );

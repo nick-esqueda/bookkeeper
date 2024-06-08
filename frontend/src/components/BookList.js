@@ -33,6 +33,10 @@ const BookList = ({ queryParams }) => {
     }, 500);
   };
 
+  if (!bookIds.length) {
+    return <small className="mt-4 text-center text-muted">No results</small>;
+  }
+
   if (error) {
     return <p>Error: {error}</p>;
   }
