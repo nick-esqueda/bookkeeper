@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { handleFormChange } from "../utils/formUtils";
 import { useDispatch } from "react-redux";
-import { createBookCategoryAsync } from "../features/bookCategories/bookCategoriesSlice";
+import { createBookCategoryAsync, editBookCategoryAsync } from "../features/bookCategories/bookCategoriesSlice";
+import CategoryFormData from "../models/CategoryFormData";
 
-const CategoryForm = ({ onHide }) => {
+const CategoryForm = ({ onHide, category }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({ name: "" });
+
   const [isValidated, setIsValidated] = useState(false);
+  const [formData, setFormData] = useState(
+    category
+      ? CategoryFormData.createFromCategory(category)
+      : CategoryFormData.createEmpty()
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,12 +25,25 @@ const CategoryForm = ({ onHide }) => {
       return;
     }
 
-    handleCreate(formData);
+    if (category) {
+      handleEdit(formData);
+    } else {
+      handleCreate(formData);
+    }
   };
 
   const handleCreate = async (category) => {
     try {
       await dispatch(createBookCategoryAsync(category));
+      onHide();
+    } catch (error) {
+      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+    }
+  };
+
+  const handleEdit = async (category) => {
+    try {
+      await dispatch(editBookCategoryAsync(category));
       onHide();
     } catch (error) {
       alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);

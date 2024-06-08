@@ -1,5 +1,4 @@
 class BookFormData {
-
   static createFromBook(book) {
     const instance = new BookFormData();
     instance.id = book.id || "";

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import { Badge, Container, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Badge, Button, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBookCategoryAsync } from "../features/bookCategories/bookCategoriesSlice";
 import BookList from "../components/BookList";
+import EditCategoryModal from "../components/EditCategoryModal";
 
 const CategoryPage = () => {
   // show all the books in a category. edit the category
@@ -17,6 +18,7 @@ const CategoryPage = () => {
     (state) => state.bookCategories
   );
   const category = entities[categoryId];
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchBookCategoryAsync(categoryId));
@@ -32,16 +34,26 @@ const CategoryPage = () => {
 
   return (
     <Container>
-      <h2 className="text-center">{category.name}</h2>
-      <p className="text-center">All books in the {category.name} category.</p>
-      <p className="d-flex justify-content-center gap-3">
-        <Badge bg="success">
-          {category.readBookCount} Read
-        </Badge>
-        <Badge bg="primary">
-          {category.totalBookCount} Total
-        </Badge>
-      </p>
+      <Row>
+        <Col className="text-center">
+          <h2>{category.name}</h2>
+          <p>All books in the {category.name} category.</p>
+
+          <p className="d-flex justify-content-center gap-3">
+            <Badge bg="success">{category.readBookCount} Read</Badge>
+            <Badge bg="primary">{category.totalBookCount} Total</Badge>
+          </p>
+
+          <Button variant="link" size="sm" onClick={() => setShowModal(true)}>
+            Edit name
+          </Button>
+          <EditCategoryModal
+            show={showModal}
+            onHide={() => setShowModal(false)}
+            category={category}
+          />
+        </Col>
+      </Row>
 
       <Row>
         <BookList queryParams={{ bookCategoryId: categoryId }} />

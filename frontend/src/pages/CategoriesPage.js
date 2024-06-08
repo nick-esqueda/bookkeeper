@@ -30,7 +30,7 @@ const CategoriesPage = () => {
       <p className="text-muted">Click a category to view it's books.</p>
       <Row>
         {bookCategoryIds.map((id) => (
-          <Col key={id} xs={12} sm={12} md={6} lg={6} className="mt-4 p-4">
+          <Col key={id} xs={12} sm={12} md={6} lg={6} className="mt-4 p-3">
             <CategoryCard key={id} categoryId={id} />
           </Col>
         ))}
@@ -41,7 +41,7 @@ const CategoriesPage = () => {
           <Button
             variant="outline-primary"
             size="lg"
-            className="w-50 m-5"
+            className="w-50 m-5 shadow-lg"
             onClick={() => setShowModal(true)}
           >
             Create Category

@@ -41,3 +41,23 @@ export const createBookCategory = async (bookCategory) => {
   }
   return response.json();
 };
+
+export const editBookCategory = async (bookCategory) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/book-categories/${bookCategory.id}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(bookCategory),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error("Error response from createBookCategory(): ", errorResponse);
+    throw new Error("Failed to create category");
+  }
+  return response.json();
+};
