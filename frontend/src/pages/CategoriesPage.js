@@ -42,7 +42,7 @@ const CategoriesPage = () => {
           <Button
             variant="outline-primary"
             size="lg"
-            className="w-50 m-5 shadow-lg"
+            className="w-50 m-5"
             onClick={() => setShowModal(true)}
           >
             Create Category

@@ -37,7 +37,7 @@ const BookPage = () => {
   };
 
   if (loading || !book) {
-    return <LoadingSpinner />
+    return <LoadingSpinner />;
   }
 
   if (error) {
@@ -65,7 +65,7 @@ const BookPage = () => {
         <Col xs={12} sm={12} md={12} lg={6} className="p-4">
           <Row>
             <Col className="d-flex flex-column justify-content-around gap-4 mb-4">
-              <Card className="text-center">
+              <Card className="text-center shadow">
                 <Card.Header>Category</Card.Header>
                 <Card.Body>
                   <Card.Title>{book.bookCategory.name}</Card.Title>
@@ -82,6 +82,7 @@ const BookPage = () => {
                 variant={`outline-${readStatusButtonColorMap[book.readStatus]}`}
                 size="md"
                 disabled
+                className="shadow"
               >
                 {readStatusTextMap[book.readStatus]}
               </Button>
@@ -134,7 +135,7 @@ const BookPage = () => {
                 <Card.Text>{book.notes}</Card.Text>
               ) : (
                 <Card.Text className="text-muted">
-                  Edit to add notes...
+                  Edit book to add notes...
                 </Card.Text>
               )}
             </Card.Body>

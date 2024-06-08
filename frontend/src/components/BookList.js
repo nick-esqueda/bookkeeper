@@ -34,15 +34,9 @@ const BookList = ({ queryParams }) => {
   };
 
   const loadingSpinner = (
-    <div className="w-100 text-center mt-5 mb-3 p-5">
+    <div className="w-100 text-center mt-3 p-5">
       <Spinner animation="border" />
     </div>
-  );
-
-  const endMessage = (
-    <p className="mt-5 mb-5 text-center text-muted">
-      Total results: {bookIds.length}
-    </p>
   );
 
   if (!bookIds.length) {
@@ -59,7 +53,7 @@ const BookList = ({ queryParams }) => {
       next={fetchNextPage}
       hasMore={hasNextPage}
       loader={loadingSpinner}
-      endMessage={endMessage}
+      className="mb-5"
       style={{ overflow: "visible" }}
     >
       <Row>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import BookSearchForm from "../components/BookSearchForm";
-import { Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import BookList from "../components/BookList";
+import { useSelector } from "react-redux";
 
 const defaultSearchOptions = {
   query: "",
@@ -12,6 +13,7 @@ const defaultSearchOptions = {
 };
 
 const BooksPage = () => {
+  const totalResults = useSelector((state) => state.books.totalResults);
   const [searchOptions, setSearchOptions] = useState(defaultSearchOptions);
 
   return (
@@ -26,10 +28,20 @@ const BooksPage = () => {
       </Row>
 
       <Row>
-        <BookSearchForm
-          formData={searchOptions}
-          setFormData={setSearchOptions}
-        />
+        <Col>
+          <BookSearchForm
+            formData={searchOptions}
+            setFormData={setSearchOptions}
+          />
+        </Col>
+      </Row>
+
+      <Row className="p-2">
+        <Col className="text-start">
+          <small className="text-muted">
+            {totalResults} {totalResults === 1 ? "result" : "results"}
+          </small>
+        </Col>
       </Row>
 
       <Row>

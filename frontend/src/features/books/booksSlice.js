@@ -10,10 +10,11 @@ import {
 const initialState = {
   entities: {},
   ids: [],
-  loading: false,
-  error: null,
   nextPageNum: 0,
   hasNextPage: false,
+  totalResults: 0,
+  loading: false,
+  error: null,
 };
 
 const booksSlice = createSlice({
@@ -60,6 +61,9 @@ const booksSlice = createSlice({
     setNextPageNum: (state, action) => {
       state.nextPageNum = action.payload;
     },
+    setTotalResults: (state, action) => {
+      state.totalResults = action.payload;
+    },
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
@@ -78,6 +82,7 @@ export const {
   removeBook,
   setHasNextPage,
   setNextPageNum,
+  setTotalResults,
   setLoading,
   setError,
 } = booksSlice.actions;
@@ -93,6 +98,7 @@ export const fetchBooksAsync = (queryParams) => async (dispatch) => {
     dispatch(setBooks(response.content));
     dispatch(setHasNextPage(!response.last));
     dispatch(setNextPageNum(1));
+    dispatch(setTotalResults(response.totalElements));
   } catch (error) {
     dispatch(setError(error.message));
     throw error;
@@ -111,6 +117,7 @@ export const fetchBooksNextPageAsync = (queryParams) => async (dispatch) => {
     dispatch(addBooks(response.content));
     dispatch(setHasNextPage(!response.last));
     dispatch(setNextPageNum(response.number + 1));
+    dispatch(setTotalResults(response.totalElements));
   } catch (error) {
     dispatch(setError(error.message));
     throw error;
