@@ -10,9 +10,6 @@ import {
 } from "../utils/dataTransformationUtils";
 
 const BookPage = () => {
-  // view and edit book details.
-  // MVP: display all book fields and allow to edit/delete the book
-
   const { bookId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
