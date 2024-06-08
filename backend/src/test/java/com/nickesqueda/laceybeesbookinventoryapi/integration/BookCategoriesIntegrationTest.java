@@ -128,6 +128,22 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
+  void editBookCategory_ShouldReturnBookAndReadBookCounts_GivenValidRequest() throws Exception {
+    mockMvc
+        .perform(
+            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(BOOK_CATEGORY_REQUEST_UPDATED_NAME))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(bookCategoryId))
+        .andExpect(jsonPath("$.name").isNotEmpty())
+        .andExpect(jsonPath("$.totalBookCount").isNotEmpty())
+        .andExpect(jsonPath("$.readBookCount").isNotEmpty());
+  }
+
+  @Test
+  @Transactional
   void editBookCategory_ShouldReturn400WithErrorResponse_GivenNameAlreadyExists() throws Exception {
     mockMvc
         .perform(

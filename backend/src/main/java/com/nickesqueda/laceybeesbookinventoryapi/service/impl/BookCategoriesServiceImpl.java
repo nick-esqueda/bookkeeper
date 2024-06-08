@@ -9,6 +9,7 @@ import com.nickesqueda.laceybeesbookinventoryapi.repository.BookCategoryReposito
 import com.nickesqueda.laceybeesbookinventoryapi.repository.BookRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BookCategoriesService;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -43,11 +44,9 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
   @Override
   public BookCategoryResponseDto getBookCategory(int bookCategoryId) {
     BookCategory bookCategoryEntity = bookCategoryRepository.retrieveOrElseThrow(bookCategoryId);
-    int totalBookCount = bookRepository.countByBookCategoryId(bookCategoryId);
-    int readBookCount = bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.READ);
-
-    BookCategoryResponseDto bookCategoryDto = modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
-    return bookCategoryDto.toBuilder().totalBookCount(totalBookCount).readBookCount(readBookCount).build();
+    BookCategoryResponseDto bookCategoryResponseDto =
+        modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
+    return addBookCountsToBookCategory(bookCategoryResponseDto);
   }
 
   @Override
@@ -63,11 +62,28 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
     modelMapper.map(bookCategoryRequestDto, bookCategoryEntity);
     bookCategoryEntity = bookCategoryRepository.save(bookCategoryEntity);
 
-    return modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
+    BookCategoryResponseDto bookCategoryResponseDto =
+        modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
+    return addBookCountsToBookCategory(bookCategoryResponseDto);
   }
 
   @Override
   public void deleteBookCategory(int bookCategoryId) {
     bookCategoryRepository.deleteById(bookCategoryId);
+  }
+
+  private BookCategoryResponseDto addBookCountsToBookCategory(
+      BookCategoryResponseDto bookCategory) {
+
+    // TODO: refactor: use native SQL to fetch categories with all book counts simultaneously to
+    // optimize DB round-trips.
+    int id = Optional.ofNullable(bookCategory).map(BookCategoryResponseDto::getId).orElseThrow();
+    int totalBookCount = bookRepository.countByBookCategoryId(id);
+    int readBookCount = bookRepository.countByBookCategoryIdAndReadStatus(id, ReadStatus.READ);
+
+    return bookCategory.toBuilder()
+        .totalBookCount(totalBookCount)
+        .readBookCount(readBookCount)
+        .build();
   }
 }
