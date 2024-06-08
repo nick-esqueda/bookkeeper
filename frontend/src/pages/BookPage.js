@@ -8,6 +8,7 @@ import {
   readStatusButtonColorMap,
   readStatusTextMap,
 } from "../utils/dataTransformationUtils";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const BookPage = () => {
   const { bookId } = useParams();
@@ -35,8 +36,13 @@ const BookPage = () => {
     }
   };
 
-  if (loading || !book) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading || !book) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   let updatedAt = new Date(book.updatedAt * 1000).toDateString();
 

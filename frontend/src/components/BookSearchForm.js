@@ -6,6 +6,7 @@ import { readStatusTextMap } from "../utils/dataTransformationUtils";
 import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { handleFormChange } from "../utils/formUtils";
+import LoadingSpinner from "./LoadingSpinner";
 
 const BookSearchForm = ({ formData, setFormData }) => {
   const dispatch = useDispatch();
@@ -26,8 +27,13 @@ const BookSearchForm = ({ formData, setFormData }) => {
     e.stopPropagation();
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <Form onSubmit={onSubmit}>

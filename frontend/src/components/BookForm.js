@@ -9,6 +9,7 @@ import { createBookAsync, editBookAsync } from "../features/books/booksSlice";
 import { useNavigate } from "react-router-dom";
 import BookFormData from "../models/BookFormData";
 import { handleFormChange } from "../utils/formUtils";
+import LoadingSpinner from "./LoadingSpinner";
 
 const BookForm = ({ onHide, book }) => {
   const dispatch = useDispatch();
@@ -62,8 +63,13 @@ const BookForm = ({ onHide, book }) => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>

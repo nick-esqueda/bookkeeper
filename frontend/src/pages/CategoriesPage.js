@@ -4,6 +4,7 @@ import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategor
 import CategoryCard from "../components/CategoryCard";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CreateCategoryModal from "../components/CreateCategoryModal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const CategoriesPage = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const CategoriesPage = () => {
   }, [dispatch]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />
   }
 
   if (error) {

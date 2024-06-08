@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import BookCard from "./BookCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +33,18 @@ const BookList = ({ queryParams }) => {
     }, 500);
   };
 
+  const loadingSpinner = (
+    <div className="w-100 text-center mt-5 mb-3 p-5">
+      <Spinner animation="border" />
+    </div>
+  );
+
+  const endMessage = (
+    <p className="mt-5 mb-5 text-center text-muted">
+      Total results: {bookIds.length}
+    </p>
+  );
+
   if (!bookIds.length) {
     return <small className="mt-4 text-center text-muted">No results</small>;
   }
@@ -46,12 +58,8 @@ const BookList = ({ queryParams }) => {
       dataLength={bookIds.length}
       next={fetchNextPage}
       hasMore={hasNextPage}
-      loader={<p className="mt-5 mb-5 text-center text-muted">Loading...</p>}
-      endMessage={
-        <p className="mt-5 mb-5 text-center text-muted">
-          Total results: {bookIds.length}
-        </p>
-      }
+      loader={loadingSpinner}
+      endMessage={endMessage}
       style={{ overflow: "visible" }}
     >
       <Row>

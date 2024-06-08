@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { fetchBookCategoryAsync } from "../features/bookCategories/bookCategoriesSlice";
 import BookList from "../components/BookList";
 import EditCategoryModal from "../components/EditCategoryModal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const CategoryPage = () => {
   // show all the books in a category. edit the category
@@ -25,7 +26,7 @@ const CategoryPage = () => {
   }, [dispatch, categoryId]);
 
   if (loading || !category) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
