@@ -86,8 +86,9 @@ export const fetchBookCategoryAsync = (bookCategoryId) => async (dispatch) => {
 export const createBookCategoryAsync = (bookCategory) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const category = await createBookCategory(bookCategory);
-    dispatch(addBookCategory(category));
+    const createdCategory = await createBookCategory(bookCategory);
+    dispatch(addBookCategory(createdCategory));
+    return createdCategory;
   } catch (error) {
     dispatch(setError(error.message));
     throw error;

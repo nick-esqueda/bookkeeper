@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { handleFormChange } from "../utils/formUtils";
 import { useDispatch } from "react-redux";
-import { createBookCategoryAsync, editBookCategoryAsync } from "../features/bookCategories/bookCategoriesSlice";
+import {
+  createBookCategoryAsync,
+  editBookCategoryAsync,
+} from "../features/bookCategories/bookCategoriesSlice";
 import CategoryFormData from "../models/CategoryFormData";
+import { useNavigate } from "react-router-dom";
 
 const CategoryForm = ({ onHide, category }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isValidated, setIsValidated] = useState(false);
   const [formData, setFormData] = useState(
@@ -34,8 +39,9 @@ const CategoryForm = ({ onHide, category }) => {
 
   const handleCreate = async (category) => {
     try {
-      await dispatch(createBookCategoryAsync(category));
+      const createdCategory = await dispatch(createBookCategoryAsync(category));
       onHide();
+      navigate(`/categories/${createdCategory.id}`);
     } catch (error) {
       alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
     }

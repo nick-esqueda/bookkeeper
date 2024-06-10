@@ -4,6 +4,7 @@ import CategoryPage from "./pages/CategoryPage";
 import BooksPage from "./pages/BooksPage";
 import BookPage from "./pages/BookPage";
 import StatsPage from "./pages/StatsPage";
+import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { Container } from "react-bootstrap";
 
@@ -13,6 +14,7 @@ function App() {
       <Header />
       <Container className="mt-5 pt-5">
         <Routes>
+          <Route path="/" element={<HomePage />} exact={true} />
           <Route path="/categories" element={<CategoriesPage />} exact={true} />
           <Route path="/categories/:categoryId" element={<CategoryPage />} />
           <Route path="/books" element={<BooksPage />} />

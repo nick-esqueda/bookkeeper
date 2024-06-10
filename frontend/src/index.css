@@ -17,3 +17,11 @@ code {
   font-size: 2em;
   font-weight: 500;
 }
+
+#homepage-brand {
+  font-family: "Sacramento", cursive;
+  font-size: 8em;
+  font-weight: 400;
+  text-align: center;
+  margin: .5em auto;
+}
