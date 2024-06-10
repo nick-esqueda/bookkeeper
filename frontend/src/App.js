@@ -7,11 +7,13 @@ import StatsPage from "./pages/StatsPage";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { Container } from "react-bootstrap";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
+      <ScrollToTop />
       <Container className="mt-5 pt-5">
         <Routes>
           <Route path="/" element={<HomePage />} exact={true} />

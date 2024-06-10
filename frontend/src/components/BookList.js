@@ -24,14 +24,12 @@ const BookList = ({ queryParams }) => {
   }, [dispatch, queryParams]);
 
   const fetchNextPage = () => {
-    setTimeout(() => {
-      dispatch(
-        fetchBooksNextPageAsync({
-          ...queryParams,
-          pageNum: nextPageNum,
-        })
-      );
-    }, 500);
+    dispatch(
+      fetchBooksNextPageAsync({
+        ...queryParams,
+        pageNum: nextPageNum,
+      })
+    );
   };
 
   const loadingSpinner = (
