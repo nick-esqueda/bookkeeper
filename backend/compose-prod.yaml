@@ -1,0 +1,11 @@
+services:
+  api:
+    image: public.ecr.aws/f0d1e9f6/lacey-bees-book-inventory-image-repo:latest
+    ports:
+      - "8080:8080"
+    secrets:
+      - db.properties
+secrets:
+  db.properties:
+    file: .env.production
+

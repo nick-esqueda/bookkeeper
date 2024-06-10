@@ -15,6 +15,7 @@ const BookList = ({ queryParams }) => {
     ids: bookIds,
     hasNextPage,
     nextPageNum,
+    loading,
     error,
   } = useSelector((state) => state.books);
 
@@ -39,7 +40,7 @@ const BookList = ({ queryParams }) => {
     </div>
   );
 
-  if (!bookIds.length) {
+  if (!bookIds.length && !loading) {
     return <small className="mt-4 text-center text-muted">No results</small>;
   }
 
