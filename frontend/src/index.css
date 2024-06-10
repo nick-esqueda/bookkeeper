@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#nav-brand {
+  font-family: "Sacramento", cursive;
+  font-size: 2em;
+  font-weight: 500;
+}

@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
       <Container>
-        <Navbar.Brand as={Link} to="/categories">
+        <Navbar.Brand as={Link} to="/categories" id="nav-brand">
           Lacey Bee's Book Inventory
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
