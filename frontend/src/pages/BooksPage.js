@@ -3,6 +3,7 @@ import BookSearchForm from "../components/BookSearchForm";
 import { Col, Container, Row } from "react-bootstrap";
 import BookList from "../components/BookList";
 import { useSelector } from "react-redux";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const defaultSearchOptions = {
   query: "",
@@ -13,8 +14,14 @@ const defaultSearchOptions = {
 };
 
 const BooksPage = () => {
-  const totalResults = useSelector((state) => state.books.totalResults);
+  const { totalResults, loading } = useSelector((state) => state.books);
   const [searchOptions, setSearchOptions] = useState(defaultSearchOptions);
+
+  const resultCount = (
+    <small className="text-muted">
+      {totalResults} {totalResults === 1 ? "result" : "results"}
+    </small>
+  );
 
   return (
     <Container>
@@ -27,7 +34,7 @@ const BooksPage = () => {
         </p>
       </Row>
 
-      <Row>
+      <Row style={{ minHeight: "86px" }}>
         <Col>
           <BookSearchForm
             formData={searchOptions}
@@ -36,11 +43,9 @@ const BooksPage = () => {
         </Col>
       </Row>
 
-      <Row className="p-2">
-        <Col className="text-start">
-          <small className="text-muted">
-            {totalResults} {totalResults === 1 ? "result" : "results"}
-          </small>
+      <Row className="ps-2" style={{ minHeight: "2em" }}>
+        <Col xs={1} className="d-flex align-items-end">
+          {loading ? <LoadingSpinner fixed={false} size="sm" /> : resultCount}
         </Col>
       </Row>
 
