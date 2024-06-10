@@ -55,6 +55,10 @@ const booksSlice = createSlice({
       delete state.entities[id];
       state.ids = state.ids.filter((bookId) => bookId !== id);
     },
+    clearAllBooks: (state, action) => {
+      state.entities = {};
+      state.ids = [];
+    },
     setHasNextPage: (state, action) => {
       state.hasNextPage = action.payload;
     },
@@ -80,6 +84,7 @@ export const {
   addBook,
   updateBook,
   removeBook,
+  clearAllBooks,
   setHasNextPage,
   setNextPageNum,
   setTotalResults,

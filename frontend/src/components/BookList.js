@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import BookCard from "./BookCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearAllBooks,
   fetchBooksAsync,
   fetchBooksNextPageAsync,
 } from "../features/books/booksSlice";
@@ -21,6 +22,7 @@ const BookList = ({ queryParams }) => {
 
   useEffect(() => {
     dispatch(fetchBooksAsync(queryParams));
+    return () => dispatch(clearAllBooks());
   }, [dispatch, queryParams]);
 
   const fetchNextPage = () => {

@@ -44,7 +44,7 @@ const BooksPage = () => {
       </Row>
 
       <Row className="ps-2" style={{ minHeight: "2em" }}>
-        <Col xs={1} className="d-flex align-items-end">
+        <Col className="d-flex align-items-end">
           {loading ? <LoadingSpinner fixed={false} size="sm" /> : resultCount}
         </Col>
       </Row>

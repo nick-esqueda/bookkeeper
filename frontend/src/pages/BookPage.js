@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteBookAsync, fetchBookAsync } from "../features/books/booksSlice";
+import { clearAllBooks, deleteBookAsync, fetchBookAsync } from "../features/books/booksSlice";
 import EditBookModal from "../components/EditBookModal";
 import {
   readStatusButtonColorMap,
@@ -21,6 +21,7 @@ const BookPage = () => {
 
   useEffect(() => {
     dispatch(fetchBookAsync(bookId));
+    return () => dispatch(clearAllBooks());
   }, [dispatch, bookId]);
 
   const handleDelete = async (e) => {

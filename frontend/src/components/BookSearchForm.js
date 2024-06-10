@@ -28,7 +28,7 @@ const BookSearchForm = ({ formData, setFormData }) => {
   };
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner fixed={false} />;
   }
 
   if (error) {
