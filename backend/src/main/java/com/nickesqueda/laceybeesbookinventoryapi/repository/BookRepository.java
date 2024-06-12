@@ -30,6 +30,9 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
   int countByBookCategoryIdAndReadStatus(int bookCategoryId, ReadStatus readStatus);
 
+  @Query(value = COUNT_DISTINCT_AUTHORS_IN_BOOK_CATEGORY, nativeQuery = true)
+  int countAuthorsInBookCategory(@Param("bookCategoryId") int bookCategoryId);
+
   default Book retrieveOrElseThrow(int bookId) {
     return this.findById(bookId)
         .orElseThrow(() -> new ResourceNotFoundException(Book.class, bookId));

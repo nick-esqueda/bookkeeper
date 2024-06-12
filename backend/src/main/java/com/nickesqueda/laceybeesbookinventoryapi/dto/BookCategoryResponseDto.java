@@ -17,4 +17,7 @@ public class BookCategoryResponseDto {
   private Instant updatedAt;
   private int totalBookCount;
   private int readBookCount;
+  private int unreadBookCount;
+  private int didNotFinishBookCount;
+  private int authorCount;
 }

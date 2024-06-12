@@ -14,4 +14,10 @@ public interface BookCategoryWithStats {
   int getTotalBookCount();
 
   int getReadBookCount();
+
+  int getUnreadBookCount();
+
+  int getDidNotFinishBookCount();
+
+  int getAuthorCount();
 }

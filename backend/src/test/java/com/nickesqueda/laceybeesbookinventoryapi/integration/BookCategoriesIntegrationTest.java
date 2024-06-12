@@ -26,16 +26,17 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
-  void getBookCategories_ShouldReturnBookAndReadBookCountsForEachCategory_GivenValidRequest()
-      throws Exception {
-
+  void getBookCategories_ShouldReturnBookStatsForEachCategory_GivenValidRequest() throws Exception {
     mockMvc
         .perform(get(allBookCategoriesUri))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(bookCategoryCount)))
         .andExpect(jsonPath("$[0].totalBookCount", greaterThan(0)))
-        .andExpect(jsonPath("$[0].readBookCount", greaterThan(0)));
+        .andExpect(jsonPath("$[0].readBookCount").isNotEmpty())
+        .andExpect(jsonPath("$[0].unreadBookCount").isNotEmpty())
+        .andExpect(jsonPath("$[0].didNotFinishBookCount").isNotEmpty())
+        .andExpect(jsonPath("$[0].authorCount").isNotEmpty());
   }
 
   @Test
@@ -102,10 +103,16 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
-  void getBookCategory_ShouldReturnBookAndReadBookCounts_GivenValidRequest() throws Exception {
+  void getBookCategory_ShouldReturnBookStats_GivenValidRequest() throws Exception {
     int totalBookCount = bookRepository.countByBookCategoryId(bookCategoryId);
     int readBookCount =
         bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.READ);
+    int unreadBookCount =
+        bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.UNREAD);
+    int didNotFinishBookCount =
+        bookRepository.countByBookCategoryIdAndReadStatus(
+            bookCategoryId, ReadStatus.DID_NOT_FINISH);
+    int authorCount = bookRepository.countAuthorsInBookCategory(bookCategoryId);
 
     mockMvc
         .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
@@ -114,7 +121,10 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.id").value(bookCategoryId))
         .andExpect(jsonPath("$.name").isNotEmpty())
         .andExpect(jsonPath("$.totalBookCount").value(totalBookCount))
-        .andExpect(jsonPath("$.readBookCount").value(readBookCount));
+        .andExpect(jsonPath("$.readBookCount").value(readBookCount))
+        .andExpect(jsonPath("$.unreadBookCount").value(unreadBookCount))
+        .andExpect(jsonPath("$.didNotFinishBookCount").value(didNotFinishBookCount))
+        .andExpect(jsonPath("$.authorCount").value(authorCount));
   }
 
   @Test
@@ -144,7 +154,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
-  void editBookCategory_ShouldReturnBookAndReadBookCounts_GivenValidRequest() throws Exception {
+  void editBookCategory_ShouldReturnBookStats_GivenValidRequest() throws Exception {
     mockMvc
         .perform(
             put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
@@ -155,7 +165,10 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.id").value(bookCategoryId))
         .andExpect(jsonPath("$.name").isNotEmpty())
         .andExpect(jsonPath("$.totalBookCount").isNotEmpty())
-        .andExpect(jsonPath("$.readBookCount").isNotEmpty());
+        .andExpect(jsonPath("$.readBookCount").isNotEmpty())
+        .andExpect(jsonPath("$.unreadBookCount").isNotEmpty())
+        .andExpect(jsonPath("$.didNotFinishBookCount").isNotEmpty())
+        .andExpect(jsonPath("$.authorCount").isNotEmpty());
   }
 
   @Test
