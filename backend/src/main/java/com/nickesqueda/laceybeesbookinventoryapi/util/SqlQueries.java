@@ -29,4 +29,25 @@ public final class SqlQueries {
       JOIN books b ON bc.id = b.book_category_id
       GROUP BY bc.id;
       """;
+
+  // use CONCAT(:searchTerm, '*')) for prefix matching.
+  // note: "IN BOOLEAN MODE" ignores some common words (a.k.a. stopwords)
+  public static final String SEARCH_BOOKS =
+      """
+      SELECT *
+      FROM books
+      WHERE
+        MATCH(title, author, edition, notes)
+          AGAINST (CONCAT(:searchTerm, '*') IN BOOLEAN MODE)
+        AND (:readStatus IS NULL OR read_status = :readStatus)
+        AND (:bookCategoryId IS NULL OR book_category_id = :bookCategoryId)
+      """;
+
+  public static final String FIND_BOOKS =
+      """
+      SELECT *
+      FROM books
+      WHERE (:readStatus IS NULL OR read_status = :readStatus)
+        AND (:bookCategoryId IS NULL OR book_category_id = :bookCategoryId)
+      """;
 }

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 public class BookCategoriesServiceImpl implements BookCategoriesService {
 
   private final BookCategoryRepository bookCategoryRepository;
-  private final BookRepository bookRepository;
   private final ModelMapper modelMapper;
 
   @Override
