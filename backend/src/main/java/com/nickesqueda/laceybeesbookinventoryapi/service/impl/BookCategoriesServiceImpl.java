@@ -23,8 +23,8 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
 
   @Override
   public List<BookCategoryResponseDto> getBookCategories() {
-    List<BookCategory> bookCategories = bookCategoryRepository.findAll();
-    return bookCategories.stream()
+    List<BookCategoryWithStats> bookCategoryProjections = bookCategoryRepository.findAllWithStats();
+    return bookCategoryProjections.stream()
         .map(bookCategory -> modelMapper.map(bookCategory, BookCategoryResponseDto.class))
         .toList();
   }

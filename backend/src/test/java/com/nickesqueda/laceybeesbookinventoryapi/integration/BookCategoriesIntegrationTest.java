@@ -2,8 +2,7 @@ package com.nickesqueda.laceybeesbookinventoryapi.integration;
 
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.*;
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.BookCategories.*;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -11,10 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
@@ -25,6 +23,19 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(bookCategoryCount)));
+  }
+
+  @Test
+  void getBookCategories_ShouldReturnBookAndReadBookCountsForEachCategory_GivenValidRequest()
+      throws Exception {
+
+    mockMvc
+        .perform(get(allBookCategoriesUri))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(bookCategoryCount)))
+        .andExpect(jsonPath("$[0].totalBookCount", greaterThan(0)))
+        .andExpect(jsonPath("$[0].readBookCount", greaterThan(0)));
   }
 
   @Test
@@ -93,7 +104,8 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   @Test
   void getBookCategory_ShouldReturnBookAndReadBookCounts_GivenValidRequest() throws Exception {
     int totalBookCount = bookRepository.countByBookCategoryId(bookCategoryId);
-    int readBookCount = bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.READ);
+    int readBookCount =
+        bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.READ);
 
     mockMvc
         .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
