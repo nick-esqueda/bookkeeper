@@ -11,7 +11,7 @@ public final class SqlQueries {
         COUNT(*) AS totalBookCount,
         SUM(CASE WHEN b.read_status = 'READ' THEN 1 ELSE 0 END) AS readBookCount
       FROM book_categories bc
-      JOIN books b ON bc.id = b.book_category_id
+      LEFT JOIN books b ON bc.id = b.book_category_id
       WHERE bc.id = :bookCategoryId
       GROUP BY bc.id;
       """;
@@ -26,7 +26,7 @@ public final class SqlQueries {
         COUNT(*) AS totalBookCount,
         SUM(CASE WHEN b.read_status = 'READ' THEN 1 ELSE 0 END) AS readBookCount
       FROM book_categories bc
-      JOIN books b ON bc.id = b.book_category_id
+      LEFT JOIN books b ON bc.id = b.book_category_id
       GROUP BY bc.id;
       """;
 
