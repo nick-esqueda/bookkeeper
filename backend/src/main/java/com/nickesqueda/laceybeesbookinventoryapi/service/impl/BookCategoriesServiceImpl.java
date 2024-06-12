@@ -4,12 +4,11 @@ import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryRequestDto;
 import com.nickesqueda.laceybeesbookinventoryapi.dto.BookCategoryResponseDto;
 import com.nickesqueda.laceybeesbookinventoryapi.entity.BookCategory;
 import com.nickesqueda.laceybeesbookinventoryapi.exception.UniqueConstraintViolationException;
-import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
+import com.nickesqueda.laceybeesbookinventoryapi.model.BookCategoryWithStats;
 import com.nickesqueda.laceybeesbookinventoryapi.repository.BookCategoryRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.repository.BookRepository;
 import com.nickesqueda.laceybeesbookinventoryapi.service.BookCategoriesService;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class BookCategoriesServiceImpl implements BookCategoriesService {
+
   private final BookCategoryRepository bookCategoryRepository;
   private final BookRepository bookRepository;
   private final ModelMapper modelMapper;
@@ -43,10 +43,9 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
 
   @Override
   public BookCategoryResponseDto getBookCategory(int bookCategoryId) {
-    BookCategory bookCategoryEntity = bookCategoryRepository.retrieveOrElseThrow(bookCategoryId);
-    BookCategoryResponseDto bookCategoryResponseDto =
-        modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
-    return addBookCountsToBookCategory(bookCategoryResponseDto);
+    BookCategoryWithStats bookCategoryProjection =
+        bookCategoryRepository.retrieveWithStatsOrElseThrow(bookCategoryId);
+    return modelMapper.map(bookCategoryProjection, BookCategoryResponseDto.class);
   }
 
   @Override
@@ -60,30 +59,16 @@ public class BookCategoriesServiceImpl implements BookCategoriesService {
 
     BookCategory bookCategoryEntity = bookCategoryRepository.retrieveOrElseThrow(bookCategoryId);
     modelMapper.map(bookCategoryRequestDto, bookCategoryEntity);
-    bookCategoryEntity = bookCategoryRepository.save(bookCategoryEntity);
+    bookCategoryRepository.save(bookCategoryEntity);
 
-    BookCategoryResponseDto bookCategoryResponseDto =
-        modelMapper.map(bookCategoryEntity, BookCategoryResponseDto.class);
-    return addBookCountsToBookCategory(bookCategoryResponseDto);
+    BookCategoryWithStats bookCategoryProjection =
+        bookCategoryRepository.retrieveWithStatsOrElseThrow(bookCategoryId);
+
+    return modelMapper.map(bookCategoryProjection, BookCategoryResponseDto.class);
   }
 
   @Override
   public void deleteBookCategory(int bookCategoryId) {
     bookCategoryRepository.deleteById(bookCategoryId);
-  }
-
-  private BookCategoryResponseDto addBookCountsToBookCategory(
-      BookCategoryResponseDto bookCategory) {
-
-    // TODO: refactor: use native SQL to fetch categories with all book counts simultaneously to
-    // optimize DB round-trips.
-    int id = Optional.ofNullable(bookCategory).map(BookCategoryResponseDto::getId).orElseThrow();
-    int totalBookCount = bookRepository.countByBookCategoryId(id);
-    int readBookCount = bookRepository.countByBookCategoryIdAndReadStatus(id, ReadStatus.READ);
-
-    return bookCategory.toBuilder()
-        .totalBookCount(totalBookCount)
-        .readBookCount(readBookCount)
-        .build();
   }
 }

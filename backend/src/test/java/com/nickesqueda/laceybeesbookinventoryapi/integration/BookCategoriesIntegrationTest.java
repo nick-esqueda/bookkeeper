@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,14 +92,17 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   void getBookCategory_ShouldReturnBookAndReadBookCounts_GivenValidRequest() throws Exception {
+    int totalBookCount = bookRepository.countByBookCategoryId(bookCategoryId);
+    int readBookCount = bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.READ);
+
     mockMvc
         .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").value(bookCategoryId))
         .andExpect(jsonPath("$.name").isNotEmpty())
-        .andExpect(jsonPath("$.totalBookCount").isNotEmpty())
-        .andExpect(jsonPath("$.readBookCount").isNotEmpty());
+        .andExpect(jsonPath("$.totalBookCount").value(totalBookCount))
+        .andExpect(jsonPath("$.readBookCount").value(readBookCount));
   }
 
   @Test
