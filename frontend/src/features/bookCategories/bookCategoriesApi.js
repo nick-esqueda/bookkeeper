@@ -57,7 +57,7 @@ export const editBookCategory = async (bookCategory) => {
   if (!response.ok) {
     const errorResponse = await response.json();
     console.error("Error response from createBookCategory(): ", errorResponse);
-    throw new Error("Failed to create category");
+    throw new Error("Failed to edit category");
   }
   return response.json();
 };
