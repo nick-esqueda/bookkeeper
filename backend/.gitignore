@@ -1,5 +1,8 @@
 .notes
-.env*
+.env
+.env.development
+.env.test
+.env.production
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
