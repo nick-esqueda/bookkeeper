@@ -42,7 +42,13 @@ const CategoryPage = () => {
 
           <p className="d-flex justify-content-center gap-3">
             <Badge bg="success">{category.readBookCount} Read</Badge>
+            <Badge bg="danger">{category.unreadBookCount} Unread</Badge>
+            <Badge bg="warning" text="dark">{category.didNotFinishBookCount} DNF</Badge>
+          </p>
+
+          <p className="d-flex justify-content-center gap-3">
             <Badge bg="primary">{category.totalBookCount} Total</Badge>
+            <Badge bg="secondary">{category.authorCount} Authors</Badge>
           </p>
 
           <Button variant="link" size="sm" onClick={() => setShowModal(true)}>
