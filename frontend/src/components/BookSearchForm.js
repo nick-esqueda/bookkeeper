@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Form, FormLabel, InputGroup, Row } from "react-bootstrap";
+import { Button, Col, Form, FormLabel, InputGroup, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { readStatusTextMap } from "../utils/dataTransformationUtils";
@@ -7,6 +7,7 @@ import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategor
 import { useDispatch, useSelector } from "react-redux";
 import { handleFormChange } from "../utils/formUtils";
 import LoadingSpinner from "./LoadingSpinner";
+import SearchFormData from "../models/SearchFormData";
 
 const BookSearchForm = ({ formData, setFormData }) => {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ const BookSearchForm = ({ formData, setFormData }) => {
     e.stopPropagation();
   };
 
+  const resetFormData = () => {
+    setFormData(SearchFormData.createDefault());
+  };
+
   if (loading) {
     return <LoadingSpinner fixed={false} />;
   }
@@ -37,7 +42,7 @@ const BookSearchForm = ({ formData, setFormData }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <Row className="align-items-center">
+      <Row className="align-items-end">
         <Col xs="auto" className="mb-3">
           <Form.Group controlId="formSearchQuery">
             <FormLabel className="text-muted fw-lighter">Search</FormLabel>
@@ -122,6 +127,11 @@ const BookSearchForm = ({ formData, setFormData }) => {
               <option value="desc">Reverse</option>
             </Form.Select>
           </Form.Group>
+        </Col>
+        <Col xs="auto" className="mb-3">
+          <Button variant="link" className="fw-light" onClick={resetFormData}>
+            Reset filters
+          </Button>
         </Col>
       </Row>
     </Form>

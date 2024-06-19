@@ -4,18 +4,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import BookList from "../components/BookList";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../components/LoadingSpinner";
-
-const defaultSearchOptions = {
-  query: "",
-  bookCategoryId: "",
-  readStatus: "",
-  sortBy: "title",
-  sortDir: "asc",
-};
+import SearchFormData from "../models/SearchFormData";
 
 const BooksPage = () => {
   const { totalResults, loading } = useSelector((state) => state.books);
-  const [searchOptions, setSearchOptions] = useState(defaultSearchOptions);
+  const [searchOptions, setSearchOptions] = useState(
+    SearchFormData.createDefault()
+  );
 
   const resultCount = (
     <small className="text-muted">
