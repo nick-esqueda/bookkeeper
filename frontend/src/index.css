@@ -25,3 +25,7 @@ code {
   text-align: center;
   margin: .5em auto;
 }
+
+.preserve-newlines {
+  white-space: pre-wrap;
+}

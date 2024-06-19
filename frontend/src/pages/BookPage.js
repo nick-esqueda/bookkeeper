@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { clearAllBooks, deleteBookAsync, fetchBookAsync } from "../features/books/booksSlice";
+import {
+  clearAllBooks,
+  deleteBookAsync,
+  fetchBookAsync,
+} from "../features/books/booksSlice";
 import EditBookModal from "../components/EditBookModal";
 import {
   readStatusButtonColorMap,
@@ -133,7 +137,9 @@ const BookPage = () => {
             <Card.Header>My Notes</Card.Header>
             <Card.Body>
               {book.notes ? (
-                <Card.Text>{book.notes}</Card.Text>
+                <Card.Text className="preserve-newlines">
+                  {book.notes}
+                </Card.Text>
               ) : (
                 <Card.Text className="text-muted">
                   Edit book to add notes...
