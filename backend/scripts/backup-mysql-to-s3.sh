@@ -4,10 +4,11 @@
 set -e
 
 # Load environment variables
-export $(grep -v '^#' /home/ec2-user/.env.production | xargs)
+HOME_DIR="/home/ec2-user"
+export $(grep -v '^#' $HOME_DIR/.env.production | xargs)
 
 # Variables
-TIMESTAMP=$(date +"%F")
+TIMESTAMP=$(date +"%Y-%m-%dT%H-%M-%S")
 BACKUP_DIR="/mnt/ebs-volume/db-backups"
 BACKUP_NAME="$DB_NAME-$TIMESTAMP.sql"
 TEMP_BACKUP_NAME="/tmp/$BACKUP_NAME"
@@ -21,6 +22,11 @@ docker exec -i ec2-user-db-1 /usr/bin/mysqldump -u root -p$DB_ROOT_PASSWORD $DB_
 
 # Move the backup to proper directory with sudo
 sudo mv $TEMP_BACKUP_NAME $BACKUP_DIR/$BACKUP_NAME
+# ... and create a symlink to the backup in the home dir
+# so that docker compose will use it as the DB init script on next startup.
+sudo mv $HOME_DIR/backup.sql $HOME_DIR/backup-old.sql
+sudo ln -s $BACKUP_DIR/$BACKUP_NAME $HOME_DIR/backup.sql
+sudo rm $HOME_DIR/backup-old.sql
 
 # NOTE: `aws s3 cp` causes t2.micro to crash, therefore commenting out.
 # Upload the backup to S3
