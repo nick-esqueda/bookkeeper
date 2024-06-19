@@ -4,7 +4,7 @@
 set -e
 
 # Load environment variables
-export $(grep -v '^#' .env.production | xargs)
+export $(grep -v '^#' /home/ec2-user/.env.production | xargs)
 
 # Variables
 TIMESTAMP=$(date +"%F")
