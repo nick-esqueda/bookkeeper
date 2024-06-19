@@ -22,6 +22,9 @@ public final class TestConstants {
     public static final String BOOK_CATEGORY_REQUEST_UPDATED_NAME =
         BOOK_CATEGORY_REQUEST_JSON.replace(TEST_STRING, TEST_STRING2);
 
+    public static final String BOOK_CATEGORY_REQUEST_UPDATED_CASE_FICTION =
+        BOOK_CATEGORY_REQUEST_JSON.replace(TEST_STRING, "fiction");
+
     public static final String BOOK_CATEGORY_REQUEST_UNAVAILABLE_NAME =
         BOOK_CATEGORY_REQUEST_JSON.replace(TEST_STRING, UNAVAILABLE_BOOK_CATEGORY);
 

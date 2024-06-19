@@ -93,10 +93,10 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   @Test
   void getBookCategory_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
-        .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
+        .perform(get(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri()))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(bookCategoryId))
+        .andExpect(jsonPath("$.id").value(fictionBookCategoryId))
         .andExpect(jsonPath("$.name").isNotEmpty())
         .andExpect(jsonPath("$.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.updatedAt").isNotEmpty());
@@ -104,21 +104,21 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   void getBookCategory_ShouldReturnBookStats_GivenValidRequest() throws Exception {
-    int totalBookCount = bookRepository.countByBookCategoryId(bookCategoryId);
+    int totalBookCount = bookRepository.countByBookCategoryId(fictionBookCategoryId);
     int readBookCount =
-        bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.READ);
+        bookRepository.countByBookCategoryIdAndReadStatus(fictionBookCategoryId, ReadStatus.READ);
     int unreadBookCount =
-        bookRepository.countByBookCategoryIdAndReadStatus(bookCategoryId, ReadStatus.UNREAD);
+        bookRepository.countByBookCategoryIdAndReadStatus(fictionBookCategoryId, ReadStatus.UNREAD);
     int didNotFinishBookCount =
         bookRepository.countByBookCategoryIdAndReadStatus(
-            bookCategoryId, ReadStatus.DID_NOT_FINISH);
-    int authorCount = bookRepository.countAuthorsInBookCategory(bookCategoryId);
+            fictionBookCategoryId, ReadStatus.DID_NOT_FINISH);
+    int authorCount = bookRepository.countAuthorsInBookCategory(fictionBookCategoryId);
 
     mockMvc
-        .perform(get(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
+        .perform(get(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri()))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(bookCategoryId))
+        .andExpect(jsonPath("$.id").value(fictionBookCategoryId))
         .andExpect(jsonPath("$.name").isNotEmpty())
         .andExpect(jsonPath("$.totalBookCount").value(totalBookCount))
         .andExpect(jsonPath("$.readBookCount").value(readBookCount))
@@ -143,7 +143,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   void editBookCategory_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
         .perform(
-            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+            put(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri())
                 .contentType(APPLICATION_JSON)
                 .content(BOOK_CATEGORY_REQUEST_UPDATED_NAME))
         .andDo(print())
@@ -157,12 +157,12 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   void editBookCategory_ShouldReturnBookStats_GivenValidRequest() throws Exception {
     mockMvc
         .perform(
-            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+            put(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri())
                 .contentType(APPLICATION_JSON)
                 .content(BOOK_CATEGORY_REQUEST_UPDATED_NAME))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(bookCategoryId))
+        .andExpect(jsonPath("$.id").value(fictionBookCategoryId))
         .andExpect(jsonPath("$.name").isNotEmpty())
         .andExpect(jsonPath("$.totalBookCount").isNotEmpty())
         .andExpect(jsonPath("$.readBookCount").isNotEmpty())
@@ -173,10 +173,25 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
+  void editBookCategory_ShouldAllowChangingCase_GivenExistingCategoryNameWithDifferentCase()
+      throws Exception {
+    // original name value: "Fiction"
+    mockMvc
+        .perform(
+            put(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(BOOK_CATEGORY_REQUEST_UPDATED_CASE_FICTION))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.name").value("fiction"));
+  }
+
+  @Test
+  @Transactional
   void editBookCategory_ShouldReturn400WithErrorResponse_GivenNameAlreadyExists() throws Exception {
     mockMvc
         .perform(
-            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+            put(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri())
                 .contentType(APPLICATION_JSON)
                 .content(BOOK_CATEGORY_REQUEST_UNAVAILABLE_NAME))
         .andDo(print())
@@ -189,7 +204,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   void editBookCategory_ShouldReturn400WithErrorResponse_GivenInvalidData() throws Exception {
     mockMvc
         .perform(
-            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+            put(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri())
                 .contentType(APPLICATION_JSON)
                 .content(BOOK_CATEGORY_REQUEST_NULL_NAME))
         .andDo(print())
@@ -199,7 +214,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
 
     mockMvc
         .perform(
-            put(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri())
+            put(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri())
                 .contentType(APPLICATION_JSON)
                 .content(BOOK_CATEGORY_REQUEST_EMPTY_NAME))
         .andDo(print())
@@ -227,7 +242,7 @@ public class BookCategoriesIntegrationTest extends BaseIntegrationTest {
   @Transactional
   void deleteBookCategory_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
-        .perform(delete(bookCategoryUriBuilder.buildAndExpand(bookCategoryId).toUri()))
+        .perform(delete(bookCategoryUriBuilder.buildAndExpand(fictionBookCategoryId).toUri()))
         .andDo(print())
         .andExpect(status().isNoContent());
   }

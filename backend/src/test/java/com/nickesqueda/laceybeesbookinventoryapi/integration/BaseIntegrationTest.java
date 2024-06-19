@@ -29,7 +29,7 @@ public abstract class BaseIntegrationTest {
   static URI allBooksUri;
   static UriComponentsBuilder bookCategoryUriBuilder;
   static UriComponentsBuilder bookUriBuilder;
-  static int bookCategoryId;
+  static int fictionBookCategoryId;
   static int nonExistentBookCategoryId;
   static int bookCategoryCount;
   static int bookId;
@@ -38,7 +38,7 @@ public abstract class BaseIntegrationTest {
 
   @BeforeAll
   static void initialize() {
-    bookCategoryId = 1;
+    fictionBookCategoryId = 1;
     nonExistentBookCategoryId = 1000;
     bookId = 1;
     nonExistentBookId = 1000;
