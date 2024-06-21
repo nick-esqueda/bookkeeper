@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -8,6 +8,7 @@ import AddBookModal from "./AddBookModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Header = () => {
+  const navRef = useRef(null);
   const [modalShow, setModalShow] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
 
@@ -15,6 +16,20 @@ const Header = () => {
     setModalShow(true);
     setNavExpanded(false);
   };
+
+  const handleClickOutsideNav = (e) => {
+    if (navRef.current && !navRef.current.contains(e.target)) {
+      setNavExpanded(false);
+    }
+  };
+
+  useEffect(() => {
+    // use event listeners and useRef to close navbar collapse menu when
+    // clicking anywhere outside the nav menu on mobile viewports.
+    document.addEventListener("click", handleClickOutsideNav, true);
+    return () =>
+      document.removeEventListener("click", handleClickOutsideNav, true);
+  }, []);
 
   return (
     <Navbar
@@ -31,7 +46,7 @@ const Header = () => {
           aria-controls="basic-navbar-nav"
           onClick={() => setNavExpanded(!navExpanded)}
         />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" ref={navRef}>
           {/* set Add Book button at end of navbar on non-mobile viewports. */}
           <Nav className={navExpanded ? "text-end" : "me-auto"}>
             <Nav.Link
