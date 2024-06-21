@@ -73,8 +73,8 @@ const BookForm = ({ onHide, book }) => {
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Row className="mb-3">
-        <Col>
+      <Row>
+        <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookTitle">
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -91,7 +91,7 @@ const BookForm = ({ onHide, book }) => {
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
-        <Col>
+        <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookAuthor">
             <Form.Label>Author</Form.Label>
             <Form.Control
@@ -110,8 +110,8 @@ const BookForm = ({ onHide, book }) => {
         </Col>
       </Row>
 
-      <Row className="mb-3">
-        <Col>
+      <Row>
+        <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookEdition">
             <Form.Label>Edition</Form.Label>
             <Form.Control
@@ -123,7 +123,7 @@ const BookForm = ({ onHide, book }) => {
             />
           </Form.Group>
         </Col>
-        <Col>
+        <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookCategory">
             <Form.Label>Category</Form.Label>
             <Form.Select
