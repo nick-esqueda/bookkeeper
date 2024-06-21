@@ -49,6 +49,27 @@ const HomePage = () => {
         <Col xs={12} sm={12} md={6} lg={6} xl={6} className="mb-4">
           <Card>
             <Card.Body>
+              <Card.Title>Search</Card.Title>
+              <Card.Text>
+                Search for books in the inventory by going to the books page.
+                You can filter by category and read status, and also sort
+                results by different fields.
+              </Card.Text>
+              <Card.Text>
+                The search tool is a good way to see how many books are in each
+                category, how many books you've read, and so on.
+              </Card.Text>
+              <Card.Text>
+                <Button as={Link} to="/books">
+                  Search Books
+                </Button>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col xs={12} sm={12} md={6} lg={6} xl={6} className="mb-4">
+          <Card>
+            <Card.Body>
               <Card.Title>Book Categories</Card.Title>
               <Card.Text>
                 Books can be categorized however you desire. Create new
@@ -74,27 +95,6 @@ const HomePage = () => {
                   show={createCategoryModalShow}
                   onHide={() => setCreateCategoryModalShow(false)}
                 />
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={12} sm={12} md={6} lg={6} xl={6} className="mb-4">
-          <Card>
-            <Card.Body>
-              <Card.Title>Search</Card.Title>
-              <Card.Text>
-                Search for books in the inventory by going to the books page.
-                You can filter by category and read status, and also sort
-                results by different fields.
-              </Card.Text>
-              <Card.Text>
-                The search tool is a good way to see how many books are in each
-                category, how many books you've read, and so on.
-              </Card.Text>
-              <Card.Text>
-                <Button as={Link} to="/books">
-                  Search Books
-                </Button>
               </Card.Text>
             </Card.Body>
           </Card>
