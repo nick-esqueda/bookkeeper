@@ -18,7 +18,7 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="text-end">
             <Nav.Link as={Link} to="/categories">
               Categories
             </Nav.Link>
@@ -26,10 +26,12 @@ const Header = () => {
               Books
             </Nav.Link>
           </Nav>
-          <Button variant="success" onClick={() => setModalShow(true)}>
-            Add Book
-          </Button>
-          <AddBookModal show={modalShow} onHide={() => setModalShow(false)} />
+          <div className="text-end">
+            <Button variant="success" onClick={() => setModalShow(true)}>
+              Add Book
+            </Button>
+            <AddBookModal show={modalShow} onHide={() => setModalShow(false)} />
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
