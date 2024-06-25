@@ -17,13 +17,13 @@ const Header = () => {
       fixed="top"
       collapseOnSelect
     >
-      <Container>
+      <Container className="justify-content-start gap-1">
+        <Navbar.Toggle className="border-0" />
         <Navbar.Brand as={Link} to="/" id="nav-brand">
           Lacey Bee's Book Inventory
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="text-end">
+          <Nav className="me-auto">
             <Nav.Link as={Link} to="/categories" eventKey="1">
               Categories
             </Nav.Link>
@@ -31,7 +31,7 @@ const Header = () => {
               Books
             </Nav.Link>
           </Nav>
-          <div className="text-end">
+          <div>
             <Button variant="success" onClick={() => setModalShow(true)}>
               Add Book
             </Button>
