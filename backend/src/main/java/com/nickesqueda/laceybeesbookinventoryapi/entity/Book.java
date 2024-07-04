@@ -4,6 +4,8 @@ import static com.nickesqueda.laceybeesbookinventoryapi.util.ValidationConstants
 
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.OnDelete;
@@ -38,4 +40,11 @@ public class Book extends BaseEntity {
   @JoinColumn(name = "book_category_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private BookCategory bookCategory;
+
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinTable(
+      name = "books_book_tags",
+      joinColumns = @JoinColumn(name = "book_id"),
+      inverseJoinColumns = @JoinColumn(name = "book_tag_id"))
+  private Set<BookTag> bookTags = new HashSet<>();
 }

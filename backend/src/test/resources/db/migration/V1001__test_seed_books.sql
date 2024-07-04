@@ -1,4 +1,7 @@
+-- temporarily disable foreign key checks to allow for table truncation.
+SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE books;
+SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO books (book_category_id, title, author, edition, notes, read_status, created_at, updated_at)
 VALUES

@@ -38,6 +38,39 @@ public final class TestConstants {
         BOOK_CATEGORY_REQUEST_JSON.replace(TEST_STRING, "a".repeat(BOOK_CATEGORY_MAX_SIZE + 1));
   }
 
+  public static final class BookTags {
+    public static final String UNAVAILABLE_BOOK_TAG = "winter";
+
+    public static final String BOOK_TAG_REQUEST_JSON =
+        """
+        {
+          "name": %s
+        }
+        """
+            .formatted("\"" + TEST_STRING + "\"");
+
+    public static final String BOOK_TAG_REQUEST_UPDATED_NAME =
+        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, TEST_STRING2);
+
+    public static final String BOOK_TAG_REQUEST_UNAVAILABLE_NAME =
+        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, UNAVAILABLE_BOOK_TAG);
+
+    public static final String BOOK_TAG_REQUEST_UNAVAILABLE_NAME_UPPERCASE =
+        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, UNAVAILABLE_BOOK_TAG.toUpperCase());
+
+    public static final String BOOK_TAG_REQUEST_UPDATED_CASE_AUTUMN =
+        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, "Fiction");
+
+    public static final String BOOK_TAG_REQUEST_NULL_NAME =
+        BOOK_TAG_REQUEST_JSON.replace("\"" + TEST_STRING + "\"", NULL_STRING);
+
+    public static final String BOOK_TAG_REQUEST_EMPTY_NAME =
+        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, EMPTY_STRING);
+
+    public static final String BOOK_TAG_REQUEST_MAX_SIZE_NAME =
+        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, "a".repeat(BOOK_TAG_NAME_MAX_SIZE + 1));
+  }
+
   public static final class Books {
     public static final String TEST_TITLE = "TEST_TITLE";
     public static final String TEST_AUTHOR = "TEST_AUTHOR";
