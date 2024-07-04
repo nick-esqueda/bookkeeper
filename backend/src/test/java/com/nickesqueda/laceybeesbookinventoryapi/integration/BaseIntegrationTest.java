@@ -63,7 +63,7 @@ public abstract class BaseIntegrationTest {
         UriComponentsBuilder.fromUri(baseUri).path("/book-categories/{bookCategoryId}");
     bookUriBuilder = UriComponentsBuilder.fromUri(baseUri).path("/books/{bookId}");
     allBookTagsUri = UriComponentsBuilder.fromUri(baseUri).path("/book-tags").build().toUri();
-    bookTagUriBuilder = UriComponentsBuilder.fromUri(baseUri).path("/books-tags/{bookTagId}");
+    bookTagUriBuilder = UriComponentsBuilder.fromUri(baseUri).path("/book-tags/{bookTagId}");
   }
 
   @BeforeEach

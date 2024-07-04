@@ -3,14 +3,13 @@ package com.nickesqueda.laceybeesbookinventoryapi.integration;
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.*;
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.BookTags.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.nickesqueda.laceybeesbookinventoryapi.entity.BookTag;
+import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -100,43 +99,27 @@ public class BookTagsIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
-  @Transactional
-  void getBookTag_ShouldReturnTagNameInLowercase_GivenValidRequest() throws Exception {
-    BookTag uppercaseBookTag = BookTag.builder().name("UPPERCASE").build();
-    bookTagRepository.save(uppercaseBookTag);
+  void getBookTag_ShouldReturnBookStats_GivenValidRequest() throws Exception {
+    int totalBookCount = bookRepository.countByBookTags_Id(autumnBookTagId);
+    int readBookCount =
+        bookRepository.countByReadStatusAndBookTags_Id(ReadStatus.READ, autumnBookTagId);
+    int unreadBookCount =
+        bookRepository.countByReadStatusAndBookTags_Id(ReadStatus.UNREAD, autumnBookTagId);
+    int didNotFinishBookCount =
+        bookRepository.countByReadStatusAndBookTags_Id(ReadStatus.DID_NOT_FINISH, autumnBookTagId);
+    int authorCount = bookRepository.countAuthorsInBookTag(autumnBookTagId);
 
     mockMvc
-        .perform(get(bookTagUriBuilder.buildAndExpand(uppercaseBookTag.getId()).toUri()))
+        .perform(get(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri()))
         .andDo(print())
-        .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.id").isNotEmpty())
-        .andExpect(jsonPath("$.name").value("uppercase"));
-  }
-
-  @Test
-  void getBookTag_ShouldReturnBookStats_GivenValidRequest() throws Exception { // TODO
-    //    int totalBookCount = bookRepository.countByBookCategoryId(autumnBookTagId);
-    //    int readBookCount =
-    //        bookRepository.countByBookCategoryIdAndReadStatus(autumnBookTagId, ReadStatus.READ);
-    //    int unreadBookCount =
-    //        bookRepository.countByBookCategoryIdAndReadStatus(autumnBookTagId, ReadStatus.UNREAD);
-    //    int didNotFinishBookCount =
-    //        bookRepository.countByBookCategoryIdAndReadStatus(
-    //            autumnBookTagId, ReadStatus.DID_NOT_FINISH);
-    //    int authorCount = bookRepository.countAuthorsInBookCategory(autumnBookTagId);
-    //
-    //    mockMvc
-    //        .perform(get(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri()))
-    //        .andDo(print())
-    //        .andExpect(status().isOk())
-    //        .andExpect(jsonPath("$.id").value(autumnBookTagId))
-    //        .andExpect(jsonPath("$.name").isNotEmpty())
-    //        .andExpect(jsonPath("$.totalBookCount").value(totalBookCount))
-    //        .andExpect(jsonPath("$.readBookCount").value(readBookCount))
-    //        .andExpect(jsonPath("$.unreadBookCount").value(unreadBookCount))
-    //        .andExpect(jsonPath("$.didNotFinishBookCount").value(didNotFinishBookCount))
-    //        .andExpect(jsonPath("$.authorCount").value(authorCount));
-    fail();
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(autumnBookTagId))
+        .andExpect(jsonPath("$.name").isNotEmpty())
+        .andExpect(jsonPath("$.totalBookCount").value(totalBookCount))
+        .andExpect(jsonPath("$.readBookCount").value(readBookCount))
+        .andExpect(jsonPath("$.unreadBookCount").value(unreadBookCount))
+        .andExpect(jsonPath("$.didNotFinishBookCount").value(didNotFinishBookCount))
+        .andExpect(jsonPath("$.authorCount").value(authorCount));
   }
 
   @Test

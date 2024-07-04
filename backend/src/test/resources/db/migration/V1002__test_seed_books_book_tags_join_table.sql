@@ -21,3 +21,7 @@ VALUES
 -- Book 6: 0 tags
 -- Book 7: 1 tags
 -- Book 8: 2 tags
+
+-- Tag 1: 6 books
+-- Tag 2: 4 books
+-- Tag 3: 2 books

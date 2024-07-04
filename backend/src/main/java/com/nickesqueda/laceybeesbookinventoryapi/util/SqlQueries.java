@@ -64,4 +64,49 @@ public final class SqlQueries {
       WHERE book_category_id = :bookCategoryId
       GROUP BY book_category_id;
       """;
+
+  public static final String FIND_ALL_BOOK_TAGS_WITH_STATS =
+      """
+      SELECT
+        bt.id,
+        bt.name,
+        bt.created_at,
+        bt.updated_at,
+        COUNT(b.id) AS totalBookCount,
+        SUM(CASE WHEN b.read_status = 'READ' THEN 1 ELSE 0 END) AS readBookCount,
+        SUM(CASE WHEN b.read_status = 'UNREAD' THEN 1 ELSE 0 END) AS unreadBookCount,
+        SUM(CASE WHEN b.read_status = 'DID_NOT_FINISH' THEN 1 ELSE 0 END) AS didNotFinishBookCount,
+        COUNT(DISTINCT b.author) AS authorCount
+      FROM book_tags bt
+      LEFT JOIN books_book_tags jt ON bt.id = jt.book_tag_id
+      LEFT JOIN books b ON jt.book_id = b.id
+      GROUP BY bt.id, bt.name, bt.created_at, bt.updated_at;
+      """;
+
+  public static final String FIND_BOOK_TAG_WITH_STATS =
+      """
+      SELECT
+        bt.id,
+        bt.name,
+        bt.created_at,
+        bt.updated_at,
+        COUNT(b.id) AS totalBookCount,
+        SUM(CASE WHEN b.read_status = 'READ' THEN 1 ELSE 0 END) AS readBookCount,
+        SUM(CASE WHEN b.read_status = 'UNREAD' THEN 1 ELSE 0 END) AS unreadBookCount,
+        SUM(CASE WHEN b.read_status = 'DID_NOT_FINISH' THEN 1 ELSE 0 END) AS didNotFinishBookCount,
+        COUNT(DISTINCT b.author) AS authorCount
+      FROM book_tags bt
+      LEFT JOIN books_book_tags jt ON bt.id = jt.book_tag_id
+      LEFT JOIN books b ON jt.book_id = b.id
+      WHERE bt.id = :bookTagId
+      GROUP BY bt.id, bt.name, bt.created_at, bt.updated_at;
+      """;
+
+  public static final String COUNT_DISTINCT_AUTHORS_IN_BOOK_TAG =
+      """
+      SELECT COUNT(DISTINCT b.author)
+      FROM books b
+      JOIN books_book_tags jt ON b.id = jt.book_id
+      WHERE jt.book_tag_id = :bookTagId;
+      """;
 }
