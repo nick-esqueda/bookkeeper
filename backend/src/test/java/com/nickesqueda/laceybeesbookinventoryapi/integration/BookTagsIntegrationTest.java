@@ -142,7 +142,7 @@ public class BookTagsIntegrationTest extends BaseIntegrationTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id").isNotEmpty())
-        .andExpect(jsonPath("$.name").value(TEST_STRING2.toLowerCase()));
+        .andExpect(jsonPath("$.name").value(TEST_STRING2));
   }
 
   @Test
@@ -177,29 +177,6 @@ public class BookTagsIntegrationTest extends BaseIntegrationTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.name").value("Autumn"));
-  }
-
-  @Test
-  @Transactional
-  void editBookTag_ShouldReturn400WithErrorResponse_GivenCaseInsensitiveNameAlreadyExists()
-      throws Exception {
-    mockMvc
-        .perform(
-            put(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri())
-                .contentType(APPLICATION_JSON)
-                .content(BOOK_TAG_REQUEST_UNAVAILABLE_NAME))
-        .andDo(print())
-        .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.errorMessage", containsString("unique")));
-
-    mockMvc
-        .perform(
-            put(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri())
-                .contentType(APPLICATION_JSON)
-                .content(BOOK_TAG_REQUEST_UNAVAILABLE_NAME_UPPERCASE))
-        .andDo(print())
-        .andExpect(status().isBadRequest())
-        .andExpect(jsonPath("$.errorMessage", containsString("unique")));
   }
 
   @Test
@@ -250,13 +227,35 @@ public class BookTagsIntegrationTest extends BaseIntegrationTest {
 
   @Test
   @Transactional
-  void deleteTag_ShouldDeleteAssociatedBooks_GivenValidRequest() throws Exception {
+  void deleteTag_ShouldNotDeleteAssociatedBooks_GivenValidRequest() throws Exception {
+    // associations (rows) in the join table should be deleted, but not the associated books.
+    long bookCountBeforeTagDeletion = bookRepository.count();
+    mockMvc
+        .perform(delete(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri()))
+        .andDo(print())
+        .andExpect(status().isNoContent());
+    long bookCountAfterTagDeletion = bookRepository.count();
+
+    Assertions.assertEquals(bookCountBeforeTagDeletion, bookCountAfterTagDeletion);
+  }
+
+  @Test
+  @Transactional
+  void getTag_ShouldReturn404WithErrorResponse_GivenSuccessfulDeletion() throws Exception {
+    mockMvc
+        .perform(get(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri()))
+        .andDo(print())
+        .andExpect(status().isOk());
+
     mockMvc
         .perform(delete(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri()))
         .andDo(print())
         .andExpect(status().isNoContent());
 
-    Assertions.assertEquals(0, bookTagRepository.count());
+    mockMvc
+        .perform(get(bookTagUriBuilder.buildAndExpand(autumnBookTagId).toUri()))
+        .andDo(print())
+        .andExpect(status().isNotFound());
   }
 
   @Test

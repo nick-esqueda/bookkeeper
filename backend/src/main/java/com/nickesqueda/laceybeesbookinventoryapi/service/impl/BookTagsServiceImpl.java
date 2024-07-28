@@ -46,4 +46,24 @@ public class BookTagsServiceImpl implements BookTagsService {
     BookTagWithStats bookTagEntity = bookTagRepository.retrieveWithStatsOrElseThrow(bookTagId);
     return modelMapper.map(bookTagEntity, BookTagResponseDto.class);
   }
+
+  @Override
+  public BookTagResponseDto editBookTag(Integer bookTagId, BookTagRequestDto bookTagRequestDto) {
+    String bookTagName = bookTagRequestDto.getName();
+    if (bookTagRepository.existsByName(bookTagName)) {
+      throw new UniqueConstraintViolationException(BookTag.class, "name", bookTagName);
+    }
+
+    BookTag bookTagEntity = bookTagRepository.retrieveOrElseThrow(bookTagId);
+    modelMapper.map(bookTagRequestDto, bookTagEntity);
+    bookTagRepository.save(bookTagEntity);
+
+    BookTagWithStats bookTagWithStats = bookTagRepository.retrieveWithStatsOrElseThrow(bookTagId);
+    return modelMapper.map(bookTagWithStats, BookTagResponseDto.class);
+  }
+
+  @Override
+  public void deleteBookTag(Integer bookTagId) {
+    bookTagRepository.deleteById(bookTagId);
+  }
 }

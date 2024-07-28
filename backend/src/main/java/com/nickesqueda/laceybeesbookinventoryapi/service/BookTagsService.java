@@ -10,4 +10,8 @@ public interface BookTagsService {
   BookTagResponseDto createBookTag(BookTagRequestDto bookTagRequestDto);
 
   BookTagResponseDto getBookTag(Integer bookTagId);
+
+  BookTagResponseDto editBookTag(Integer bookTagId, BookTagRequestDto bookTagRequestDto);
+
+  void deleteBookTag(Integer bookTagId);
 }

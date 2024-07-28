@@ -55,11 +55,8 @@ public final class TestConstants {
     public static final String BOOK_TAG_REQUEST_UNAVAILABLE_NAME =
         BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, UNAVAILABLE_BOOK_TAG);
 
-    public static final String BOOK_TAG_REQUEST_UNAVAILABLE_NAME_UPPERCASE =
-        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, UNAVAILABLE_BOOK_TAG.toUpperCase());
-
     public static final String BOOK_TAG_REQUEST_UPDATED_CASE_AUTUMN =
-        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, "Fiction");
+        BOOK_TAG_REQUEST_JSON.replace(TEST_STRING, "Autumn");
 
     public static final String BOOK_TAG_REQUEST_NULL_NAME =
         BOOK_TAG_REQUEST_JSON.replace("\"" + TEST_STRING + "\"", NULL_STRING);

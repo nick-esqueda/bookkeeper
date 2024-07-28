@@ -37,4 +37,18 @@ public class BookTagsController {
   public BookTagResponseDto getBookTag(@PathVariable @Min(1) Integer bookTagId) {
     return bookTagsService.getBookTag(bookTagId);
   }
+
+  @PutMapping("/{bookTagId}")
+  @ResponseStatus(HttpStatus.OK)
+  public BookTagResponseDto editBookTag(
+      @PathVariable @Min(1) Integer bookTagId,
+      @RequestBody @Valid BookTagRequestDto bookTagRequestDto) {
+    return bookTagsService.editBookTag(bookTagId, bookTagRequestDto);
+  }
+
+  @DeleteMapping("/{bookTagId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteBookTag(@PathVariable Integer bookTagId) {
+    bookTagsService.deleteBookTag(bookTagId);
+  }
 }
