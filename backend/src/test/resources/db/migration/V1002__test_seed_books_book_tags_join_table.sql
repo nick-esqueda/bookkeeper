@@ -1,17 +1,17 @@
-INSERT INTO books_book_tags (book_id, book_tag_id, created_at, updated_at)
+INSERT INTO books_book_tags (book_id, book_tag_id)
 VALUES
-(1, 1, NOW(), NOW()),
-(2, 2, NOW(), NOW()),
-(2, 3, NOW(), NOW()),
-(3, 1, NOW(), NOW()),
-(3, 2, NOW(), NOW()),
-(3, 3, NOW(), NOW()),
-(4, 1, NOW(), NOW()),
-(4, 2, NOW(), NOW()),
-(5, 1, NOW(), NOW()),
-(7, 1, NOW(), NOW()),
-(8, 1, NOW(), NOW()),
-(8, 2, NOW(), NOW());
+(1, 1),
+(2, 2),
+(2, 3),
+(3, 1),
+(3, 2),
+(3, 3),
+(4, 1),
+(4, 2),
+(5, 1),
+(7, 1),
+(8, 1),
+(8, 2);
 
 -- Book 1: 1 tag
 -- Book 2: 2 tags

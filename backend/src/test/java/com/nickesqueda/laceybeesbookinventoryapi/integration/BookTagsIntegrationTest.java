@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
 public class BookTagsIntegrationTest extends BaseIntegrationTest {
-  // TODO: update Book integration tests to include any book tag checks.
 
   @Test
   void getBookTags_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
