@@ -6,8 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -24,5 +24,5 @@ public class BookTag extends BaseEntity {
   private String name;
 
   @ManyToMany(mappedBy = "bookTags")
-  private Set<Book> books = new HashSet<>();
+  private List<Book> books = new ArrayList<>();
 }

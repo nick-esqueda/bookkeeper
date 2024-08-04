@@ -8,6 +8,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 @Data
 public class BookRequestDto {
   @NotEmpty
@@ -27,4 +31,11 @@ public class BookRequestDto {
   @NotNull private ReadStatus readStatus;
 
   @NotNull private Integer bookCategoryId;
+
+  private List<Integer> bookTagIds = new ArrayList<>();
+
+  public void setBookTagIds(List<Integer> bookTagIds) {
+    // convert explicit null values in requests to an empty list.
+    this.bookTagIds = Objects.requireNonNullElseGet(bookTagIds, ArrayList::new);
+  }
 }

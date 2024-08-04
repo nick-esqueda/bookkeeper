@@ -4,8 +4,8 @@ import static com.nickesqueda.laceybeesbookinventoryapi.util.ValidationConstants
 
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.OnDelete;
@@ -46,5 +46,5 @@ public class Book extends BaseEntity {
       name = "books_book_tags",
       joinColumns = @JoinColumn(name = "book_id"),
       inverseJoinColumns = @JoinColumn(name = "book_tag_id"))
-  private Set<BookTag> bookTags = new HashSet<>();
+  private List<BookTag> bookTags = new ArrayList<>();
 }

@@ -2,6 +2,7 @@ package com.nickesqueda.laceybeesbookinventoryapi.integration;
 
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.Books.*;
 import static com.nickesqueda.laceybeesbookinventoryapi.testutils.TestConstants.TEST_STRING;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -10,6 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +36,10 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.bookCategory.name").isNotEmpty())
         .andExpect(jsonPath("$.bookCategory.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.bookCategory.updatedAt").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags", hasSize(1)))
+        .andExpect(jsonPath("$.bookTags[0].id").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags[0].name").isNotEmpty())
         .andExpect(jsonPath("$.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.updatedAt").isNotEmpty());
   }
@@ -44,8 +51,10 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
         List.of(
             BOOK_REQUEST_NULL_EDITION,
             BOOK_REQUEST_NULL_NOTES,
+            BOOK_REQUEST_NULL_BOOK_TAG_IDS,
             BOOK_REQUEST_EMPTY_EDITION,
-            BOOK_REQUEST_EMPTY_NOTES);
+            BOOK_REQUEST_EMPTY_NOTES,
+            BOOK_REQUEST_EMPTY_BOOK_TAG_IDS);
 
     for (String validRequestBody : validRequestBodies) {
       mockMvc
@@ -99,6 +108,22 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
+  @Transactional
+  void createBook_ShouldStillAssociateExistingTagIds_GivenNonExistentTagIds() throws Exception {
+    // non-existent tag IDs should be ignored. existing tag IDs should get associated.
+    mockMvc
+        .perform(
+            post(allBooksUri)
+                .contentType(APPLICATION_JSON)
+                .content(BOOK_REQUEST_MIXED_EXISTENCE_BOOK_TAG_IDS))
+        .andDo(print())
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.bookTags").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags", hasSize(1)))
+        .andExpect(jsonPath("$.bookTags[0].id").value(1));
+  }
+
+  @Test
   void getBook_ShouldReturnSuccessfulResponse_GivenValidRequest() throws Exception {
     mockMvc
         .perform(get(bookUriBuilder.buildAndExpand(bookId).toUri()))
@@ -113,6 +138,10 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.bookCategory.name").isNotEmpty())
         .andExpect(jsonPath("$.bookCategory.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.bookCategory.updatedAt").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags", hasSize(greaterThan(0))))
+        .andExpect(jsonPath("$.bookTags[0].id").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags[0].name").isNotEmpty())
         .andExpect(jsonPath("$.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.updatedAt").isNotEmpty());
   }
@@ -147,6 +176,10 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.bookCategory.name").isNotEmpty())
         .andExpect(jsonPath("$.bookCategory.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.bookCategory.updatedAt").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags", hasSize(greaterThan(0))))
+        .andExpect(jsonPath("$.bookTags[0].id").isNotEmpty())
+        .andExpect(jsonPath("$.bookTags[0].name").isNotEmpty())
         .andExpect(jsonPath("$.createdAt").isNotEmpty())
         .andExpect(jsonPath("$.updatedAt").isNotEmpty());
   }
@@ -161,11 +194,21 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
             List.of(BOOK_REQUEST_UPDATED_EDITION, "$.edition", TEST_STRING),
             List.of(BOOK_REQUEST_UPDATED_NOTES, "$.notes", TEST_STRING),
             List.of(BOOK_REQUEST_UPDATED_READ_STATUS, "$.readStatus", READ_STATUS_UNREAD),
-            List.of(BOOK_REQUEST_UPDATED_CATEGORY_ID, "bookCategory.id", TEST_BOOK_CATEGORY_ID_2));
+            List.of(BOOK_REQUEST_UPDATED_CATEGORY_ID, "$.bookCategory.id", TEST_BOOK_CATEGORY_ID_2));
 
     for (List<String> info : updateRequestInfo) {
       performPutAndValidateUpdatedField(info.get(0), info.get(1), info.get(2));
     }
+
+    // book tags
+    mockMvc
+        .perform(
+            put(bookUriBuilder.buildAndExpand(bookId).toUri())
+                .contentType(APPLICATION_JSON)
+                .content(BOOK_REQUEST_UPDATED_BOOK_TAG_IDS))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.bookTags", hasSize(2)));
   }
 
   void performPutAndValidateUpdatedField(String requestBody, String jsonPath, String updatedValue)
@@ -188,8 +231,10 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
         List.of(
             BOOK_REQUEST_NULL_EDITION,
             BOOK_REQUEST_NULL_NOTES,
+            BOOK_REQUEST_NULL_BOOK_TAG_IDS,
             BOOK_REQUEST_EMPTY_EDITION,
-            BOOK_REQUEST_EMPTY_NOTES);
+            BOOK_REQUEST_EMPTY_NOTES,
+            BOOK_REQUEST_EMPTY_BOOK_TAG_IDS);
 
     for (String validRequestBody : validRequestBodies) {
       mockMvc
@@ -253,6 +298,20 @@ public class BooksIntegrationTest extends BaseIntegrationTest {
         .perform(delete(bookUriBuilder.buildAndExpand(bookId).toUri()))
         .andDo(print())
         .andExpect(status().isNoContent());
+  }
+
+  @Test
+  @Transactional
+  void deleteBook_ShouldNotDeleteAssociatedTags_GivenValidRequest() throws Exception {
+    // associations (rows) in the join table should be deleted, but not the associated tags.
+    long bookTagCountBeforeTagDeletion = bookTagRepository.count();
+    mockMvc
+        .perform(delete(bookUriBuilder.buildAndExpand(bookId).toUri()))
+        .andDo(print())
+        .andExpect(status().isNoContent());
+    long bookTagCountAfterTagDeletion = bookTagRepository.count();
+
+    Assertions.assertEquals(bookTagCountBeforeTagDeletion, bookTagCountAfterTagDeletion);
   }
 
   @Test

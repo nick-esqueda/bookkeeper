@@ -1,9 +1,9 @@
 package com.nickesqueda.laceybeesbookinventoryapi.dto;
 
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
-import lombok.Data;
-
 import java.time.Instant;
+import java.util.List;
+import lombok.Data;
 
 @Data
 public class BookResponseDto {
@@ -14,6 +14,7 @@ public class BookResponseDto {
   private String notes;
   private ReadStatus readStatus;
   private BookCategoryResponseDto bookCategory;
+  private List<BookTagSimpleResponseDto> bookTags;
   private Instant createdAt;
   private Instant updatedAt;
 }

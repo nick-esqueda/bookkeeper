@@ -7,6 +7,7 @@ public final class TestConstants {
   public static final String TEST_STRING2 = "TEST2";
   public static final String NULL_STRING = "null";
   public static final String EMPTY_STRING = "";
+  public static final String EMPTY_LIST = "[]";
 
   public static final class BookCategories {
     public static final String UNAVAILABLE_BOOK_CATEGORY = "Fiction";
@@ -78,6 +79,9 @@ public final class TestConstants {
     public static final String TEST_BOOK_CATEGORY_ID = "1";
     public static final String TEST_BOOK_CATEGORY_ID_2 = "2";
     public static final String NON_EXISTENT_BOOK_CATEGORY_ID = "1000";
+    public static final String TEST_BOOK_TAG_IDS = "[1]";
+    public static final String TEST_BOOK_TAG_IDS_2 = "[1, 2]";
+    public static final String TEST_BOOK_TAG_IDS_WITH_NON_EXISTENT_ID = "[1, 1000]";
 
     public static final String BOOK_REQUEST_JSON =
         """
@@ -87,7 +91,8 @@ public final class TestConstants {
           "edition": %s,
           "notes": %s,
           "readStatus": %s,
-          "bookCategoryId": %s
+          "bookCategoryId": %s,
+          "bookTagIds": %s
         }
         """
             .formatted(
@@ -96,7 +101,8 @@ public final class TestConstants {
                 "\"" + TEST_EDITION + "\"",
                 "\"" + TEST_NOTES + "\"",
                 "\"" + READ_STATUS_READ + "\"",
-                TEST_BOOK_CATEGORY_ID);
+                TEST_BOOK_CATEGORY_ID,
+                TEST_BOOK_TAG_IDS);
 
     public static final String BOOK_REQUEST_UPDATED_TITLE =
         BOOK_REQUEST_JSON.replace(TEST_TITLE, TEST_STRING);
@@ -116,6 +122,9 @@ public final class TestConstants {
     public static final String BOOK_REQUEST_UPDATED_CATEGORY_ID =
         BOOK_REQUEST_JSON.replace(TEST_BOOK_CATEGORY_ID, TEST_BOOK_CATEGORY_ID_2);
 
+    public static final String BOOK_REQUEST_UPDATED_BOOK_TAG_IDS =
+        BOOK_REQUEST_JSON.replace(TEST_BOOK_TAG_IDS, TEST_BOOK_TAG_IDS_2);
+
     public static final String BOOK_REQUEST_NULL_TITLE =
         BOOK_REQUEST_JSON.replace("\"" + TEST_TITLE + "\"", NULL_STRING);
 
@@ -134,6 +143,9 @@ public final class TestConstants {
     public static final String BOOK_REQUEST_NULL_BOOK_CATEGORY_ID =
         BOOK_REQUEST_JSON.replace(TEST_BOOK_CATEGORY_ID, NULL_STRING);
 
+    public static final String BOOK_REQUEST_NULL_BOOK_TAG_IDS =
+        BOOK_REQUEST_JSON.replace(TEST_BOOK_TAG_IDS, NULL_STRING);
+
     public static final String BOOK_REQUEST_EMPTY_TITLE =
         BOOK_REQUEST_JSON.replace(TEST_TITLE, EMPTY_STRING);
 
@@ -148,6 +160,9 @@ public final class TestConstants {
 
     public static final String BOOK_REQUEST_EMPTY_READ_STATUS =
         BOOK_REQUEST_JSON.replace(READ_STATUS_READ, EMPTY_STRING);
+
+    public static final String BOOK_REQUEST_EMPTY_BOOK_TAG_IDS =
+        BOOK_REQUEST_JSON.replace(TEST_BOOK_TAG_IDS, EMPTY_LIST);
 
     public static final String BOOK_REQUEST_MAX_SIZE_TITLE =
         BOOK_REQUEST_JSON.replace(TEST_TITLE, "a".repeat(BOOK_TITLE_MAX_SIZE + 1));
@@ -166,5 +181,8 @@ public final class TestConstants {
 
     public static final String BOOK_REQUEST_NON_EXISTENT_BOOK_CATEGORY_ID =
         BOOK_REQUEST_JSON.replace(TEST_BOOK_CATEGORY_ID, NON_EXISTENT_BOOK_CATEGORY_ID);
+
+    public static final String BOOK_REQUEST_MIXED_EXISTENCE_BOOK_TAG_IDS =
+        BOOK_REQUEST_JSON.replace(TEST_BOOK_TAG_IDS, TEST_BOOK_TAG_IDS_WITH_NON_EXISTENT_ID);
   }
 }
