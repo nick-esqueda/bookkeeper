@@ -13,7 +13,7 @@ public class BookResponseDto {
   private String edition;
   private String notes;
   private ReadStatus readStatus;
-  private BookCategoryResponseDto bookCategory;
+  private BookCategorySimpleResponseDto bookCategory;
   private List<BookTagSimpleResponseDto> bookTags;
   private Instant createdAt;
   private Instant updatedAt;
