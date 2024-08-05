@@ -59,7 +59,7 @@ const BookPage = () => {
 
   return (
     <Container>
-      <Row className="m-5 h-100">
+      <Row className="m-5">
         <Col
           xs={12}
           sm={12}
@@ -74,7 +74,7 @@ const BookPage = () => {
           )}
         </Col>
         <Col xs={12} sm={12} md={12} lg={7} className="p-4">
-          <Row className="mb-4">
+          <Row className="mb-5">
             <Col>
               <Card className="shadow">
                 <Card.Header>Category</Card.Header>
@@ -98,7 +98,7 @@ const BookPage = () => {
                 variant={`outline-${readStatusButtonColorMap[book.readStatus]}`}
                 size="md"
                 disabled
-                className="w-100 shadow"
+                className="w-100"
               >
                 {readStatusTextMap[book.readStatus]}
               </Button>
@@ -144,7 +144,7 @@ const BookPage = () => {
       </Row>
       <Row>
         <Col>
-          <Card>
+          <Card className="m-5 shadow">
             <Card.Header>Notes</Card.Header>
             <Card.Body>
               {book.notes ? (
