@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import BookFormData from "../models/BookFormData";
 import { handleFormChange } from "../utils/formUtils";
 import LoadingSpinner from "./LoadingSpinner";
+import { fetchBookTagsAsync } from "../features/bookTags/bookTagsSlice";
+import BookTagMultiSelectInput from "./BookTagMultiSelectInput";
 
 const BookForm = ({ onHide, book }) => {
   const dispatch = useDispatch();
@@ -149,44 +151,57 @@ const BookForm = ({ onHide, book }) => {
         </Col>
       </Row>
 
-      <Form.Group className="mb-3" controlId="formAddBookReadStatus">
-        <Form.Label>Read Status</Form.Label>
-        <div>
-          <Form.Check
-            required
-            type="radio"
-            id="read-status-read"
-            name="readStatus"
-            value="READ"
-            label="Read"
-            checked={formData.readStatus === "READ"}
-            onChange={handleFormChange(setFormData)}
-            inline
-          />
-          <Form.Check
-            required
-            type="radio"
-            id="read-status-unread"
-            name="readStatus"
-            value="UNREAD"
-            label="Unread"
-            checked={formData.readStatus === "UNREAD"}
-            onChange={handleFormChange(setFormData)}
-            inline
-          />
-          <Form.Check
-            required
-            type="radio"
-            id="read-status-dnf"
-            name="readStatus"
-            value="DID_NOT_FINISH"
-            label="DNF"
-            checked={formData.readStatus === "DID_NOT_FINISH"}
-            onChange={handleFormChange(setFormData)}
-            inline
-          />
-        </div>
-      </Form.Group>
+      <Row>
+        <Col>
+          <Form.Group className="mb-3" controlId="formAddBookReadStatus">
+            <Form.Label>Read Status</Form.Label>
+            <div>
+              <Form.Check
+                required
+                type="radio"
+                id="read-status-read"
+                name="readStatus"
+                value="READ"
+                label="Read"
+                checked={formData.readStatus === "READ"}
+                onChange={handleFormChange(setFormData)}
+                inline
+              />
+              <Form.Check
+                required
+                type="radio"
+                id="read-status-unread"
+                name="readStatus"
+                value="UNREAD"
+                label="Unread"
+                checked={formData.readStatus === "UNREAD"}
+                onChange={handleFormChange(setFormData)}
+                inline
+              />
+              <Form.Check
+                required
+                type="radio"
+                id="read-status-dnf"
+                name="readStatus"
+                value="DID_NOT_FINISH"
+                label="DNF"
+                checked={formData.readStatus === "DID_NOT_FINISH"}
+                onChange={handleFormChange(setFormData)}
+                inline
+              />
+            </div>
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group controlId="formAddBookTags">
+            <Form.Label>Tags</Form.Label>
+            <BookTagMultiSelectInput
+              valueIds={formData.bookTagIds}
+              setFormData={setFormData}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
 
       <Form.Group className="mb-3" controlId="formAddBookNotes">
         <Form.Label>Notes</Form.Label>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -51,6 +51,12 @@ const BookPage = () => {
 
   let updatedAt = new Date(book.updatedAt * 1000).toDateString();
 
+  const bookTagBadges = book.bookTags.map((bookTag) => (
+    <Badge key={bookTag.id} bg="secondary" className="me-2">
+      {bookTag.name}
+    </Badge>
+  ));
+
   return (
     <Container>
       <Row className="m-5 h-100">
@@ -58,8 +64,8 @@ const BookPage = () => {
           xs={12}
           sm={12}
           md={12}
-          lg={6}
-          className="d-flex flex-column justify-content-center mb-4 border-end border-3 rounded-end"
+          lg={5}
+          className="d-flex flex-column justify-content-center p-4 border-end border-3 rounded-end"
         >
           <h2 className="fs-1 fw-bold mb-4">{book.title}</h2>
           <h3 className="fs-2 fw-normal mb-3">{book.author}</h3>
@@ -67,27 +73,32 @@ const BookPage = () => {
             <h4 className="fw-lighter fst-italic">{book.edition}</h4>
           )}
         </Col>
-        <Col xs={12} sm={12} md={12} lg={6} className="p-4">
-          <Row>
-            <Col className="d-flex flex-column justify-content-around gap-4 mb-4">
-              <Card className="text-center shadow">
+        <Col xs={12} sm={12} md={12} lg={7} className="p-4">
+          <Row className="mb-4">
+            <Col>
+              <Card className="shadow">
                 <Card.Header>Category</Card.Header>
                 <Card.Body>
                   <Card.Title>{book.bookCategory.name}</Card.Title>
+                  <Card.Text>{bookTagBadges}</Card.Text>
                   <Card.Link
                     as={Link}
                     to={`/categories/${book.bookCategory.id}`}
                     className="fw-lighter"
                   >
-                    See Category
+                    Go to category
                   </Card.Link>
                 </Card.Body>
               </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               <Button
                 variant={`outline-${readStatusButtonColorMap[book.readStatus]}`}
                 size="md"
                 disabled
-                className="shadow"
+                className="w-100 shadow"
               >
                 {readStatusTextMap[book.readStatus]}
               </Button>
@@ -102,7 +113,7 @@ const BookPage = () => {
               className="text-muted d-flex align-items-end d-md-block d-none"
             >
               <small className="">
-                Last update: <br />
+                Last updated: <br />
                 {updatedAt}
               </small>
             </Col>
@@ -134,7 +145,7 @@ const BookPage = () => {
       <Row>
         <Col>
           <Card>
-            <Card.Header>My Notes</Card.Header>
+            <Card.Header>Notes</Card.Header>
             <Card.Body>
               {book.notes ? (
                 <Card.Text className="preserve-newlines">

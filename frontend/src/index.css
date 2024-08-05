@@ -29,3 +29,31 @@ code {
 .preserve-newlines {
   white-space: pre-wrap;
 }
+
+.one-line-hidden-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.one-line-hidden-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.fade-out-right, .fade-out-left {
+  position: absolute;
+  top: 0;
+  width: 20px; /* Adjust width as needed */
+  height: 100%;
+  pointer-events: none; /* Allows interaction with underlying elements */
+}
+
+.fade-out-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.fade-out-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}

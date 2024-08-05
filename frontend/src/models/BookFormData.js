@@ -8,6 +8,7 @@ class BookFormData {
     instance.readStatus = book.readStatus || "";
     instance.notes = book.notes || "";
     instance.bookCategoryId = book.bookCategory.id || "";
+    instance.bookTagIds = book.bookTags.map((bookTag) => bookTag.id);
     return instance;
   }
 
@@ -19,6 +20,7 @@ class BookFormData {
     instance.readStatus = "";
     instance.notes = "";
     instance.bookCategoryId = "";
+    instance.bookTagIds = [];
     return instance;
   }
 }
