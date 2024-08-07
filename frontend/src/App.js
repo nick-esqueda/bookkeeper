@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import { Container } from "react-bootstrap";
 import ScrollToTop from "./components/ScrollToTop";
+import TagsPage from "./pages/TagsPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/categories/:categoryId" element={<CategoryPage />} />
           <Route path="/books" element={<BooksPage />} />
           <Route path="/books/:bookId" element={<BookPage />} />
+          <Route path="/tags" element={<TagsPage />} />
           <Route path="/stats" element={<StatsPage />} />
         </Routes>
       </Container>
