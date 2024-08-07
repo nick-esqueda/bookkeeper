@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBookTag, fetchBookTags } from "./bookTagsApi";
+import { createBookTag, fetchBookTag, fetchBookTags } from "./bookTagsApi";
 
 const initialState = {
   entities: {},
@@ -66,6 +66,20 @@ export const fetchBookTagAsync = (bookTagId) => async (dispatch) => {
   try {
     const bookTag = await fetchBookTag(bookTagId);
     dispatch(addBookTag(bookTag));
+  } catch (error) {
+    dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const createBookTagAsync = (bookTag) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const createdBookTag = await createBookTag(bookTag);
+    dispatch(addBookTag(createdBookTag));
+    return createdBookTag;
   } catch (error) {
     dispatch(setError(error.message));
     throw error;

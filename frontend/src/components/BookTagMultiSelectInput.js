@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import Select from "react-select";
+import React from "react";
+import CreatableSelect from "react-select/creatable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBookTagsAsync } from "../features/bookTags/bookTagsSlice";
+import { createBookTagAsync } from "../features/bookTags/bookTagsSlice";
 
 const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
   const dispatch = useDispatch();
@@ -11,15 +11,24 @@ const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
   const bookTagsLoading = useSelector((state) => state.bookTags.loading);
   const bookTagsError = useSelector((state) => state.bookTags.error);
 
-  useEffect(() => {
-    dispatch(fetchBookTagsAsync());
-  }, [dispatch]);
-
   const handleOnChange = (bookTags) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       bookTagIds: bookTags.map((bookTag) => bookTag.value),
     }));
+  };
+
+  const createBookTag = async (name) => {
+    try {
+      const createdBookTag = await dispatch(createBookTagAsync({ name }));
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        bookTagIds: [...prevFormData.bookTagIds, createdBookTag.id],
+      }));
+    } catch (error) {
+      console.error(error);
+      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+    }
   };
 
   const convertIdsToOptions = (ids) =>
@@ -28,17 +37,21 @@ const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
       label: bookTags[id].name,
     }));
 
-  if (bookTagsLoading || !bookTagIds.length) {
-    return <p>loading...</p>;
+  if (bookTagsError) {
+    return <p>Error: {bookTagsError}</p>;
   }
 
   return (
-    <Select
+    <CreatableSelect
       isMulti
       name="bookTagIds"
       options={convertIdsToOptions(bookTagIds)}
       value={convertIdsToOptions(valueIds)}
       onChange={handleOnChange}
+      isDisabled={bookTagsLoading}
+      isLoading={bookTagsLoading}
+      onCreateOption={createBookTag}
+      isClearable
     />
   );
 };

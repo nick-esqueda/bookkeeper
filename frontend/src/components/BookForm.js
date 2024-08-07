@@ -27,6 +27,7 @@ const BookForm = ({ onHide, book }) => {
 
   useEffect(() => {
     dispatch(fetchBookCategoriesAsync());
+    dispatch(fetchBookTagsAsync());
   }, [dispatch]);
 
   const handleSubmit = async (e) => {

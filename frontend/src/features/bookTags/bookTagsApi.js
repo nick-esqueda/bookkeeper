@@ -18,3 +18,21 @@ export const fetchBookTag = async (bookTagId) => {
   }
   return response.json();
 };
+
+export const createBookTag = async (bookTag) => {
+  const response = await fetch(`${process.env.REACT_APP_BASE_URL}/book-tags`, {
+    method: "POST",
+    body: JSON.stringify(bookTag),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error("Error response from createBookTag(): ", errorResponse);
+    throw new Error("Failed to create book tag");
+  }
+
+  return response.json();
+};
