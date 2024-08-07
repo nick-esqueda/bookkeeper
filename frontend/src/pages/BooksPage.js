@@ -20,13 +20,8 @@ const BooksPage = () => {
 
   return (
     <Container>
-      <Row className="mb-5 border-bottom">
+      <Row className="text-center mb-4">
         <h2>Books</h2>
-        <p>
-          Use the search, filter, and sort options to find books.
-          <br />
-          Click View Book to see it's details.
-        </p>
       </Row>
 
       <Row style={{ minHeight: "86px" }}>

@@ -10,8 +10,7 @@ const CategoriesPage = () => {
 
   return (
     <Container>
-      <h2>Book Categories</h2>
-      <p className="text-muted">Click a category to view it's books.</p>
+      <h2 className="text-center mb-4">Categories</h2>
 
       <CategoryList />
 

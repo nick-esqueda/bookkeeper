@@ -30,8 +30,11 @@ const Header = () => {
         <Navbar.Brand as={Link} to="/" id="nav-brand" onClick={closeNav}>
           Lacey Bee's Book Inventory
         </Navbar.Brand>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-end">
+          <Nav className="d-flex gap-4">
+            {/* <Nav.Link as={Link} to="/books" onClick={closeNav}>
+              Manage Tags
+            </Nav.Link> */}
             <Nav.Link as={Link} to="/categories" onClick={closeNav}>
               Categories
             </Nav.Link>
@@ -39,7 +42,7 @@ const Header = () => {
               Books
             </Nav.Link>
           </Nav>
-          <div onClick={closeNav}>
+          <div onClick={closeNav} className="ms-4">
             <Button variant="success" onClick={() => setModalShow(true)}>
               Add Book
             </Button>
