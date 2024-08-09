@@ -5,6 +5,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { readStatusButtonColorMap } from "../utils/dataTransformationUtils";
 import { Badge, Fade } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBook,
+  faBookOpen,
+  faPenNib,
+  faTag,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const BookCard = ({ bookId }) => {
   const badgeContainerRef = useRef(null);
@@ -57,6 +65,7 @@ const BookCard = ({ bookId }) => {
 
   const bookTagBadges = book.bookTags.map((bookTag) => (
     <Badge key={bookTag.id} bg="secondary" className="me-2">
+      <FontAwesomeIcon icon={faTag} className="me-2" />
       {bookTag.name}
     </Badge>
   ));
@@ -67,34 +76,44 @@ const BookCard = ({ bookId }) => {
         border={readStatusButtonColorMap[book.readStatus]}
         className="h-100 border-2 border-top-0 border-bottom-0 border-end-0 shadow"
       >
-        <Card.Header>{book.bookCategory.name}</Card.Header>
+        <Card.Header>
+          <FontAwesomeIcon icon={faBook} className="me-2" />
+          {book.bookCategory.name}
+        </Card.Header>
         <Card.Body className="d-flex flex-column justify-content-between">
           <div>
-            <Card.Title>{book.title}</Card.Title>
+            <Card.Title className="mb-3">{book.title}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
+              <FontAwesomeIcon icon={faUser} className="me-2" />
               {book.author}
             </Card.Subtitle>
+            {book.edition && (
+              <Card.Text className="fw-lighter fst-italic">
+                <FontAwesomeIcon icon={faPenNib} className="me-2 text-muted" />
+                {book.edition}
+              </Card.Text>
+            )}
           </div>
-          <Card.Text className="fw-lighter fst-italic">
-            {book.edition}
-          </Card.Text>
-          <Card.Text className="overflow-hidden position-relative">
-            {showLeftFade && <div className="fade-out-left"></div>}
-            <div ref={badgeContainerRef} className="one-line-hidden-scroll">
-              {bookTagBadges}
-            </div>
-            {showRightFade && <div className="fade-out-right"></div>}
-          </Card.Text>
-          <Card.Text>
-            <Button
-              as={Link}
-              to={`/books/${bookId}`}
-              variant="outline-primary"
-              className="w-100"
-            >
-              View Book
-            </Button>
-          </Card.Text>
+          <div className="mt-5">
+            <Card.Text className="overflow-hidden position-relative">
+              {showLeftFade && <div className="fade-out-left"></div>}
+              <div ref={badgeContainerRef} className="one-line-hidden-scroll">
+                {bookTagBadges}
+              </div>
+              {showRightFade && <div className="fade-out-right"></div>}
+            </Card.Text>
+            <Card.Text>
+              <Button
+                as={Link}
+                to={`/books/${bookId}`}
+                variant="outline-primary"
+                className="w-100"
+              >
+                <FontAwesomeIcon icon={faBookOpen} className="me-2" />
+                View Book
+              </Button>
+            </Card.Text>
+          </div>
         </Card.Body>
       </Card>
     </Fade>

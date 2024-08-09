@@ -6,6 +6,15 @@ import { fetchBookCategoryAsync } from "../features/bookCategories/bookCategorie
 import BookList from "../components/BookList";
 import EditCategoryModal from "../components/EditCategoryModal";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleHalfStroke,
+  faCircleNotch,
+  faList,
+  faListOl,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CategoryPage = () => {
   // show all the books in a category. edit the category
@@ -41,14 +50,29 @@ const CategoryPage = () => {
           <p>All books in the {category.name} category.</p>
 
           <p className="d-flex justify-content-center gap-3">
-            <Badge bg="success">{category.readBookCount} Read</Badge>
-            <Badge bg="danger">{category.unreadBookCount} Unread</Badge>
-            <Badge bg="warning" text="dark">{category.didNotFinishBookCount} DNF</Badge>
+            <Badge bg="success">
+              <FontAwesomeIcon icon={faCircleCheck} className="me-2" />
+              {category.readBookCount} Read
+            </Badge>
+            <Badge bg="danger">
+              <FontAwesomeIcon icon={faCircleNotch} className="me-2" />
+              {category.unreadBookCount} Unread
+            </Badge>
+            <Badge bg="warning" text="dark">
+              <FontAwesomeIcon icon={faCircleHalfStroke} className="me-2" />
+              {category.didNotFinishBookCount} DNF
+            </Badge>
           </p>
 
           <p className="d-flex justify-content-center gap-3">
-            <Badge bg="primary">{category.totalBookCount} Total</Badge>
-            <Badge bg="secondary">{category.authorCount} Authors</Badge>
+            <Badge bg="primary">
+              <FontAwesomeIcon icon={faListOl} className="me-2" />
+              {category.totalBookCount} Total
+            </Badge>
+            <Badge bg="secondary">
+              <FontAwesomeIcon icon={faUser} className="me-2" />
+              {category.authorCount} Authors
+            </Badge>
           </p>
 
           <Button variant="link" size="sm" onClick={() => setShowModal(true)}>
