@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import { Button, Col, Form, FormLabel, InputGroup, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDownAZ,
+  faCircleHalfStroke,
+  faLayerGroup,
+  faRotate,
+  faSearch,
+  faSort,
+} from "@fortawesome/free-solid-svg-icons";
 import { readStatusTextMap } from "../utils/dataTransformationUtils";
 import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,6 +71,7 @@ const BookSearchForm = ({ formData, setFormData }) => {
         <Col xs="auto" className="mb-3">
           <Form.Group controlId="formSearchBookCategoryId">
             <FormLabel className="text-muted fw-lighter">
+              <FontAwesomeIcon icon={faLayerGroup} className="me-2" />
               Category filter
             </FormLabel>
             <Form.Select
@@ -84,7 +92,10 @@ const BookSearchForm = ({ formData, setFormData }) => {
         </Col>
         <Col xs="auto" className="mb-3">
           <Form.Group controlId="formSearchReadStatus">
-            <FormLabel className="text-muted fw-lighter">Read status</FormLabel>
+            <FormLabel className="text-muted fw-lighter">
+              <FontAwesomeIcon icon={faCircleHalfStroke} className="me-2" />
+              Read status
+            </FormLabel>
             <Form.Select
               name="readStatus"
               value={formData.readStatus}
@@ -103,7 +114,10 @@ const BookSearchForm = ({ formData, setFormData }) => {
         </Col>
         <Col xs="auto" className="mb-3">
           <Form.Group controlId="formSearchSortBy">
-            <FormLabel className="text-muted fw-lighter">Sort by</FormLabel>
+            <FormLabel className="text-muted fw-lighter">
+              <FontAwesomeIcon icon={faSort} className="me-2" />
+              Sort by
+            </FormLabel>
             <Form.Select
               name="sortBy"
               value={formData.sortBy}
@@ -117,7 +131,10 @@ const BookSearchForm = ({ formData, setFormData }) => {
         </Col>
         <Col xs="auto" className="mb-3">
           <Form.Group controlId="formSearchSortDir">
-            <FormLabel className="text-muted fw-lighter">Sort order</FormLabel>
+            <FormLabel className="text-muted fw-lighter">
+              <FontAwesomeIcon icon={faArrowDownAZ} className="me-2" />
+              Sort order
+            </FormLabel>
             <Form.Select
               name="sortDir"
               value={formData.sortDir}
@@ -129,8 +146,9 @@ const BookSearchForm = ({ formData, setFormData }) => {
           </Form.Group>
         </Col>
         <Col xs="auto" className="mb-3">
-          <Button variant="link" className="fw-light" onClick={resetFormData}>
-            Reset filters
+          <Button variant="link" className="fw-light text-decoration-none" onClick={resetFormData}>
+            <FontAwesomeIcon icon={faRotate} className="me-2" />
+            Reset
           </Button>
         </Col>
       </Row>

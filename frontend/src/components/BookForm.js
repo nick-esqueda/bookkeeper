@@ -12,6 +12,16 @@ import { handleFormChange } from "../utils/formUtils";
 import LoadingSpinner from "./LoadingSpinner";
 import { fetchBookTagsAsync } from "../features/bookTags/bookTagsSlice";
 import BookTagMultiSelectInput from "./BookTagMultiSelectInput";
+import {
+  faBook,
+  faCircleHalfStroke,
+  faLayerGroup,
+  faPenNib,
+  faTags,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { faNoteSticky } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BookForm = ({ onHide, book }) => {
   const dispatch = useDispatch();
@@ -79,7 +89,10 @@ const BookForm = ({ onHide, book }) => {
       <Row>
         <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookTitle">
-            <Form.Label>Title</Form.Label>
+            <Form.Label>
+              <FontAwesomeIcon icon={faBook} className="me-2" />
+              Title
+            </Form.Label>
             <Form.Control
               required
               type="text"
@@ -96,7 +109,10 @@ const BookForm = ({ onHide, book }) => {
         </Col>
         <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookAuthor">
-            <Form.Label>Author</Form.Label>
+            <Form.Label>
+              <FontAwesomeIcon icon={faUser} className="me-2" />
+              Author
+            </Form.Label>
             <Form.Control
               required
               type="text"
@@ -116,7 +132,10 @@ const BookForm = ({ onHide, book }) => {
       <Row>
         <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookEdition">
-            <Form.Label>Edition</Form.Label>
+            <Form.Label>
+              <FontAwesomeIcon icon={faPenNib} className="me-2" />
+              Edition
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter edition (optional)"
@@ -128,7 +147,10 @@ const BookForm = ({ onHide, book }) => {
         </Col>
         <Col lg={6} className="mb-3">
           <Form.Group controlId="formAddBookCategory">
-            <Form.Label>Category</Form.Label>
+            <Form.Label>
+              <FontAwesomeIcon icon={faLayerGroup} className="me-2" />
+              Category
+            </Form.Label>
             <Form.Select
               required
               name="bookCategoryId"
@@ -155,7 +177,10 @@ const BookForm = ({ onHide, book }) => {
       <Row>
         <Col>
           <Form.Group className="mb-3" controlId="formAddBookReadStatus">
-            <Form.Label>Read Status</Form.Label>
+            <Form.Label>
+              <FontAwesomeIcon icon={faCircleHalfStroke} className="me-2" />
+              Read Status
+            </Form.Label>
             <div>
               <Form.Check
                 required
@@ -195,7 +220,10 @@ const BookForm = ({ onHide, book }) => {
         </Col>
         <Col>
           <Form.Group controlId="formAddBookTags">
-            <Form.Label>Tags</Form.Label>
+            <Form.Label>
+              <FontAwesomeIcon icon={faTags} className="me-2" />
+              Tags
+            </Form.Label>
             <BookTagMultiSelectInput
               valueIds={formData.bookTagIds}
               setFormData={setFormData}
@@ -205,7 +233,10 @@ const BookForm = ({ onHide, book }) => {
       </Row>
 
       <Form.Group className="mb-3" controlId="formAddBookNotes">
-        <Form.Label>Notes</Form.Label>
+        <Form.Label>
+          <FontAwesomeIcon icon={faNoteSticky} className="me-2" />
+          Notes
+        </Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
