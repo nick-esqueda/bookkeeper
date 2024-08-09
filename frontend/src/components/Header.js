@@ -6,6 +6,8 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import AddBookModal from "./AddBookModal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -30,7 +32,10 @@ const Header = () => {
         <Navbar.Brand as={Link} to="/" id="nav-brand" onClick={closeNav}>
           Lacey Bee's Book Inventory
         </Navbar.Brand>
-        <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-end">
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className="d-flex justify-content-end"
+        >
           <Nav className="d-flex gap-4">
             {/* <Nav.Link as={Link} to="/books" onClick={closeNav}>
               Manage Tags
@@ -44,7 +49,7 @@ const Header = () => {
           </Nav>
           <div onClick={closeNav} className="ms-4">
             <Button variant="success" onClick={() => setModalShow(true)}>
-              Add Book
+              <FontAwesomeIcon icon={faPlus} className="me-1" /> Add Book
             </Button>
             <AddBookModal show={modalShow} onHide={() => setModalShow(false)} />
           </div>

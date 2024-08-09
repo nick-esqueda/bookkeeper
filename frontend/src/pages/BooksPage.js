@@ -19,8 +19,8 @@ const BooksPage = () => {
   );
 
   return (
-    <Container>
-      <Row className="text-center mb-4">
+    <Container className="mt-4">
+      <Row className="mb-4">
         <h2>Books</h2>
       </Row>
 
