@@ -36,7 +36,7 @@ const Header = () => {
           id="basic-navbar-nav"
           className="d-flex justify-content-end"
         >
-          <Nav className="d-flex gap-4">
+          <Nav className="d-flex gap-4 me-1">
             <Nav.Link as={Link} to="/tags" onClick={closeNav}>
               Manage Tags
             </Nav.Link>

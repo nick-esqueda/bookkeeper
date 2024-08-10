@@ -99,6 +99,28 @@ const HomePage = () => {
             </Card.Body>
           </Card>
         </Col>
+
+        <Col xs={12} sm={12} md={6} lg={6} xl={6} className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title>Book Tags</Card.Title>
+              <Card.Text>
+                While adding or editing a book, a new custom tag can be created
+                and attached to the book. These can be used as a way to group
+                styles across categories, for example.
+              </Card.Text>
+              <Card.Text>
+                The count of books with a certain tag can be seen on the "Manage
+                Tags" page. Tags can also be edited or delete on this page.
+              </Card.Text>
+              <Card.Text>
+                <Button as={Link} to="/tags">
+                  Manage Tags
+                </Button>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );

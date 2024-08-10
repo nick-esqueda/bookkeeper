@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBookTag, fetchBookTag, fetchBookTags } from "./bookTagsApi";
+import {
+  createBookTag,
+  deleteBookTag,
+  editBookTag,
+  fetchBookTag,
+  fetchBookTags,
+} from "./bookTagsApi";
 
 const initialState = {
   entities: {},
@@ -35,6 +41,17 @@ const bookTagsSlice = createSlice({
         state.ids.push(bookTag.id);
       }
     },
+    updateBookTag: (state, action) => {
+      const bookTag = action.payload;
+      if (state.entities[bookTag.id]) {
+        state.entities[bookTag.id] = bookTag;
+      }
+    },
+    removeBookTag: (state, action) => {
+      const deletedBookTagId = action.payload;
+      delete state.entities[deletedBookTagId];
+      state.ids = state.ids.filter((id) => id !== deletedBookTagId);
+    },
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
@@ -45,8 +62,15 @@ const bookTagsSlice = createSlice({
   },
 });
 
-export const { setBookTags, addBookTags, addBookTag, setLoading, setError } =
-  bookTagsSlice.actions;
+export const {
+  setBookTags,
+  addBookTags,
+  addBookTag,
+  updateBookTag,
+  removeBookTag,
+  setLoading,
+  setError,
+} = bookTagsSlice.actions;
 
 export const fetchBookTagsAsync = () => async (dispatch) => {
   dispatch(setLoading(true));
@@ -80,6 +104,33 @@ export const createBookTagAsync = (bookTag) => async (dispatch) => {
     const createdBookTag = await createBookTag(bookTag);
     dispatch(addBookTag(createdBookTag));
     return createdBookTag;
+  } catch (error) {
+    dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const editBookTagAsync = (bookTag) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const editedBookTag = await editBookTag(bookTag);
+    dispatch(updateBookTag(editedBookTag));
+    return editedBookTag;
+  } catch (error) {
+    dispatch(setError(error.message));
+    throw error;
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const deleteBookTagAsync = (bookTagId) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    await deleteBookTag(bookTagId);
+    dispatch(removeBookTag(bookTagId));
   } catch (error) {
     dispatch(setError(error.message));
     throw error;
