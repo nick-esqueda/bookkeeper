@@ -24,7 +24,7 @@ const Header = () => {
       className="bg-body-tertiary"
       fixed="top"
     >
-      <Container className="justify-content-start gap-1">
+      <Container>
         <Navbar.Toggle
           className="border-0"
           onClick={() => setNavExpanded(!navExpanded)}
@@ -36,10 +36,10 @@ const Header = () => {
           id="basic-navbar-nav"
           className="d-flex justify-content-end"
         >
-          <Nav className="d-flex gap-4">
-            {/* <Nav.Link as={Link} to="/books" onClick={closeNav}>
+          <Nav className="d-flex gap-4 me-1">
+            <Nav.Link as={Link} to="/tags" onClick={closeNav}>
               Manage Tags
-            </Nav.Link> */}
+            </Nav.Link>
             <Nav.Link as={Link} to="/categories" onClick={closeNav}>
               Categories
             </Nav.Link>

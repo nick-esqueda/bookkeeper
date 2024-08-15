@@ -36,3 +36,39 @@ export const createBookTag = async (bookTag) => {
 
   return response.json();
 };
+
+export const editBookTag = async (bookTag) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/book-tags/${bookTag.id}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(bookTag),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error("Error response from editBookTag(): ", errorResponse);
+    throw new Error("Failed to edit book tag");
+  }
+
+  return response.json();
+};
+
+export const deleteBookTag = async (bookTagId) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/book-tags/${bookTagId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error("Error response from deleteBookTag(): ", errorResponse);
+    throw new Error("Failed to delete book tag");
+  }
+};

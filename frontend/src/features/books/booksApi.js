@@ -52,7 +52,7 @@ export const editBook = async (book) => {
 
   if (!response.ok) {
     const errorResponse = await response.json();
-    console.error("Error response from deleteBook(): ", errorResponse);
+    console.error("Error response from editBook(): ", errorResponse);
     throw new Error("Failed to edit book");
   }
 

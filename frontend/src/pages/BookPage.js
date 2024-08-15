@@ -29,7 +29,6 @@ import {
   faPencil,
   faPenNib,
   faTag,
-  faTags,
   faTrash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -49,7 +48,7 @@ const BookPage = () => {
     return () => dispatch(clearAllBooks());
   }, [dispatch, bookId]);
 
-  const handleDelete = async (e) => {
+  const handleDelete = async () => {
     if (!window.confirm(`Delete '${book.title}'? This cannot be undone.`)) {
       return;
     }
