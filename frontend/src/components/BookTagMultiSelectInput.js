@@ -2,6 +2,7 @@ import React from "react";
 import CreatableSelect from "react-select/creatable";
 import { useDispatch, useSelector } from "react-redux";
 import { createBookTagAsync } from "../features/bookTags/bookTagsSlice";
+import LoadingSpinner from "./LoadingSpinner";
 
 const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
   const dispatch = useDispatch();
@@ -36,6 +37,10 @@ const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
       value: id,
       label: bookTags[id].name,
     }));
+
+  if (bookTagsLoading) {
+    return <LoadingSpinner fixed={false} />;
+  }
 
   if (bookTagsError) {
     return <p>Error: {bookTagsError}</p>;

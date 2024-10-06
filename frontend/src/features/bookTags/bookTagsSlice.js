@@ -10,7 +10,7 @@ import {
 const initialState = {
   entities: {},
   ids: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 
