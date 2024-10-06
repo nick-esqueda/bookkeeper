@@ -13,6 +13,8 @@ import {
   faTag,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import EditBookModal from "./EditBookModal";
 
 const BookCard = ({ bookId }) => {
   const badgeContainerRef = useRef(null);
@@ -20,6 +22,7 @@ const BookCard = ({ bookId }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [showLeftFade, setShowLeftFade] = useState(false);
   const [showRightFade, setShowRightFade] = useState(false);
+  const [editBookModalShow, setEditBookModalShow] = useState(false);
 
   useEffect(() => {
     // control the Fade component to fade the Card in.
@@ -76,9 +79,20 @@ const BookCard = ({ bookId }) => {
         border={readStatusButtonColorMap[book.readStatus]}
         className="h-100 border-2 border-top-0 border-bottom-0 border-end-0 shadow"
       >
-        <Card.Header>
-          <FontAwesomeIcon icon={faBook} className="me-2" />
-          {book.bookCategory.name}
+        <EditBookModal
+          show={editBookModalShow}
+          onHide={() => setEditBookModalShow(false)}
+          book={book}
+        />
+        <Card.Header className="w-100 d-flex align-items-center justify-content-between">
+          <div>
+            <FontAwesomeIcon icon={faBook} className="me-2" />
+            {book.bookCategory.name}
+          </div>
+
+          <Button variant="link" onClick={() => setEditBookModalShow(true)}>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </Button>
         </Card.Header>
         <Card.Body className="d-flex flex-column justify-content-between">
           <div>

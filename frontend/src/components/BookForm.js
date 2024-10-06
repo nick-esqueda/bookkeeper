@@ -30,7 +30,6 @@ const BookForm = ({ onHide, book }) => {
   const bookCategoryIds = useSelector((state) => state.bookCategories.ids);
   const loading = useSelector((state) => state.bookCategories.loading);
   const error = useSelector((state) => state.bookCategories.error);
-  const bookTagsLoading = useSelector((state) => state.bookTags.loading);
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState(
     book ? BookFormData.createFromBook(book) : BookFormData.createEmpty()
@@ -77,7 +76,7 @@ const BookForm = ({ onHide, book }) => {
     }
   };
 
-  if (loading || bookTagsLoading) {
+  if (loading) {
     return <LoadingSpinner fixed={false} />;
   }
 
