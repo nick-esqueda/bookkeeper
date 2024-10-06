@@ -7,6 +7,7 @@ import LoadingSpinner from "./LoadingSpinner";
 
 const CategoryList = () => {
   const dispatch = useDispatch();
+
   const {
     ids: bookCategoryIds,
     loading,

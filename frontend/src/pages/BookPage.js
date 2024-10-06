@@ -38,9 +38,10 @@ const BookPage = () => {
   const { bookId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const book = useSelector((state) => state.books.entities[bookId]);
-  const loading = useSelector((state) => state.books.loading);
-  const error = useSelector((state) => state.books.error);
+  const { loading, error } = useSelector((state) => state.books);
+
   const [editBookModalShow, setEditBookModalShow] = useState(false);
 
   useEffect(() => {

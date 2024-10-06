@@ -7,10 +7,12 @@ import LoadingSpinner from "./LoadingSpinner";
 const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
   const dispatch = useDispatch();
 
-  const bookTags = useSelector((state) => state.bookTags.entities);
-  const bookTagIds = useSelector((state) => state.bookTags.ids);
-  const bookTagsLoading = useSelector((state) => state.bookTags.loading);
-  const bookTagsError = useSelector((state) => state.bookTags.error);
+  const {
+    ids: bookTagIds,
+    entities: bookTags,
+    loading: bookTagsLoading,
+    error: bookTagsError,
+  } = useSelector((state) => state.bookTags);
 
   const handleOnChange = (bookTags) => {
     setFormData((prevFormData) => ({

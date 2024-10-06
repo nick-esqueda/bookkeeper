@@ -26,10 +26,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const BookForm = ({ onHide, book }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const bookCategories = useSelector((state) => state.bookCategories.entities);
-  const bookCategoryIds = useSelector((state) => state.bookCategories.ids);
-  const loading = useSelector((state) => state.bookCategories.loading);
-  const error = useSelector((state) => state.bookCategories.error);
+
+  const {
+    entities: bookCategories,
+    ids: bookCategoryIds,
+    loading,
+    error,
+  } = useSelector((state) => state.bookCategories);
+
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState(
     book ? BookFormData.createFromBook(book) : BookFormData.createEmpty()
