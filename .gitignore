@@ -3,4 +3,5 @@
 .env.production
 .notes/
 logs/
+secrets/
 

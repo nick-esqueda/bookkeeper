@@ -21,7 +21,12 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
       @Param("bookCategoryId") Integer bookCategoryId,
       Pageable pageable);
 
-  @Query(value = SEARCH_BOOKS_USING_TAG_FILTER, nativeQuery = true)
+  @Query(
+      value = SEARCH_BOOKS_USING_TAG_FILTER,
+      // BUGFIX: provide custom count query to Spring JPA or else JPA will generate a count query
+      // with incorrect syntax when pagination is needed (for tags having a higher book count)
+      countQuery = SEARCH_BOOKS_USING_TAG_FILTER_COUNT_QUERY,
+      nativeQuery = true)
   Page<Book> searchBooksUsingTagFilter(
       @Param("searchTerm") String searchTerm,
       @Param("readStatus") String readStatus,
@@ -36,7 +41,12 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
       @Param("bookCategoryId") Integer bookCategoryId,
       Pageable pageable);
 
-  @Query(value = FIND_BOOKS_USING_TAG_FILTER, nativeQuery = true)
+  @Query(
+      value = FIND_BOOKS_USING_TAG_FILTER,
+      // BUGFIX: provide custom count query to Spring JPA or else JPA will generate a count query
+      // with incorrect syntax when pagination is needed (for tags having a higher book count)
+      countQuery = FIND_BOOKS_USING_TAG_FILTER_COUNT_QUERY,
+      nativeQuery = true)
   Page<Book> findBooksUsingTagFilter(
       @Param("readStatus") String readStatus,
       @Param("bookCategoryId") Integer bookCategoryId,

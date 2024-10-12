@@ -64,6 +64,19 @@ public final class SqlQueries {
       HAVING COUNT(DISTINCT jt.book_tag_id) >= :bookTagCount
       """;
 
+  public static final String SEARCH_BOOKS_USING_TAG_FILTER_COUNT_QUERY =
+      """
+      SELECT COUNT(DISTINCT b.id)
+      FROM books b
+      JOIN books_book_tags jt ON b.id = jt.book_id
+      WHERE
+        MATCH(title, author, edition, notes)
+          AGAINST (CONCAT(:searchTerm, '*') IN BOOLEAN MODE)
+        AND (:readStatus IS NULL OR read_status = :readStatus)
+        AND (:bookCategoryId IS NULL OR book_category_id = :bookCategoryId)
+        AND (jt.book_tag_id IN :bookTagIds)
+      """;
+
   public static final String FIND_BOOKS =
       """
       SELECT *
@@ -82,6 +95,18 @@ public final class SqlQueries {
         AND (jt.book_tag_id IN :bookTagIds)
       GROUP BY b.id
       HAVING COUNT(DISTINCT jt.book_tag_id) >= :bookTagCount
+      """;
+
+  public static final String FIND_BOOKS_USING_TAG_FILTER_COUNT_QUERY =
+      // BUGFIX: provide custom count query to Spring JPA or else JPA will generate a count query
+      // with incorrect syntax when pagination is needed (for tags having a higher book count)
+      """
+      SELECT COUNT(DISTINCT b.id)
+      FROM books b
+      JOIN books_book_tags jt ON b.id = jt.book_id
+      WHERE (:readStatus IS NULL OR b.read_status = :readStatus)
+        AND (:bookCategoryId IS NULL OR b.book_category_id = :bookCategoryId)
+        AND (jt.book_tag_id IN :bookTagIds)
       """;
 
   public static final String COUNT_DISTINCT_AUTHORS_IN_BOOK_CATEGORY =
