@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/books")
 @RequiredArgsConstructor
@@ -27,6 +29,7 @@ public class BooksController {
       @RequestParam(required = false) String query,
       @RequestParam(required = false) String readStatus,
       @RequestParam(required = false) @Min(1) Integer bookCategoryId,
+      @RequestParam(required = false) List<Integer> bookTagIds,
       @RequestParam(defaultValue = "0") Integer pageNum,
       @RequestParam(defaultValue = "10") Integer pageSize,
       @RequestParam(defaultValue = "title")
@@ -50,9 +53,9 @@ public class BooksController {
     }
 
     if (query != null && !query.isEmpty()) {
-      return booksService.searchBooks(query, readStatus, bookCategoryId, pageRequest);
+      return booksService.searchBooks(query, readStatus, bookCategoryId, bookTagIds, pageRequest);
     } else {
-      return booksService.getBooks(readStatus, bookCategoryId, pageRequest);
+      return booksService.getBooks(readStatus, bookCategoryId, bookTagIds, pageRequest);
     }
   }
 

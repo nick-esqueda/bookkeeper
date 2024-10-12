@@ -5,6 +5,7 @@ import static com.nickesqueda.laceybeesbookinventoryapi.util.SqlQueries.*;
 import com.nickesqueda.laceybeesbookinventoryapi.entity.Book;
 import com.nickesqueda.laceybeesbookinventoryapi.exception.ResourceNotFoundException;
 import com.nickesqueda.laceybeesbookinventoryapi.model.ReadStatus;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,10 +21,27 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
       @Param("bookCategoryId") Integer bookCategoryId,
       Pageable pageable);
 
+  @Query(value = SEARCH_BOOKS_USING_TAG_FILTER, nativeQuery = true)
+  Page<Book> searchBooksUsingTagFilter(
+      @Param("searchTerm") String searchTerm,
+      @Param("readStatus") String readStatus,
+      @Param("bookCategoryId") Integer bookCategoryId,
+      @Param("bookTagIds") List<Integer> bookTagIds,
+      @Param("bookTagCount") Integer bookTagCount,
+      Pageable pageable);
+
   @Query(value = FIND_BOOKS, nativeQuery = true)
   Page<Book> findBooks(
       @Param("readStatus") String readStatus,
       @Param("bookCategoryId") Integer bookCategoryId,
+      Pageable pageable);
+
+  @Query(value = FIND_BOOKS_USING_TAG_FILTER, nativeQuery = true)
+  Page<Book> findBooksUsingTagFilter(
+      @Param("readStatus") String readStatus,
+      @Param("bookCategoryId") Integer bookCategoryId,
+      @Param("bookTagIds") List<Integer> bookTagIds,
+      @Param("bookTagCount") Integer bookTagCount,
       Pageable pageable);
 
   int countByBookCategoryId(int bookCategoryId);
