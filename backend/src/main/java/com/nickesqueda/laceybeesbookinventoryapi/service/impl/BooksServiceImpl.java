@@ -28,18 +28,42 @@ public class BooksServiceImpl implements BooksService {
 
   @Override
   public Page<BookResponseDto> getBooks(
-      String readStatus, Integer bookCategoryId, PageRequest pageRequest) {
+      String readStatus,
+      Integer bookCategoryId,
+      List<Integer> bookTagIds,
+      PageRequest pageRequest) {
 
-    Page<Book> bookEntities = bookRepository.findBooks(readStatus, bookCategoryId, pageRequest);
+    Page<Book> bookEntities;
+
+    if (bookTagIds == null || bookTagIds.isEmpty()) {
+      bookEntities = bookRepository.findBooks(readStatus, bookCategoryId, pageRequest);
+    } else {
+      bookEntities =
+          bookRepository.findBooksUsingTagFilter(
+              readStatus, bookCategoryId, bookTagIds, bookTagIds.size(), pageRequest);
+    }
+
     return bookEntities.map(bookEntity -> modelMapper.map(bookEntity, BookResponseDto.class));
   }
 
   @Override
   public Page<BookResponseDto> searchBooks(
-      String query, String readStatus, Integer bookCategoryId, PageRequest pageRequest) {
+      String query,
+      String readStatus,
+      Integer bookCategoryId,
+      List<Integer> bookTagIds,
+      PageRequest pageRequest) {
 
-    Page<Book> bookEntities =
-        bookRepository.searchBooks(query, readStatus, bookCategoryId, pageRequest);
+    Page<Book> bookEntities;
+
+    if (bookTagIds == null || bookTagIds.isEmpty()) {
+      bookEntities = bookRepository.searchBooks(query, readStatus, bookCategoryId, pageRequest);
+    } else {
+      bookEntities =
+          bookRepository.searchBooksUsingTagFilter(
+              query, readStatus, bookCategoryId, bookTagIds, bookTagIds.size(), pageRequest);
+    }
+
     return bookEntities.map(bookEntity -> modelMapper.map(bookEntity, BookResponseDto.class));
   }
 
@@ -47,8 +71,7 @@ public class BooksServiceImpl implements BooksService {
   public BookResponseDto createBook(BookRequestDto bookRequestDto) {
     BookCategory bookCategoryEntity =
         bookCategoryRepository.retrieveOrElseThrow(bookRequestDto.getBookCategoryId());
-    List<BookTag> bookTagEntities =
-        bookTagRepository.findAllById(bookRequestDto.getBookTagIds());
+    List<BookTag> bookTagEntities = bookTagRepository.findAllById(bookRequestDto.getBookTagIds());
 
     Book bookEntity = modelMapper.map(bookRequestDto, Book.class);
     bookEntity.setBookCategory(bookCategoryEntity);
@@ -69,8 +92,7 @@ public class BooksServiceImpl implements BooksService {
     Book bookEntity = bookRepository.retrieveOrElseThrow(bookId);
     BookCategory bookCategoryEntity =
         bookCategoryRepository.retrieveOrElseThrow(bookRequestDto.getBookCategoryId());
-    List<BookTag> bookTagEntities =
-        bookTagRepository.findAllById(bookRequestDto.getBookTagIds());
+    List<BookTag> bookTagEntities = bookTagRepository.findAllById(bookRequestDto.getBookTagIds());
 
     modelMapper.map(bookRequestDto, bookEntity);
     bookEntity.setBookCategory(bookCategoryEntity);

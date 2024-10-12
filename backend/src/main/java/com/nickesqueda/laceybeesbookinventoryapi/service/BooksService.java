@@ -10,10 +10,14 @@ import java.util.List;
 
 public interface BooksService {
   Page<BookResponseDto> getBooks(
-      String readStatus, Integer bookCategoryId, PageRequest pageRequest);
+      String readStatus, Integer bookCategoryId, List<Integer> bookTagIds, PageRequest pageRequest);
 
   Page<BookResponseDto> searchBooks(
-      String query, String readStatus, Integer bookCategoryId, PageRequest pageRequest);
+      String query,
+      String readStatus,
+      Integer bookCategoryId,
+      List<Integer> bookTagIds,
+      PageRequest pageRequest);
 
   BookResponseDto createBook(BookRequestDto bookRequestDto);
 

@@ -49,12 +49,39 @@ public final class SqlQueries {
         AND (:bookCategoryId IS NULL OR book_category_id = :bookCategoryId)
       """;
 
+  public static final String SEARCH_BOOKS_USING_TAG_FILTER =
+      """
+      SELECT b.*
+      FROM books b
+      JOIN books_book_tags jt ON b.id = jt.book_id
+      WHERE
+        MATCH(title, author, edition, notes)
+          AGAINST (CONCAT(:searchTerm, '*') IN BOOLEAN MODE)
+        AND (:readStatus IS NULL OR read_status = :readStatus)
+        AND (:bookCategoryId IS NULL OR book_category_id = :bookCategoryId)
+        AND (jt.book_tag_id IN :bookTagIds)
+      GROUP BY b.id
+      HAVING COUNT(DISTINCT jt.book_tag_id) >= :bookTagCount
+      """;
+
   public static final String FIND_BOOKS =
       """
       SELECT *
       FROM books
       WHERE (:readStatus IS NULL OR read_status = :readStatus)
         AND (:bookCategoryId IS NULL OR book_category_id = :bookCategoryId)
+      """;
+
+  public static final String FIND_BOOKS_USING_TAG_FILTER =
+      """
+      SELECT b.*
+      FROM books b
+      JOIN books_book_tags jt ON b.id = jt.book_id
+      WHERE (:readStatus IS NULL OR b.read_status = :readStatus)
+        AND (:bookCategoryId IS NULL OR b.book_category_id = :bookCategoryId)
+        AND (jt.book_tag_id IN :bookTagIds)
+      GROUP BY b.id
+      HAVING COUNT(DISTINCT jt.book_tag_id) >= :bookTagCount
       """;
 
   public static final String COUNT_DISTINCT_AUTHORS_IN_BOOK_CATEGORY =

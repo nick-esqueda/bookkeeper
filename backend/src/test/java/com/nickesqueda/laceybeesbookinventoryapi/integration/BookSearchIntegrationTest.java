@@ -11,6 +11,8 @@ import org.junit.jupiter.api.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 public class BookSearchIntegrationTest extends BaseIntegrationTest {
   // refer to src/test/resources/db/migration/V1001__test_seed_books.sql for book values.
 
@@ -560,5 +562,70 @@ public class BookSearchIntegrationTest extends BaseIntegrationTest {
         .andExpect(jsonPath("$.content[2].edition", containsString("Edition")))
         .andExpect(jsonPath("$.content[2].readStatus").value("READ"))
         .andExpect(jsonPath("$.content[2].title").value("Grape"));
+  }
+
+  @Test
+  void getBooks_ShouldReturnCorrectResults_GivenBookTagFilter() throws Exception {
+    mockMvc
+        .perform(
+            get(
+                UriComponentsBuilder.fromUri(allBooksUri)
+                    .queryParam("bookTagIds", List.of(3))
+                    .build()
+                    .toUriString()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content", hasSize(2)))
+        .andExpect(jsonPath("$.content[0].bookTags[1].id").value(3))
+        .andExpect(jsonPath("$.content[1].bookTags[2].id").value(3));
+  }
+
+  @Test
+  void getBooks_ShouldReturnBooksHavingAllSpecifiedTags_GivenMultipleBookTagFilters()
+      throws Exception {
+    mockMvc
+        .perform(
+            get(
+                UriComponentsBuilder.fromUri(allBooksUri)
+                    .queryParam("bookTagIds", List.of(3, 1))
+                    .build()
+                    .toUriString()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content", hasSize(1)))
+        .andExpect(jsonPath("$.content[0].bookTags[0].id").value(1))
+        .andExpect(jsonPath("$.content[0].bookTags[2].id").value(3));
+  }
+
+  @Test
+  void getBooks_ShouldReturnEmptyList_GivenInvalidBookTagFilter() throws Exception {
+    mockMvc
+        .perform(
+            get(
+                UriComponentsBuilder.fromUri(allBooksUri)
+                    .queryParam("bookTagIds", List.of(10000))
+                    .build()
+                    .toUriString()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content", hasSize(0)));
+  }
+
+  @Test
+  void getBooks_ShouldReturnAccurateResults_GivenSearchQueryAndBookTagFilter() throws Exception {
+    mockMvc
+        .perform(
+            get(
+                UriComponentsBuilder.fromUri(allBooksUri)
+                    .queryParam("query", "note")
+                    .queryParam("bookTagIds", List.of(1))
+                    .build()
+                    .toUriString()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.content", hasSize(3)))
+        .andExpect(jsonPath("$.content[0].bookTags[0].id").value(1))
+        .andExpect(jsonPath("$.content[1].bookTags[0].id").value(1))
+        .andExpect(jsonPath("$.content[2].bookTags[0].id").value(1));
   }
 }
