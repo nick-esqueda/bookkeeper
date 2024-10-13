@@ -11,7 +11,9 @@ body * {
   
   --theme-tan: #DDD1C7;
   --theme-light-green: #C2CFB2;
+  --theme-light-green-transparent: #c2cfb273;
   --theme-green: #8DB580;
+  --theme-green-transparent: #8db58041;
   --theme-gray: #7E8987;
   --theme-purple: #4B4A67;
   --theme-light-purple: #5B5A75;
@@ -153,4 +155,8 @@ nav * {
 .fade-out-left {
   left: 0;
   background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.list-active {
+  background-color: var(--theme-green-transparent);
 }

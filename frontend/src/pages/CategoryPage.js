@@ -12,7 +12,7 @@ const CategoryPage = () => {
   const { categoryId } = useParams();
 
   return (
-    <Container>
+    <Container className="mt-5">
       <Row>
         <CategoryHeader id={categoryId} />
       </Row>

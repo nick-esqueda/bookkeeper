@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import { Container } from "react-bootstrap";
 import ScrollToTop from "./components/ScrollToTop";
 import TagsPage from "./pages/TagsPage";
+import CategoriesPageV2 from "./pages/CategoriesPageV2";
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} exact={true} />
           <Route path="/categories" element={<CategoriesPage />} exact={true} />
+          <Route
+            path="/categories-v2"
+            element={<CategoriesPageV2 />}
+            exact={true}
+          />
           <Route path="/categories/:categoryId" element={<CategoryPage />} />
           <Route path="/books" element={<BooksPage />} />
           <Route path="/books/:bookId" element={<BookPage />} />

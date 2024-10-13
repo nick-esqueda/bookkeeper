@@ -11,7 +11,7 @@ const CategoriesPage = () => {
   const loading = useSelector((state) => state.bookCategories.loading);
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-5">
       <Row>
         <Col>
           <h2 className="mb-4">Categories</h2>

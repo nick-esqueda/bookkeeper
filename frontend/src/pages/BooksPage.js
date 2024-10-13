@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import BookSearchForm from "../components/BookSearchForm";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import BookList from "../components/BookList";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SearchFormData from "../models/SearchFormData";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
 import StatCards from "../components/StatCards";
 
 const BooksPage = () => {
