@@ -161,4 +161,10 @@ public final class SqlQueries {
       JOIN books_book_tags jt ON b.id = jt.book_id
       WHERE jt.book_tag_id = :bookTagId;
       """;
+
+  public static final String COUNT_DISTINCT_AUTHORS =
+      """
+      SELECT COUNT(DISTINCT author)
+      FROM books
+      """;
 }
