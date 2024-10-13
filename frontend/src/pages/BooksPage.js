@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import BookSearchForm from "../components/BookSearchForm";
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import BookList from "../components/BookList";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SearchFormData from "../models/SearchFormData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
+import StatCards from "../components/StatCards";
 
 const BooksPage = () => {
   const { totalResults, loading } = useSelector((state) => state.books);
@@ -20,27 +23,41 @@ const BooksPage = () => {
 
   return (
     <Container className="mt-4">
-      <Row className="mb-4">
-        <h2>Books</h2>
-      </Row>
-
-      <Row style={{ minHeight: "86px" }}>
+      <Row>
         <Col>
-          <BookSearchForm
-            formData={searchOptions}
-            setFormData={setSearchOptions}
-          />
-        </Col>
-      </Row>
-
-      <Row className="ps-2" style={{ minHeight: "2em" }}>
-        <Col className="d-flex align-items-end">
-          {loading ? <LoadingSpinner fixed={false} size="sm" /> : resultCount}
+          <div className="island">
+            <Row>
+              <h3>Books</h3>
+            </Row>
+            <StatCards />
+          </div>
         </Col>
       </Row>
 
       <Row>
-        <BookList queryParams={searchOptions} />
+        <Col sm={3}>
+          <div className="island">
+            <h5 className="mb-3">Filters</h5>
+            <BookSearchForm
+              formData={searchOptions}
+              setFormData={setSearchOptions}
+            />
+
+            <div>
+              {loading ? (
+                <LoadingSpinner fixed={false} size="sm" className="text-end" />
+              ) : (
+                <div className="w100 text-center">{resultCount}</div>
+              )}
+            </div>
+          </div>
+        </Col>
+
+        <Col>
+          <div className="island">
+            <BookList queryParams={searchOptions} />
+          </div>
+        </Col>
       </Row>
     </Container>
   );

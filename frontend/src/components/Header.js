@@ -21,7 +21,7 @@ const Header = () => {
     <Navbar
       expand="lg"
       expanded={navExpanded}
-      className="bg-body-tertiary"
+      className="shadow-sm"
       fixed="top"
     >
       <Container>

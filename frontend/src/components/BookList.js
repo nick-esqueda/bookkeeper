@@ -59,7 +59,7 @@ const BookList = ({ queryParams }) => {
     >
       <Row>
         {bookIds.map((id) => (
-          <Col key={id} xs={12} sm={6} md={4} lg={4} className="p-4">
+          <Col key={id} xs={12} sm={6} md={6} lg={4} className="mb-5">
             <BookCard key={id} bookId={id} />
           </Col>
         ))}

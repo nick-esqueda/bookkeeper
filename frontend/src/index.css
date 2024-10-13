@@ -1,13 +1,28 @@
+#root {
+  background: #ddd1c72c;
+  min-height: 100vh;
+}
+
 body * {
   margin: 0;
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  --theme-tan: #DDD1C7;
+  --theme-light-green: #C2CFB2;
+  --theme-green: #8DB580;
+  --theme-gray: #7E8987;
+  --theme-purple: #4B4A67;
+  --theme-light-purple: #5B5A75;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+nav {
+  background: var(--theme-green);
+}
+
+nav * {
+  color: white !important;
 }
 
 #nav-brand {
@@ -23,6 +38,90 @@ code {
   text-align: center;
   margin: .5em auto;
 }
+
+.island {
+  background: #ffffff;
+  margin: 1rem 0;
+  padding: 1.75rem;
+  border-radius: 16px;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+}
+
+.stat-card {
+  position: relative;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 16px;
+}
+
+/* THEME COLORS AS CLASSES */
+.font-tan {
+  color: var(--theme-tan);
+}
+.font-light-green {
+  color: var(--theme-light-green);
+}
+.font-green {
+  color: var(--theme-green);
+}
+.font-gray {
+  color: var(--theme-gray);
+}
+.font-purple {
+  color: var(--theme-purple);
+}
+.font-light-purple {
+  color: var(--theme-light-purple);
+}
+
+.border-tan {
+  border: 1px solid var(--theme-tan);
+}
+.border-light-green {
+  border: 1px solid var(--theme-light-green);
+}
+.border-green {
+  border: 1px solid var(--theme-green);
+}
+.border-gray {
+  border: 1px solid var(--theme-gray);
+}
+.border-purple {
+  border: 1px solid var(--theme-purple);
+}
+.border-light-purple {
+  border: 1px solid var(--theme-light-purple);
+}
+
+.bg-tan {
+  background-color: var(--theme-tan);
+}
+.bg-light-green {
+  background-color: var(--theme-light-green);
+}
+.bg-green {
+  background-color: var(--theme-green);
+}
+.bg-gray {
+  background-color: var(--theme-gray);
+  color: white;
+}
+.bg-purple {
+  background-color: var(--theme-purple);
+  color: white;
+}
+.bg-light-purple {
+  background-color: var(--theme-light-purple);
+  color: white;
+}
+
+
 
 .preserve-newlines {
   white-space: pre-wrap;
