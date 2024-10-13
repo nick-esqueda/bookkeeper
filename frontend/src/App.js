@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CategoriesPage from "./pages/CategoriesPage";
 import CategoryPage from "./pages/CategoryPage";
 import BooksPage from "./pages/BooksPage";
 import BookPage from "./pages/BookPage";
@@ -19,9 +18,8 @@ function App() {
       <Container className="mt-4 pt-5">
         <Routes>
           <Route path="/" element={<HomePage />} exact={true} />
-          <Route path="/categories" element={<CategoriesPage />} exact={true} />
           <Route
-            path="/categories-v2"
+            path="/categories"
             element={<CategoriesPageV2 />}
             exact={true}
           />
