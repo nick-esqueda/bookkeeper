@@ -1,41 +1,17 @@
 import {
   faBook,
   faEllipsis,
-  faListDots,
-  faPencil,
-  faPerson,
   faTag,
-  faTrash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { Badge, Button, ButtonGroup, Card, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteBookAsync } from "../features/books/booksSlice";
-import { Link, useNavigate } from "react-router-dom";
-import EditBookModal from "./EditBookModal";
+import React from "react";
+import { Badge, Button, Card } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const BookCardCompact = ({ bookId }) => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
   const book = useSelector((state) => state.books.entities[bookId]);
-
-  // const [editBookModalShow, setEditBookModalShow] = useState(false);
-
-  // const handleDelete = async () => {
-  //   if (!window.confirm(`Delete '${book.title}'? This cannot be undone.`)) {
-  //     return;
-  //   }
-
-  //   try {
-  //     await dispatch(deleteBookAsync(bookId));
-  //     navigate(`/books`);
-  //   } catch (error) {
-  //     alert("Uh-oh, something went wrong" + error);
-  //   }
-  // };
 
   return (
     <Card className="mb-2 mt-2 p-3 flex-row shadow-sm">

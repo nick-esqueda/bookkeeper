@@ -35,15 +35,13 @@ const CategoryListV2 = ({ activeCategoryId, setActiveCategoryId }) => {
   return (
     <Stack>
       {ids.map((id) => {
+        const style = "p-3 border-bottom border-2";
         return (
           <div
-            className={
-              id === activeCategoryId
-                ? "p-3 border-bottom border-2 tab-active"
-                : "p-3 border-bottom border-2"
-            }
             key={id}
             onClick={() => setActiveCategoryId(id)}
+            className={id === activeCategoryId ? style + " tab-active" : style}
+            style={{ cursor: "pointer" }}
           >
             <FontAwesomeIcon icon={faLayerGroup} className="me-3" />
             <span className="fs-5">{entities[id].name}</span>
