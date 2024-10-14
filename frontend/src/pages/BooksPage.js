@@ -5,7 +5,7 @@ import BookList from "../components/BookList";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SearchFormData from "../models/SearchFormData";
-import StatCards from "../components/StatCards";
+import BookPageStatCards from "../components/BooksPageStatCards";
 
 const BooksPage = () => {
   const { totalResults, loading } = useSelector((state) => state.books);
@@ -27,7 +27,7 @@ const BooksPage = () => {
             <Row>
               <h3>Books</h3>
             </Row>
-            <StatCards />
+            <BookPageStatCards />
           </div>
         </Col>
       </Row>
