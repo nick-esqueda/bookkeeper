@@ -8,8 +8,7 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import CreateCategoryModal from "../components/CreateCategoryModal";
 
 const CategoriesPageV2 = () => {
-  // TODO: change useState() default value - category "1" may not exist
-  const [activeCategoryId, setActiveCategoryId] = useState(1);
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -44,9 +43,13 @@ const CategoriesPageV2 = () => {
             <CategoryStatCards categoryId={activeCategoryId} />
           </Row>
           <Row>
-            <BookListCompact
-              queryParams={{ bookCategoryId: activeCategoryId }}
-            />
+            {!activeCategoryId ? (
+              <p className="mt-5 text-center">Select a category</p>
+            ) : (
+              <BookListCompact
+                queryParams={{ bookCategoryId: activeCategoryId }}
+              />
+            )}
           </Row>
         </Col>
       </Row>
