@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Stack, Row, Col } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategoriesSlice";
 import LoadingSpinner from "./LoadingSpinner";

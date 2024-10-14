@@ -6,6 +6,7 @@ import TotalBooksStatCard from "./StatCards/TotalBooksStatCard";
 import ReadBooksStatCard from "./StatCards/ReadBooksStatCard";
 import UnreadBooksStatCard from "./StatCards/UnreadBooksStatCard";
 import DidNotFinishStatCard from "./StatCards/DidNotFinishStatCard";
+import StatCardPlaceholder from "./StatCards/StatCardPlaceholder";
 
 const CategoriesPageStatCards = ({ categoryId }) => {
   const category = useSelector(
@@ -13,7 +14,14 @@ const CategoriesPageStatCards = ({ categoryId }) => {
   );
 
   if (!category) {
-    return <LoadingSpinner fixed={false} />;
+    return (
+      <Row>
+        <StatCardPlaceholder size={3} color={"bg-primary"} />
+        <StatCardPlaceholder size={3} color={"bg-success"} />
+        <StatCardPlaceholder size={3} color={"bg-secondary"} />
+        <StatCardPlaceholder size={3} color={"bg-secondary"} />
+      </Row>
+    );
   }
 
   const {
