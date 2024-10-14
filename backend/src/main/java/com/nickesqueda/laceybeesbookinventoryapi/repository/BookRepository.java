@@ -56,11 +56,16 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
   int countByBookCategoryId(int bookCategoryId);
 
+  int countByReadStatus(ReadStatus readStatus);
+
   int countByBookCategoryIdAndReadStatus(int bookCategoryId, ReadStatus readStatus);
 
   int countByBookTags_Id(int bookTagId);
 
   int countByReadStatusAndBookTags_Id(ReadStatus readStatus, int bookTagId);
+
+  @Query(value = COUNT_DISTINCT_AUTHORS, nativeQuery = true)
+  int countAuthors();
 
   @Query(value = COUNT_DISTINCT_AUTHORS_IN_BOOK_CATEGORY, nativeQuery = true)
   int countAuthorsInBookCategory(@Param("bookCategoryId") int bookCategoryId);

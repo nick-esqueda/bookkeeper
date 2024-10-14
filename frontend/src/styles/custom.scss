@@ -1,0 +1,10 @@
+// Override Bootstrap variables before importing Bootstrap
+$primary: #5B5A75;
+$secondary: #7E8987;
+$success: #8DB580;
+$danger: #B85B5B;
+$warning: #C78728;
+$info: #4B4A67;
+
+// Import Bootstrap's core styles
+@import "~bootstrap/scss/bootstrap";

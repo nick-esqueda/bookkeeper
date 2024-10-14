@@ -21,7 +21,7 @@ const Header = () => {
     <Navbar
       expand="lg"
       expanded={navExpanded}
-      className="bg-body-tertiary"
+      className="bg-success text-light shadow-sm"
       fixed="top"
     >
       <Container>
@@ -29,7 +29,13 @@ const Header = () => {
           className="border-0"
           onClick={() => setNavExpanded(!navExpanded)}
         />
-        <Navbar.Brand as={Link} to="/" id="nav-brand" onClick={closeNav}>
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          id="nav-brand"
+          onClick={closeNav}
+          className="text-light"
+        >
           Lacey Bee's Book Inventory
         </Navbar.Brand>
         <Navbar.Collapse
@@ -37,18 +43,33 @@ const Header = () => {
           className="d-flex justify-content-end"
         >
           <Nav className="d-flex gap-4 me-1">
-            <Nav.Link as={Link} to="/tags" onClick={closeNav}>
+            <Nav.Link
+              as={Link}
+              to="/tags"
+              onClick={closeNav}
+              className="text-light"
+            >
               Manage Tags
             </Nav.Link>
-            <Nav.Link as={Link} to="/categories" onClick={closeNav}>
+            <Nav.Link
+              as={Link}
+              to="/categories"
+              onClick={closeNav}
+              className="text-light"
+            >
               Categories
             </Nav.Link>
-            <Nav.Link as={Link} to="/books" onClick={closeNav}>
+            <Nav.Link
+              as={Link}
+              to="/books"
+              onClick={closeNav}
+              className="text-light"
+            >
               Books
             </Nav.Link>
           </Nav>
           <div onClick={closeNav} className="ms-4">
-            <Button variant="success" onClick={() => setModalShow(true)}>
+            <Button variant="primary" onClick={() => setModalShow(true)}>
               <FontAwesomeIcon icon={faPlus} className="me-1" /> Add Book
             </Button>
             <AddBookModal show={modalShow} onHide={() => setModalShow(false)} />

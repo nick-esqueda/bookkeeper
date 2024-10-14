@@ -53,125 +53,109 @@ const BookSearchForm = ({ formData, setFormData }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <Row className="align-items-end">
-        <Col xs="auto" className="mb-3">
-          <Form.Group controlId="formSearchQuery">
-            <FormLabel className="text-muted fw-lighter">Search</FormLabel>
-            <InputGroup>
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={faSearch} />
-              </InputGroup.Text>
-              <Form.Control
-                required
-                type="search"
-                placeholder="Search here..."
-                name="query"
-                value={formData.query}
-                onChange={handleFormChange(setFormData)}
-              />
-            </InputGroup>
-          </Form.Group>
-        </Col>
-        <Col xs="auto" className="mb-3">
-          <Form.Group controlId="formSearchBookCategoryId">
-            <FormLabel className="text-muted fw-lighter">
-              <FontAwesomeIcon icon={faLayerGroup} className="me-2" />
-              Category
-            </FormLabel>
-            <Form.Select
-              name="bookCategoryId"
-              value={formData.bookCategoryId}
-              onChange={handleFormChange(setFormData)}
-            >
-              <option value="" className="text-muted">
-                Any
-              </option>
-              {bookCategoryIds.map((id) => (
-                <option key={id} value={id}>
-                  {bookCategories[id].name}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col xs="auto" className="mb-3">
-          <Form.Group controlId="formSearchReadStatus">
-            <FormLabel className="text-muted fw-lighter">
-              <FontAwesomeIcon icon={faCircleHalfStroke} className="me-2" />
-              Read status
-            </FormLabel>
-            <Form.Select
-              name="readStatus"
-              value={formData.readStatus}
-              onChange={handleFormChange(setFormData)}
-            >
-              <option value="" className="text-muted">
-                Any
-              </option>
-              {Object.keys(readStatusTextMap).map((readStatus) => (
-                <option key={readStatus} value={readStatus}>
-                  {readStatusTextMap[readStatus]}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col xs="auto" className="mb-3">
-          <Form.Group controlId="formSearchBookTagIds">
-            <FormLabel className="text-muted fw-lighter">
-              <FontAwesomeIcon icon={faTags} className="me-2" />
-              Tags
-            </FormLabel>
-            <BookTagMultiSelectInput
-              valueIds={formData.bookTagIds}
-              setFormData={setFormData}
-            />
-          </Form.Group>
-        </Col>
-        <Col xs="auto" className="mb-3">
-          <Form.Group controlId="formSearchSortBy">
-            <FormLabel className="text-muted fw-lighter">
-              <FontAwesomeIcon icon={faSort} className="me-2" />
-              Sort by
-            </FormLabel>
-            <Form.Select
-              name="sortBy"
-              value={formData.sortBy}
-              onChange={handleFormChange(setFormData)}
-            >
-              <option value="title">Title</option>
-              <option value="author">Author</option>
-              <option value="edition">Edition</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col xs="auto" className="mb-3">
-          <Form.Group controlId="formSearchSortDir">
-            <FormLabel className="text-muted fw-lighter">
-              <FontAwesomeIcon icon={faArrowDownAZ} className="me-2" />
-              Sort order
-            </FormLabel>
-            <Form.Select
-              name="sortDir"
-              value={formData.sortDir}
-              onChange={handleFormChange(setFormData)}
-            >
-              <option value="asc">Normal</option>
-              <option value="desc">Reverse</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col xs="auto" className="mb-3">
-          <Button
-            variant="link"
-            className="fw-light text-decoration-none"
-            onClick={resetFormData}
-          >
-            <FontAwesomeIcon icon={faRotate} className="me-2" />
-            Reset
-          </Button>
-        </Col>
-      </Row>
+      <Form.Group controlId="formSearchQuery" className="mb-3">
+        <FormLabel className="text-muted fw-lighter">Search</FormLabel>
+        <InputGroup>
+          <InputGroup.Text>
+            <FontAwesomeIcon icon={faSearch} />
+          </InputGroup.Text>
+          <Form.Control
+            required
+            type="search"
+            placeholder="Search here..."
+            name="query"
+            value={formData.query}
+            onChange={handleFormChange(setFormData)}
+          />
+        </InputGroup>
+      </Form.Group>
+      <Form.Group controlId="formSearchBookCategoryId" className="mb-3">
+        <FormLabel className="text-muted fw-lighter">
+          <FontAwesomeIcon icon={faLayerGroup} className="me-2" />
+          Category
+        </FormLabel>
+        <Form.Select
+          name="bookCategoryId"
+          value={formData.bookCategoryId}
+          onChange={handleFormChange(setFormData)}
+        >
+          <option value="" className="text-muted">
+            Any
+          </option>
+          {bookCategoryIds.map((id) => (
+            <option key={id} value={id}>
+              {bookCategories[id].name}
+            </option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+      <Form.Group controlId="formSearchReadStatus" className="mb-3">
+        <FormLabel className="text-muted fw-lighter">
+          <FontAwesomeIcon icon={faCircleHalfStroke} className="me-2" />
+          Read status
+        </FormLabel>
+        <Form.Select
+          name="readStatus"
+          value={formData.readStatus}
+          onChange={handleFormChange(setFormData)}
+        >
+          <option value="" className="text-muted">
+            Any
+          </option>
+          {Object.keys(readStatusTextMap).map((readStatus) => (
+            <option key={readStatus} value={readStatus}>
+              {readStatusTextMap[readStatus]}
+            </option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+      <Form.Group controlId="formSearchBookTagIds" className="mb-3">
+        <FormLabel className="text-muted fw-lighter">
+          <FontAwesomeIcon icon={faTags} className="me-2" />
+          Tags
+        </FormLabel>
+        <BookTagMultiSelectInput
+          valueIds={formData.bookTagIds}
+          setFormData={setFormData}
+        />
+      </Form.Group>
+      <Form.Group controlId="formSearchSortBy" className="mb-3">
+        <FormLabel className="text-muted fw-lighter">
+          <FontAwesomeIcon icon={faSort} className="me-2" />
+          Sort by
+        </FormLabel>
+        <Form.Select
+          name="sortBy"
+          value={formData.sortBy}
+          onChange={handleFormChange(setFormData)}
+        >
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="edition">Edition</option>
+        </Form.Select>
+      </Form.Group>
+      <Form.Group controlId="formSearchSortDir" className="mb-3">
+        <FormLabel className="text-muted fw-lighter">
+          <FontAwesomeIcon icon={faArrowDownAZ} className="me-2" />
+          Sort order
+        </FormLabel>
+        <Form.Select
+          name="sortDir"
+          value={formData.sortDir}
+          onChange={handleFormChange(setFormData)}
+        >
+          <option value="asc">Normal</option>
+          <option value="desc">Reverse</option>
+        </Form.Select>
+      </Form.Group>
+      <Button
+        variant="link"
+        className="fw-light text-decoration-none"
+        onClick={resetFormData}
+      >
+        <FontAwesomeIcon icon={faRotate} className="me-2" />
+        Reset
+      </Button>
     </Form>
   );
 };

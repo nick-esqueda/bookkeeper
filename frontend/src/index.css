@@ -1,13 +1,28 @@
+#root {
+  background: #ddd1c72c;
+  min-height: 100vh;
+}
+
 body * {
   margin: 0;
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  
+  --theme-tan: #DDD1C7;
+  --theme-light-green: #C2CFB2;
+  --theme-light-green-transparent: #c2cfb273;
+  --theme-green: #8DB580;
+  --theme-green-transparent: #8db5807a;
+  --theme-gray: #7E8987;
+  --theme-purple: #4B4A67;
+  --theme-light-purple: #5B5A75;
+  --theme-red: #B85B5B;
+  --theme-orange: #C78728;
+  
+  /* orange options */
+  /* c78728 */
+  /* c29915 */
 }
 
 #nav-brand {
@@ -22,6 +37,31 @@ code {
   font-weight: bold;
   text-align: center;
   margin: .5em auto;
+}
+
+.island {
+  background: #ffffff;
+  margin: 1rem 0;
+  padding: 1.75rem;
+  border-radius: 16px;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+}
+
+.stat-card {
+  position: relative;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 16px;
+}
+
+.tab-active {
+  background-color: var(--theme-green-transparent);
 }
 
 .preserve-newlines {

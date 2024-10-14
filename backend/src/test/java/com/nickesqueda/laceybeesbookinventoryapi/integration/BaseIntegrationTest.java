@@ -32,6 +32,7 @@ public abstract class BaseIntegrationTest {
   static URI allBookCategoriesUri;
   static URI allBooksUri;
   static URI allBookTagsUri;
+  static URI statsUri;
   static UriComponentsBuilder bookCategoryUriBuilder;
   static UriComponentsBuilder bookUriBuilder;
   static UriComponentsBuilder bookTagUriBuilder;
@@ -59,6 +60,7 @@ public abstract class BaseIntegrationTest {
     allBookCategoriesUri =
         UriComponentsBuilder.fromUri(baseUri).path("/book-categories").build().toUri();
     allBooksUri = UriComponentsBuilder.fromUri(baseUri).path("/books").build().toUri();
+    statsUri = UriComponentsBuilder.fromUri(baseUri).path("/stats").build().toUri();
     bookCategoryUriBuilder =
         UriComponentsBuilder.fromUri(baseUri).path("/book-categories/{bookCategoryId}");
     bookUriBuilder = UriComponentsBuilder.fromUri(baseUri).path("/books/{bookId}");

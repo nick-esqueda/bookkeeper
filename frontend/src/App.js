@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CategoriesPage from "./pages/CategoriesPage";
 import CategoryPage from "./pages/CategoryPage";
 import BooksPage from "./pages/BooksPage";
 import BookPage from "./pages/BookPage";
@@ -9,16 +8,22 @@ import Header from "./components/Header";
 import { Container } from "react-bootstrap";
 import ScrollToTop from "./components/ScrollToTop";
 import TagsPage from "./pages/TagsPage";
+import CategoriesPageV2 from "./pages/CategoriesPageV2";
+import "./styles/custom.scss";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <ScrollToTop />
-      <Container className="mt-5 pt-5">
+      <Container className="mt-4 pt-5">
         <Routes>
           <Route path="/" element={<HomePage />} exact={true} />
-          <Route path="/categories" element={<CategoriesPage />} exact={true} />
+          <Route
+            path="/categories"
+            element={<CategoriesPageV2 />}
+            exact={true}
+          />
           <Route path="/categories/:categoryId" element={<CategoryPage />} />
           <Route path="/books" element={<BooksPage />} />
           <Route path="/books/:bookId" element={<BookPage />} />
