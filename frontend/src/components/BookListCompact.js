@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
-import BookCard from "./BookCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearAllBooks,

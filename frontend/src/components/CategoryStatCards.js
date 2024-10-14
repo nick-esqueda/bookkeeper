@@ -1,7 +1,6 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import LoadingSpinner from "./LoadingSpinner";
 import TotalBooksStatCard from "./StatCards/TotalBooksStatCard";
 import ReadBooksStatCard from "./StatCards/ReadBooksStatCard";
 import UnreadBooksStatCard from "./StatCards/UnreadBooksStatCard";

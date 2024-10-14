@@ -28,7 +28,6 @@ const TagsPage = () => {
     entities: bookTags,
     ids: bookTagIds,
     loading,
-    error,
   } = useSelector((state) => state.bookTags);
 
   const [selectedTag, setSelectedTag] = useState(bookTags[bookTagIds[0]]);

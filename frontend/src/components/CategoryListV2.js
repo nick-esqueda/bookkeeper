@@ -15,14 +15,14 @@ const CategoryListV2 = ({ activeCategoryId, setActiveCategoryId }) => {
 
   useEffect(() => {
     dispatch(fetchBookCategoriesAsync());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     // once categories are loaded in, set the first category as active
     if (ids.length) {
       setActiveCategoryId(entities[ids[0]].id);
     }
-  }, [ids]);
+  }, [ids, entities, setActiveCategoryId]);
 
   if (loading) {
     return <LoadingSpinner fixed={false} />;

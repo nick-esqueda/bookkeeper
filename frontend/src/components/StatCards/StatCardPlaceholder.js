@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { Col, Fade, Placeholder } from "react-bootstrap";
+import React from "react";
+import { Col, Placeholder } from "react-bootstrap";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 const StatCardPlaceholder = ({ size = 2, color = "bg-primary" }) => {

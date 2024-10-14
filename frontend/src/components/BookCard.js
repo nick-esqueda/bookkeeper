@@ -60,7 +60,7 @@ const BookCard = ({ bookId }) => {
       badgeContainer.removeEventListener("scroll", updateFadeVisibility);
       window.removeEventListener("resize", updateFadeVisibility);
     };
-  }, []);
+  }, [book]);
 
   if (!book) {
     return <p>Error: book does not exist</p>;
