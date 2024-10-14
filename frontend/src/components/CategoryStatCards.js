@@ -8,7 +8,7 @@ import UnreadBooksStatCard from "./StatCards/UnreadBooksStatCard";
 import DidNotFinishStatCard from "./StatCards/DidNotFinishStatCard";
 import StatCardPlaceholder from "./StatCards/StatCardPlaceholder";
 
-const CategoriesPageStatCards = ({ categoryId }) => {
+const CategoryStatCards = ({ categoryId }) => {
   const category = useSelector(
     (state) => state.bookCategories.entities[categoryId]
   );
@@ -24,21 +24,14 @@ const CategoriesPageStatCards = ({ categoryId }) => {
     );
   }
 
-  const {
-    totalBookCount,
-    readBookCount,
-    unreadBookCount,
-    didNotFinishBookCount,
-  } = category;
-
   return (
     <Row>
-      <TotalBooksStatCard count={totalBookCount} size={3} />
-      <ReadBooksStatCard count={readBookCount} size={3} />
-      <UnreadBooksStatCard count={unreadBookCount} size={3} />
-      <DidNotFinishStatCard count={didNotFinishBookCount} size={3} />
+      <TotalBooksStatCard count={category.totalBookCount} size={3} />
+      <ReadBooksStatCard count={category.readBookCount} size={3} />
+      <UnreadBooksStatCard count={category.unreadBookCount} size={3} />
+      <DidNotFinishStatCard count={category.didNotFinishBookCount} size={3} />
     </Row>
   );
 };
 
-export default CategoriesPageStatCards;
+export default CategoryStatCards;

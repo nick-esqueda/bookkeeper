@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CategoryListV2 from "../components/CategoryListV2";
-import CategoriesPageStatCards from "../components/CategoriesPageStatCards";
+import CategoryStatCards from "../components/CategoryStatCards";
 import BookListCompact from "../components/BookListCompact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +42,7 @@ const CategoriesPageV2 = () => {
 
         <Col className="ps-5">
           <Row className="mb-3">
-            <CategoriesPageStatCards categoryId={activeCategoryId} />
+            <CategoryStatCards categoryId={activeCategoryId} />
           </Row>
           <Row>
             {!activeCategoryId ? (
