@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CategoryListV2 from "../components/CategoryListV2";
-import CategoriesPageStatCards from "../components/CategoriesPageStatCards";
+import CategoryStatCards from "../components/CategoryStatCards";
 import BookListCompact from "../components/BookListCompact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import CreateCategoryModal from "../components/CreateCategoryModal";
+import BookCardCompactPlaceholders from "../components/BookCardCompactPlaceholders";
 
 const CategoriesPageV2 = () => {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
@@ -38,13 +39,14 @@ const CategoriesPageV2 = () => {
             setActiveCategoryId={setActiveCategoryId}
           />
         </Col>
+
         <Col className="ps-5">
           <Row className="mb-3">
-            <CategoriesPageStatCards categoryId={activeCategoryId} />
+            <CategoryStatCards categoryId={activeCategoryId} />
           </Row>
           <Row>
             {!activeCategoryId ? (
-              <p className="mt-5 text-center">Select a category</p>
+              <BookCardCompactPlaceholders />
             ) : (
               <BookListCompact
                 queryParams={{ bookCategoryId: activeCategoryId }}

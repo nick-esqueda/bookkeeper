@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
-import BookCard from "./BookCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearAllBooks,
@@ -9,6 +8,7 @@ import {
   fetchBooksNextPageAsync,
 } from "../features/books/booksSlice";
 import BookCardCompact from "./BookCardCompact";
+import BookCardCompactPlaceholders from "./BookCardCompactPlaceholders";
 
 const BookListCompact = ({ queryParams }) => {
   const dispatch = useDispatch();
@@ -35,11 +35,9 @@ const BookListCompact = ({ queryParams }) => {
     );
   };
 
-  const loadingSpinner = (
-    <div className="w-100 text-center mt-3 p-5">
-      <Spinner animation="border" />
-    </div>
-  );
+  if (loading) {
+    <BookCardCompactPlaceholders />;
+  }
 
   if (!bookIds.length && !loading) {
     return <small className="mt-4 text-center text-muted">No results</small>;
@@ -54,8 +52,7 @@ const BookListCompact = ({ queryParams }) => {
       dataLength={bookIds.length}
       next={fetchNextPage}
       hasMore={hasNextPage}
-      loader={loadingSpinner}
-      className="mb-5"
+      loader={<BookCardCompactPlaceholders />}
       style={{ overflow: "visible" }}
     >
       <Row>

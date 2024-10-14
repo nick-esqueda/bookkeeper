@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBookCategory, editBookCategory, fetchBookCategories, fetchBookCategory } from "./bookCategoriesApi";
+import {
+  createBookCategory,
+  editBookCategory,
+  fetchBookCategories,
+  fetchBookCategory,
+} from "./bookCategoriesApi";
 
 const initialState = {
   entities: {},
@@ -95,7 +100,7 @@ export const createBookCategoryAsync = (bookCategory) => async (dispatch) => {
   } finally {
     dispatch(setLoading(false));
   }
-}
+};
 
 export const editBookCategoryAsync = (bookCategory) => async (dispatch) => {
   dispatch(setLoading(true));
@@ -108,6 +113,6 @@ export const editBookCategoryAsync = (bookCategory) => async (dispatch) => {
   } finally {
     dispatch(setLoading(false));
   }
-}
+};
 
 export default bookCategoriesSlice.reducer;
