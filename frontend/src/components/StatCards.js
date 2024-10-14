@@ -31,7 +31,7 @@ const StatCards = () => {
   return (
     <Row>
       <Col sm={2}>
-        <div className="stat-card bg-light-purple shadow-sm">
+        <div className="stat-card bg-primary text-light shadow-sm">
           <p>Total Books</p>
           <div>
             <FontAwesomeIcon icon={faBook} className="fs-1" />
@@ -40,7 +40,7 @@ const StatCards = () => {
         </div>
       </Col>
       <Col sm={2}>
-        <div className="stat-card bg-purple shadow-sm">
+        <div className="stat-card bg-info text-light shadow-sm">
           <p>Categories</p>
           <div>
             <FontAwesomeIcon icon={faLayerGroup} className="fs-1" />
@@ -49,7 +49,7 @@ const StatCards = () => {
         </div>
       </Col>
       <Col sm={2}>
-        <div className="stat-card bg-gray shadow-sm">
+        <div className="stat-card bg-secondary text-light shadow-sm">
           <p>Tags</p>
           <div>
             <FontAwesomeIcon icon={faTags} className="fs-1" />
@@ -58,29 +58,29 @@ const StatCards = () => {
         </div>
       </Col>
       <Col sm={2}>
-        <div className="stat-card border-green shadow-sm">
+        <div className="stat-card bg-success text-white shadow-sm">
           <p>Read Books</p>
-          <div className="fs-2 font-green">
+          <div className="fs-2">
             <FontAwesomeIcon icon={readStatusIconMap["READ"]} />
             <span className="ms-4">{data.readBookCount}</span>
           </div>
         </div>
       </Col>
       <Col sm={2}>
-        <div className="stat-card border-light-green shadow-sm">
-          <p>DNF Books</p>
-          <div className="fs-2 font-light-green">
-            <FontAwesomeIcon icon={readStatusIconMap["DID_NOT_FINISH"]} />
-            <span className="ms-4">{data.didNotFinishBookCount}</span>
+        <div className="stat-card border-danger text-danger shadow-sm">
+          <p>Unread Books</p>
+          <div className="fs-2">
+            <FontAwesomeIcon icon={readStatusIconMap["UNREAD"]} />
+            <span className="ms-4">{data.unreadBookCount}</span>
           </div>
         </div>
       </Col>
       <Col sm={2}>
-        <div className="stat-card border-gray shadow-sm">
-          <p>Unread Books</p>
-          <div className="fs-2 font-gray">
-            <FontAwesomeIcon icon={readStatusIconMap["UNREAD"]} />
-            <span className="ms-4">{data.unreadBookCount}</span>
+        <div className="stat-card border-warning text-warning shadow-sm">
+          <p>DNF Books</p>
+          <div className="fs-2">
+            <FontAwesomeIcon icon={readStatusIconMap["DID_NOT_FINISH"]} />
+            <span className="ms-4">{data.didNotFinishBookCount}</span>
           </div>
         </div>
       </Col>

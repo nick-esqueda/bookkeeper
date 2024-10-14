@@ -32,7 +32,7 @@ const CategoryListV2 = ({ activeCategoryId, setActiveCategoryId }) => {
           <div
             className={
               id === activeCategoryId
-                ? "p-3 border-bottom border-2 list-active"
+                ? "p-3 border-bottom border-2 tab-active"
                 : "p-3 border-bottom border-2"
             }
             key={id}

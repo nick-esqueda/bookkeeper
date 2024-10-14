@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CategoryListV2 from "../components/CategoryListV2";
-import { useSelector } from "react-redux";
 import CategoryStatCards from "../components/CategoryStatCards";
 import BookListCompact from "../components/BookListCompact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

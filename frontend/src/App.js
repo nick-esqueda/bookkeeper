@@ -9,6 +9,7 @@ import { Container } from "react-bootstrap";
 import ScrollToTop from "./components/ScrollToTop";
 import TagsPage from "./pages/TagsPage";
 import CategoriesPageV2 from "./pages/CategoriesPageV2";
+import "./styles/custom.scss";
 
 function App() {
   return (

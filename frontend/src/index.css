@@ -13,18 +13,16 @@ body * {
   --theme-light-green: #C2CFB2;
   --theme-light-green-transparent: #c2cfb273;
   --theme-green: #8DB580;
-  --theme-green-transparent: #8db58041;
+  --theme-green-transparent: #8db5807a;
   --theme-gray: #7E8987;
   --theme-purple: #4B4A67;
   --theme-light-purple: #5B5A75;
-}
-
-nav {
-  background: var(--theme-green);
-}
-
-nav * {
-  color: white !important;
+  --theme-red: #B85B5B;
+  --theme-orange: #C78728;
+  
+  /* orange options */
+  /* c78728 */
+  /* c29915 */
 }
 
 #nav-brand {
@@ -62,68 +60,9 @@ nav * {
   border-radius: 16px;
 }
 
-/* THEME COLORS AS CLASSES */
-.font-tan {
-  color: var(--theme-tan);
+.tab-active {
+  background-color: var(--theme-green-transparent);
 }
-.font-light-green {
-  color: var(--theme-light-green);
-}
-.font-green {
-  color: var(--theme-green);
-}
-.font-gray {
-  color: var(--theme-gray);
-}
-.font-purple {
-  color: var(--theme-purple);
-}
-.font-light-purple {
-  color: var(--theme-light-purple);
-}
-
-.border-tan {
-  border: 1px solid var(--theme-tan);
-}
-.border-light-green {
-  border: 1px solid var(--theme-light-green);
-}
-.border-green {
-  border: 1px solid var(--theme-green);
-}
-.border-gray {
-  border: 1px solid var(--theme-gray);
-}
-.border-purple {
-  border: 1px solid var(--theme-purple);
-}
-.border-light-purple {
-  border: 1px solid var(--theme-light-purple);
-}
-
-.bg-tan {
-  background-color: var(--theme-tan);
-}
-.bg-light-green {
-  background-color: var(--theme-light-green);
-}
-.bg-green {
-  background-color: var(--theme-green);
-}
-.bg-gray {
-  background-color: var(--theme-gray);
-  color: white;
-}
-.bg-purple {
-  background-color: var(--theme-purple);
-  color: white;
-}
-.bg-light-purple {
-  background-color: var(--theme-light-purple);
-  color: white;
-}
-
-
 
 .preserve-newlines {
   white-space: pre-wrap;
@@ -155,8 +94,4 @@ nav * {
 .fade-out-left {
   left: 0;
   background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-}
-
-.list-active {
-  background-color: var(--theme-green-transparent);
 }
