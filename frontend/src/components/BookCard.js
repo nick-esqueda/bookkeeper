@@ -7,8 +7,8 @@ import { readStatusButtonColorMap } from "../utils/dataTransformationUtils";
 import { Badge, Fade } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBook,
   faBookOpen,
+  faLayerGroup,
   faPenNib,
   faTag,
   faUser,
@@ -86,7 +86,7 @@ const BookCard = ({ bookId }) => {
         />
         <Card.Header className="w-100 d-flex align-items-center justify-content-between">
           <div>
-            <FontAwesomeIcon icon={faBook} className="me-2" />
+            <FontAwesomeIcon icon={faLayerGroup} className="me-2" />
             {book.bookCategory.name}
           </div>
 
