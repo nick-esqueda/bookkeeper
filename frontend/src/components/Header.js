@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
-  const [modalShow, setModalShow] = useState(false);
+  const [showAddBookModal, setShowAddBookModal] = useState(false);
   const [navExpanded, setNavExpanded] = useState(false);
 
   const closeNav = () => {
@@ -69,12 +69,15 @@ const Header = () => {
             </Nav.Link>
           </Nav>
           <div onClick={closeNav} className="ms-4">
-            <Button variant="primary" onClick={() => setModalShow(true)}>
+            <Button variant="primary" onClick={() => setShowAddBookModal(true)}>
               <FontAwesomeIcon icon={faPlus} className="me-1" /> Add Book
             </Button>
-            <AddBookModal show={modalShow} onHide={() => setModalShow(false)} />
           </div>
         </Navbar.Collapse>
+        <AddBookModal
+          show={showAddBookModal}
+          onHide={() => setShowAddBookModal(false)}
+        />
       </Container>
     </Navbar>
   );

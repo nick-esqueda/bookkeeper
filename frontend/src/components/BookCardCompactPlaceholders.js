@@ -8,7 +8,7 @@ const BookCardCompactPlaceholders = () => {
 
   return (
     <Row>
-      {list.map((i) => (
+      {list.map((_, i) => (
         <Card key={i} className="mb-2 mt-2 p-3 flex-row shadow-sm">
           <div className="pt-2 me-4">
             <FontAwesomeIcon icon={faBook} className="fs-4" />

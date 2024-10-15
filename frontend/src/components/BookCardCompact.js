@@ -34,7 +34,7 @@ const BookCardCompact = ({ bookId }) => {
         </div>
         <div>
           {book.bookTags.map((tag) => (
-            <Badge bg="secondary" className="me-2">
+            <Badge key={tag.id} bg="secondary" className="me-2">
               <FontAwesomeIcon icon={faTag} className="me-2" />
               {tag.name}
             </Badge>

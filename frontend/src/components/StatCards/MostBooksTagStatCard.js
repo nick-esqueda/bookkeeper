@@ -1,9 +1,9 @@
-import { faTags } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Col, Fade } from "react-bootstrap";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 
-const TotalTagsStatCard = ({ count, size = 2 }) => {
+const MostBooksTagStatCard = ({ count, size = 2 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -14,10 +14,10 @@ const TotalTagsStatCard = ({ count, size = 2 }) => {
   return (
     <Fade in={isMounted}>
       <Col sm={size}>
-        <div className="stat-card bg-secondary text-light shadow-sm">
-          <p>Total Tags</p>
+        <div className="stat-card bg-info text-light shadow-sm">
+          <p>Most Books</p>
           <div>
-            <FontAwesomeIcon icon={faTags} className="fs-1 me-4" />
+            <FontAwesomeIcon icon={faBook} className="fs-1 me-4" />
             <span className="fs-2">{count}</span>
           </div>
         </div>
@@ -26,4 +26,4 @@ const TotalTagsStatCard = ({ count, size = 2 }) => {
   );
 };
 
-export default TotalTagsStatCard;
+export default MostBooksTagStatCard;

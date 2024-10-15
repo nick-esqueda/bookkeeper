@@ -13,12 +13,13 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 const BookCardPlaceholders = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const list = Array.from(Array(9));
 
   useEffect(() => {
     // control the Fade component to fade the Card in.
     setIsMounted(true);
   }, []);
+
+  const list = Array.from(Array(9));
 
   return (
     <Fade in={isMounted}>
