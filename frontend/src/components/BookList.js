@@ -35,7 +35,7 @@ const BookList = ({ queryParams }) => {
     );
   };
 
-  if (loading) {
+  if (!bookIds.length && loading) {
     return <BookCardPlaceholders />;
   }
 
