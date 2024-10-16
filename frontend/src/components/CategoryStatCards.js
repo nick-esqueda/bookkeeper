@@ -8,11 +8,10 @@ import DidNotFinishStatCard from "./StatCards/DidNotFinishStatCard";
 import StatCardPlaceholder from "./StatCards/StatCardPlaceholder";
 
 const CategoryStatCards = ({ categoryId }) => {
-  const category = useSelector(
-    (state) => state.bookCategories.entities[categoryId]
-  );
+  const { entities, loading } = useSelector((state) => state.bookCategories);
+  const category = entities[categoryId];
 
-  if (!category) {
+  if (loading || !category) {
     return (
       <Row>
         <StatCardPlaceholder size={3} color={"bg-primary"} />

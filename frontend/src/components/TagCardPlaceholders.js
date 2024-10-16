@@ -13,7 +13,7 @@ const TagCardPlaceholders = () => {
   const list = Array.from(Array(5));
 
   return (
-    <Stack className="overflow-auto" style={{ maxHeight: "400px" }}>
+    <Stack className="overflow-auto" style={{ maxHeight: "500px" }}>
       {list.map((_, i) => (
         <Row key={i} className="w-100">
           <Col>

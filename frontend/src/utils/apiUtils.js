@@ -26,6 +26,11 @@ export const customFetch = async (path, options = {}) => {
     throw new Error(`Backend request failed: ${endpoint}`);
   }
 
+  // add artificial API response time for smoother UI loading experience
+  await new Promise((resolve, reject) => {
+    setTimeout(() => resolve(), 200);
+  });
+
   if (response.status === 204) {
     // cannot call response.json() for 204 No Content responses
     return;
