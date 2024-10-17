@@ -1,22 +1,30 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import CreateCategoryModal from "../components/CreateCategoryModal";
 import CategoryList from "../components/CategoryList";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import CategoryStatCards from "../components/CategoryStatCards";
+import BookListCompact from "../components/BookListCompact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import CreateCategoryModal from "../components/CreateCategoryModal";
+import BookCardCompactPlaceholders from "../components/BookCardCompactPlaceholders";
 
 const CategoriesPage = () => {
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const loading = useSelector((state) => state.bookCategories.loading);
 
   return (
     <Container className="mt-5">
+      <CreateCategoryModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+      />
+
       <Row>
         <Col>
-          <h2 className="mb-4">Categories</h2>
+          <h2>Categories</h2>
+          <p>Select a category to view books & details</p>
         </Col>
-        <Col className="text-end">
+        <Col className="text-end pt-1">
           <Button variant="outline-primary" onClick={() => setShowModal(true)}>
             <FontAwesomeIcon icon={faCirclePlus} className="me-2" />
             Add Category
@@ -24,28 +32,30 @@ const CategoriesPage = () => {
         </Col>
       </Row>
 
-      <CategoryList />
+      <Row className="island mt-3">
+        <Col sm={3} className="border-end border-2 mt-3">
+          <CategoryList
+            activeCategoryId={activeCategoryId}
+            setActiveCategoryId={setActiveCategoryId}
+          />
+        </Col>
 
-      {!loading && (
-        <Row>
-          <Col className="d-flex justify-content-center">
-            <Button
-              variant="outline-primary"
-              size="lg"
-              className="w-50 m-5"
-              onClick={() => setShowModal(true)}
-            >
-              <FontAwesomeIcon icon={faCirclePlus} className="me-2" />
-              Add Category
-            </Button>
-          </Col>
-        </Row>
-      )}
+        <Col className="ps-5">
+          <Row className="mb-3">
+            <CategoryStatCards categoryId={activeCategoryId} />
+          </Row>
 
-      <CreateCategoryModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-      />
+          <Row>
+            {!activeCategoryId ? (
+              <BookCardCompactPlaceholders />
+            ) : (
+              <BookListCompact
+                queryParams={{ bookCategoryId: activeCategoryId }}
+              />
+            )}
+          </Row>
+        </Col>
+      </Row>
     </Container>
   );
 };
