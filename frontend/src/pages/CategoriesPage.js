@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import CreateCategoryModal from "../components/CreateCategoryModal";
 import BookCardCompactPlaceholders from "../components/BookCardCompactPlaceholders";
+import CategoryHeader from "../components/CategoryHeader";
 
 const CategoriesPage = () => {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
@@ -41,6 +42,12 @@ const CategoriesPage = () => {
         </Col>
 
         <Col className="ps-5">
+          <Row>
+            <Col>
+              <CategoryHeader categoryId={activeCategoryId} />
+            </Col>
+          </Row>
+
           <Row className="mb-3">
             <CategoryStatCards categoryId={activeCategoryId} />
           </Row>
