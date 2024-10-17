@@ -5,8 +5,9 @@ import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategor
 import LoadingSpinner from "./LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-const CategoryList = ({ activeCategoryId, setActiveCategoryId }) => {
+const CategoryList = ({ activeCategoryId }) => {
   const dispatch = useDispatch();
 
   const { ids, entities, loading, error } = useSelector(
@@ -16,13 +17,6 @@ const CategoryList = ({ activeCategoryId, setActiveCategoryId }) => {
   useEffect(() => {
     dispatch(fetchBookCategoriesAsync());
   }, [dispatch]);
-
-  useEffect(() => {
-    // once categories are loaded in, set the first category as active
-    if (ids.length) {
-      setActiveCategoryId(entities[ids[0]].id);
-    }
-  }, [ids, entities, setActiveCategoryId]);
 
   if (loading) {
     return <LoadingSpinner fixed={false} />;
@@ -35,17 +29,16 @@ const CategoryList = ({ activeCategoryId, setActiveCategoryId }) => {
   return (
     <Stack>
       {ids.map((id) => {
-        const style = "p-3 border-bottom border-2";
+        const defaultStyle =
+          "p-3 border-bottom border-2 text-dark text-decoration-none";
+        const finalStyle =
+          id == activeCategoryId ? defaultStyle + " tab-active" : defaultStyle;
+
         return (
-          <div
-            key={id}
-            onClick={() => setActiveCategoryId(id)}
-            className={id === activeCategoryId ? style + " tab-active" : style}
-            style={{ cursor: "pointer" }}
-          >
+          <Link key={id} to={`/categories/${id}`} className={finalStyle}>
             <FontAwesomeIcon icon={faLayerGroup} className="me-3" />
             <span className="fs-5">{entities[id].name}</span>
-          </div>
+          </Link>
         );
       })}
     </Stack>

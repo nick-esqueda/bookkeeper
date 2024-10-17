@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import CategoryList from "../components/CategoryList";
 import CategoryStatCards from "../components/CategoryStatCards";
@@ -8,10 +8,30 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import CreateCategoryModal from "../components/CreateCategoryModal";
 import BookCardCompactPlaceholders from "../components/BookCardCompactPlaceholders";
 import CategoryHeader from "../components/CategoryHeader";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CategoriesPage = () => {
-  const [activeCategoryId, setActiveCategoryId] = useState(null);
+  let { categoryId } = useParams();
+
+  const { ids } = useSelector((state) => state.bookCategories);
+
+  const [activeCategoryId, setActiveCategoryId] = useState(categoryId);
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    // scenario: navigating to /categories without path param (undefined)
+    if (!categoryId && ids.length) {
+      categoryId = ids[0];
+    }
+
+    // reset the activeCategoryId in case useState & URL param are out of sync
+    // scenario: navigate() to a category while already on /categories page
+    // scenario: navigating to /categories without path param (undefined)
+    if (categoryId !== activeCategoryId) {
+      setActiveCategoryId(categoryId);
+    }
+  }, [categoryId, activeCategoryId, ids]);
 
   return (
     <Container className="mt-5">

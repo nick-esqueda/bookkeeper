@@ -19,6 +19,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} exact={true} />
           <Route path="/categories" element={<CategoriesPage />} exact={true} />
+          <Route
+            path="/categories/:categoryId"
+            element={<CategoriesPage />}
+            exact={true}
+          />
           <Route path="/books" element={<BooksPage />} />
           <Route path="/books/:bookId" element={<BookPage />} />
           <Route path="/tags" element={<TagsPage />} />
