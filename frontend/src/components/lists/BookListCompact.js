@@ -26,6 +26,10 @@ const BookListCompact = ({ queryParams }) => {
     );
   };
 
+  if (loading && !bookIds.length) {
+    return <BookCardCompactPlaceholders />;
+  }
+
   if (!bookIds.length && !loading) {
     return <small className="mt-4 text-center text-muted">No results</small>;
   }

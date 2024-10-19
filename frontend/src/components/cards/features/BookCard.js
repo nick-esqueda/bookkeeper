@@ -109,24 +109,22 @@ const BookCard = ({ bookId }) => {
             )}
           </div>
           <div className="mt-5">
-            <Card.Text className="overflow-hidden position-relative">
+            <div className="overflow-hidden position-relative mb-3">
               {showLeftFade && <div className="fade-out-left"></div>}
               <div ref={badgeContainerRef} className="one-line-hidden-scroll">
                 {bookTagBadges}
               </div>
               {showRightFade && <div className="fade-out-right"></div>}
-            </Card.Text>
-            <Card.Text>
-              <Button
-                as={Link}
-                to={`/books/${bookId}`}
-                variant="outline-primary"
-                className="w-100"
-              >
-                <FontAwesomeIcon icon={faBookOpen} className="me-2" />
-                View Book
-              </Button>
-            </Card.Text>
+            </div>
+            <Button
+              as={Link}
+              to={`/books/${bookId}`}
+              variant="outline-primary"
+              className="w-100"
+            >
+              <FontAwesomeIcon icon={faBookOpen} className="me-2" />
+              View Book
+            </Button>
           </div>
         </Card.Body>
       </Card>

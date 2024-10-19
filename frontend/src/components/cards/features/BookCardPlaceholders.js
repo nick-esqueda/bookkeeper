@@ -16,7 +16,7 @@ const BookCardPlaceholders = () => {
 
   return (
     <Row>
-      {list.map((i) => (
+      {list.map((_, i) => (
         <Col key={i} xs={12} sm={6} className="mb-5">
           <Card className="h-100 border-2 border-top-0 border-bottom-0 border-end-0 shadow">
             <Card.Header className="d-flex align-items-center justify-content-between">
@@ -57,27 +57,23 @@ const BookCardPlaceholders = () => {
               </div>
 
               <div className="mt-5">
-                <Card.Text className="overflow-hidden position-relative">
-                  <div className="one-line-hidden-scroll">
-                    <Placeholder animation="glow" as={"span"}>
-                      <Placeholder className="w-25 me-2" />
-                    </Placeholder>
-                    <Placeholder animation="glow" as={"span"}>
-                      <Placeholder className="w-25 me-2" />
-                    </Placeholder>
-                    <Placeholder animation="glow" as={"span"}>
-                      <Placeholder className="w-25 me-2" />
-                    </Placeholder>
-                  </div>
-                </Card.Text>
-                <Card.Text>
-                  <Button variant="outline-primary" className="w-100">
-                    <FontAwesomeIcon icon={faBookOpen} className="me-2" />
-                    <Placeholder animation="glow" as={"span"}>
-                      <Placeholder className="w-50 me-2" />
-                    </Placeholder>
-                  </Button>
-                </Card.Text>
+                <div className="overflow-hidden position-relative mb-3">
+                  <Placeholder animation="glow" as={"span"}>
+                    <Placeholder className="w-25 me-2" />
+                  </Placeholder>
+                  <Placeholder animation="glow" as={"span"}>
+                    <Placeholder className="w-25 me-2" />
+                  </Placeholder>
+                  <Placeholder animation="glow" as={"span"}>
+                    <Placeholder className="w-25 me-2" />
+                  </Placeholder>
+                </div>
+                <Button variant="outline-primary" className="w-100">
+                  <FontAwesomeIcon icon={faBookOpen} className="me-2" />
+                  <Placeholder animation="glow" as={"span"}>
+                    <Placeholder className="w-50 me-2" />
+                  </Placeholder>
+                </Button>
               </div>
             </Card.Body>
           </Card>
