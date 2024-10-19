@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import HomePage from "./pages/HomePage";
 import BooksPage from "./pages/BooksPage";
 import BookPage from "./pages/BookPage";
-import StatsPage from "./pages/StatsPage";
-import HomePage from "./pages/HomePage";
-import Header from "./components/Header";
-import { Container } from "react-bootstrap";
-import ScrollToTop from "./components/ScrollToTop";
 import CategoriesPage from "./pages/CategoriesPage";
-import "./styles/custom.scss";
 import TagsPage from "./pages/TagsPage";
+import StatsPage from "./pages/StatsPage";
+import Header from "./components/pageSpecific/Header";
+import ScrollToTop from "./components/utils/ScrollToTop";
+import "./styles/custom.scss";
 
 function App() {
   return (

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import BookSearchForm from "../components/BookSearchForm";
 import { Col, Container, Row } from "react-bootstrap";
-import BookList from "../components/BookList";
 import { useSelector } from "react-redux";
-import LoadingSpinner from "../components/LoadingSpinner";
+import BookList from "../components/lists/BookList";
+import BookSearchForm from "../components/forms/BookSearchForm";
+import LoadingSpinner from "../components/utils/LoadingSpinner";
 import SearchFormData from "../models/SearchFormData";
-import BookPageStatCards from "../components/BooksPageStatCards";
+import BookPageStatCards from "../components/pageSpecific/BooksPageStatCards";
 
 const BooksPage = () => {
   const { totalResults, loading } = useSelector((state) => state.books);

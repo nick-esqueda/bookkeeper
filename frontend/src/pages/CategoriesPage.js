@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import CategoryList from "../components/CategoryList";
-import CategoryStatCards from "../components/CategoryStatCards";
-import BookListCompact from "../components/BookListCompact";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import CreateCategoryModal from "../components/CreateCategoryModal";
-import BookCardCompactPlaceholders from "../components/BookCardCompactPlaceholders";
-import CategoryHeader from "../components/CategoryHeader";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CategoryList from "../components/lists/CategoryList";
+import CategoryPageStatCards from "../components/pageSpecific/CategoryPageStatCards";
+import BookListCompact from "../components/lists/BookListCompact";
+import CreateCategoryModal from "../components/modals/CreateCategoryModal";
+import BookCardCompactPlaceholders from "../components/cards/features/BookCardCompactPlaceholders";
+import CategoryHeader from "../components/pageSpecific/CategoryHeader";
 
 const CategoriesPage = () => {
   let { categoryId } = useParams();
@@ -69,7 +69,7 @@ const CategoriesPage = () => {
           </Row>
 
           <Row className="mb-3">
-            <CategoryStatCards categoryId={activeCategoryId} />
+            <CategoryPageStatCards categoryId={activeCategoryId} />
           </Row>
 
           <Row>

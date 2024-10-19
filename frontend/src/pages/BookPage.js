@@ -15,13 +15,11 @@ import {
   deleteBookAsync,
   fetchBookAsync,
 } from "../features/books/booksSlice";
-import EditBookModal from "../components/EditBookModal";
 import {
   readStatusButtonColorMap,
   readStatusIconMap,
   readStatusTextMap,
 } from "../utils/dataTransformationUtils";
-import LoadingSpinner from "../components/LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBook,
@@ -33,6 +31,8 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { faNoteSticky } from "@fortawesome/free-regular-svg-icons";
+import LoadingSpinner from "../components/utils/LoadingSpinner";
+import EditBookModal from "../components/modals/EditBookModal";
 
 const BookPage = () => {
   const { bookId } = useParams();

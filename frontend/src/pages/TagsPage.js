@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import AddTagModal from "../components/AddTagModal";
-import TagList from "../components/TagList";
-import TagPageStatCards from "../components/TagPageStatCards";
+import AddTagModal from "../components/modals/AddTagModal";
+import TagList from "../components/lists/TagList";
+import TagPageStatCards from "../components/pageSpecific/TagPageStatCards";
 
 const TagsPage = () => {
   const [createTagModalShow, setCreateTagModalShow] = useState(false);
