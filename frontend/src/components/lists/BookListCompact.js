@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearAllBooks,
-  fetchBooksAsync,
-  fetchBooksNextPageAsync,
-} from "../../features/books/booksSlice";
+import { fetchBooksNextPageAsync } from "../../features/books/booksSlice";
 import BookCardCompact from "../cards/features/BookCardCompact";
 import BookCardCompactPlaceholders from "../cards/features/BookCardCompactPlaceholders";
 
@@ -21,11 +17,6 @@ const BookListCompact = ({ queryParams }) => {
     error,
   } = useSelector((state) => state.books);
 
-  useEffect(() => {
-    dispatch(fetchBooksAsync(queryParams));
-    return () => dispatch(clearAllBooks());
-  }, [dispatch, queryParams]);
-
   const fetchNextPage = () => {
     dispatch(
       fetchBooksNextPageAsync({
@@ -34,10 +25,6 @@ const BookListCompact = ({ queryParams }) => {
       })
     );
   };
-
-  if (loading) {
-    <BookCardCompactPlaceholders />;
-  }
 
   if (!bookIds.length && !loading) {
     return <small className="mt-4 text-center text-muted">No results</small>;

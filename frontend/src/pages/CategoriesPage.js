@@ -3,35 +3,43 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CategoryList from "../components/lists/CategoryList";
 import CategoryPageStatCards from "../components/pageSpecific/CategoryPageStatCards";
 import BookListCompact from "../components/lists/BookListCompact";
 import CreateCategoryModal from "../components/modals/CreateCategoryModal";
-import BookCardCompactPlaceholders from "../components/cards/features/BookCardCompactPlaceholders";
 import CategoryHeader from "../components/pageSpecific/CategoryHeader";
+import { fetchBookCategoriesAsync } from "../features/bookCategories/bookCategoriesSlice";
+import { clearAllBooks, fetchBooksAsync } from "../features/books/booksSlice";
 
 const CategoriesPage = () => {
+  const dispatch = useDispatch();
   let { categoryId } = useParams();
+  categoryId = Number(categoryId || 0);
 
-  const { ids } = useSelector((state) => state.bookCategories);
+  const { ids, loading } = useSelector((state) => state.bookCategories);
 
   const [activeCategoryId, setActiveCategoryId] = useState(categoryId);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // scenario: navigating to /categories without path param (undefined)
-    if (!categoryId && ids.length) {
-      categoryId = ids[0];
-    }
+    dispatch(fetchBookCategoriesAsync());
+  }, [dispatch]);
 
-    // reset the activeCategoryId in case useState & URL param are out of sync
-    // scenario: navigate() to a category while already on /categories page
-    // scenario: navigating to /categories without path param (undefined)
-    if (categoryId !== activeCategoryId) {
-      setActiveCategoryId(categoryId);
+  useEffect(() => {
+    if (activeCategoryId) {
+      dispatch(fetchBooksAsync({ bookCategoryId: activeCategoryId }));
     }
-  }, [categoryId, activeCategoryId, ids]);
+    return () => dispatch(clearAllBooks());
+  }, [dispatch, activeCategoryId]);
+
+  useEffect(() => {
+    // set active category as the first in the list (after loading) if none was set
+    // scenario: navigating to /categories from header (without path param)
+    if (!activeCategoryId && !loading && ids.length > 0) {
+      setActiveCategoryId(ids[0]);
+    }
+  }, [activeCategoryId, ids, loading]);
 
   return (
     <Container className="mt-5">
@@ -73,13 +81,9 @@ const CategoriesPage = () => {
           </Row>
 
           <Row>
-            {!activeCategoryId ? (
-              <BookCardCompactPlaceholders />
-            ) : (
-              <BookListCompact
-                queryParams={{ bookCategoryId: activeCategoryId }}
-              />
-            )}
+            <BookListCompact
+              queryParams={{ bookCategoryId: activeCategoryId }}
+            />
           </Row>
         </Col>
       </Row>
