@@ -46,7 +46,7 @@ const BooksPage = () => {
       </Row>
 
       <Row>
-        <Col sm={3}>
+        <Col sm={3} className="sticky-col">
           <div className="island">
             <Row>
               <h5 className="mb-3">Filters</h5>

@@ -101,3 +101,10 @@ body * {
   left: 0;
   background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 }
+
+.sticky-col {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 78px;
+  height: fit-content; /* Ensure col height only fits its content */
+}
