@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { Button, Form, FormLabel, InputGroup } from "react-bootstrap";
+import { Form, FormLabel, InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDownAZ,
   faCircleHalfStroke,
   faLayerGroup,
-  faRotate,
   faSearch,
   faSort,
   faTags,
@@ -14,8 +13,6 @@ import { readStatusTextMap } from "../../utils/dataTransformationUtils";
 import { fetchBookCategoriesAsync } from "../../features/bookCategories/bookCategoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { handleFormChange } from "../../utils/formUtils";
-import LoadingSpinner from "../utils/LoadingSpinner";
-import SearchFormData from "../../models/SearchFormData";
 import BookTagMultiSelectInput from "../forms/BookTagMultiSelectInput";
 import { fetchBookTagsAsync } from "../../features/bookTags/bookTagsSlice";
 
@@ -25,7 +22,6 @@ const BookSearchForm = ({ formData, setFormData }) => {
   const {
     entities: bookCategories,
     ids: bookCategoryIds,
-    loading,
     error,
   } = useSelector((state) => state.bookCategories);
 
@@ -38,14 +34,6 @@ const BookSearchForm = ({ formData, setFormData }) => {
     e.preventDefault();
     e.stopPropagation();
   };
-
-  const resetFormData = () => {
-    setFormData(SearchFormData.createDefault());
-  };
-
-  if (loading) {
-    return <LoadingSpinner fixed={false} />;
-  }
 
   if (error) {
     return <p>Error: {error}</p>;
@@ -148,14 +136,6 @@ const BookSearchForm = ({ formData, setFormData }) => {
           <option value="desc">Reverse</option>
         </Form.Select>
       </Form.Group>
-      <Button
-        variant="link"
-        className="fw-light text-decoration-none"
-        onClick={resetFormData}
-      >
-        <FontAwesomeIcon icon={faRotate} className="me-2" />
-        Reset
-      </Button>
     </Form>
   );
 };
