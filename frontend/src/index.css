@@ -1,8 +1,3 @@
-#root {
-  background: #ddd1c72c;
-  min-height: 100vh;
-}
-
 body * {
   margin: 0;
   font-family: "Open Sans", sans-serif;
@@ -19,10 +14,20 @@ body * {
   --theme-light-purple: #5B5A75;
   --theme-red: #B85B5B;
   --theme-orange: #C78728;
+  --theme-background: #DDD1C72C;
   
   /* orange options */
   /* c78728 */
   /* c29915 */
+}
+
+#root {
+  background: var(--theme-background);
+  min-height: 100vh;
+}
+
+.bg-creme {
+  background-color: var(--theme-background);
 }
 
 #nav-brand {
@@ -61,6 +66,7 @@ body * {
 }
 
 .tab-active {
+  font-weight: 600;
   background-color: var(--theme-green-transparent);
 }
 
@@ -94,4 +100,11 @@ body * {
 .fade-out-left {
   left: 0;
   background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.sticky-col {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 78px;
+  height: fit-content; /* Ensure col height only fits its content */
 }

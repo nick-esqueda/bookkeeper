@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import AddBookModal from "../components/AddBookModal";
-import CreateCategoryModal from "../components/CreateCategoryModal";
+import AddBookModal from "../components/modals/AddBookModal";
+import CreateCategoryModal from "../components/modals/CreateCategoryModal";
 
 const HomePage = () => {
   const [addBookModalShow, setAddBookModalShow] = useState(false);
