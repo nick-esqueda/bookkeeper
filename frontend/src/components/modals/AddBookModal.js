@@ -15,7 +15,7 @@ const AddBookModal = (props) => {
     >
       <Modal.Header
         closeButton
-        className="bg-success text-light btn-close-white"
+        className="bg-success text-light"
         data-bs-theme="dark"
       >
         <Modal.Title id="contained-modal-title-vcenter">
