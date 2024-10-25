@@ -83,10 +83,6 @@ const BookForm = ({ onHide, book }) => {
     }
   };
 
-  if (loading) {
-    return <LoadingSpinner fixed={false} />;
-  }
-
   if (error) {
     return <p>Error: {error}</p>;
   }
