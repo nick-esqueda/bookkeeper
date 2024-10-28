@@ -1,6 +1,24 @@
 services:
+
+  web:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    volumes:
+      # Sync host & container files for hot reloading
+      - ./frontend:/app
+
+      # Prevent syncing of node_modules
+      # (this prevents issues due to host/container OS differences & improves performance)
+      - /app/node_modules
+
+    environment:
+      - WATCHPACK_POLLING=true # Enable hot reloading
+      - NODE_ENV=development
+      - REACT_APP_BASE_URL=http://localhost:8080/api/v1
+
   api:
-    build: .
+    build: ./backend
     ports:
       - 8080:8080
     secrets:
@@ -8,6 +26,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
   db:
     image: mysql
     environment:
@@ -21,6 +40,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 50
+
 secrets:
   db.properties:
     file: .env
