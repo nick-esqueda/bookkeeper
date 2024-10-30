@@ -54,14 +54,14 @@ jobs:
       #     docker buildx build --platform linux/amd64,linux/arm64 -t $REPO_URI:latest --push ./backend
 
       - name: Prepare SSH Key
-      - run: |
+        run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/ec2-key.pem
           chmod 600 ~/.ssh/ec2-key.pem
 
       - name: Connect to EC2 and Restart App
-      - env:
+        env:
           EC2_HOST_NAME: ${{ secrets.EC2_HOST_NAME }}
-      - run: |
+        run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/ec2-key.pem ec2-user@$EC2_HOST_NAME << 'EOF'
               ~./backup-mysql-to-s3.sh
           EOF
