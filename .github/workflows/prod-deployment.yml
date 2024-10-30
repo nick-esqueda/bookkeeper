@@ -55,17 +55,17 @@ jobs:
 
       - name: Prepare SSH Key
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/ec2-key.pem
+          chmod 600 ~/ec2-key.pem
 
       - name: Connect to EC2 and Restart App
         env:
           EC2_HOST_NAME: ${{ secrets.EC2_HOST_NAME }}
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@$EC2_HOST_NAME << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/ec2-key.pem ec2-user@$EC2_HOST_NAME << 'EOF'
               ~./backup-mysql-to-s3.sh
           EOF
-          rm ~/.ssh/ec2-key.pem
+          rm ~/ec2-key.pem
 
   # deploy_frontend:
   #   runs-on: ubuntu-latest
