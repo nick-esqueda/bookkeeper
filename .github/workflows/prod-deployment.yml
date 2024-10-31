@@ -62,10 +62,8 @@ jobs:
         env:
           EC2_HOST_NAME: ${{ secrets.EC2_HOST_NAME }}
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/ec2-key.pem ec2-user@$EC2_HOST_NAME << 'EOF'
-              ~./backup-mysql-to-s3.sh
-          EOF
-          rm ~/ec2-key.pem
+          scp -o StrictHostKeyChecking=no -i ~/ec2-key.pem scripts/restart-app.sh ec2-user@$EC2_HOST_NAME:~
+          ssh -o StrictHostKeyChecking=no -i ~/ec2-key.pem ec2-user@$EC2_HOST_NAME "bash ~/deploy-backend.sh && rm ~/deploy-backend.sh"
 
   # deploy_frontend:
   #   runs-on: ubuntu-latest
