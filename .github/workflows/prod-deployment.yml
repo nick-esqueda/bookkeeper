@@ -86,9 +86,9 @@ jobs:
 
       - name: Sync S3 Bucket
         run: |
-          aws s3 sync frontend/build s3://laceybeesbookinventory.nickesqueda.com --delete
+          aws s3 sync frontend/build s3://books.laceyburns.com --delete
 
       - name: Invalidate CloudFront Cache
         run: |
-          aws cloudfront create-invalidation --distribution-id E3JBES0K7PYMT8 --paths "/*"
+          aws cloudfront create-invalidation --distribution-id EYJC0IMA501P6 --paths "/*"
 
