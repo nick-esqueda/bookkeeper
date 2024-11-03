@@ -11,7 +11,7 @@ permissions:
   contents: read  # Required for actions
 
 jobs:
-  push_api_to_ecr:
+  deploy_backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -53,9 +53,20 @@ jobs:
           export REPO_URI=public.ecr.aws/f0d1e9f6/lacey-bees-book-inventory-image-repo
           docker buildx build --platform linux/amd64,linux/arm64 -t $REPO_URI:latest --push ./backend
 
+      - name: Prepare SSH Key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/ec2-key.pem
+          chmod 600 ~/ec2-key.pem
+
+      - name: Connect to EC2 and Restart App
+        env:
+          EC2_HOST_NAME: ${{ secrets.EC2_HOST_NAME }}
+        run: |
+          scp -o StrictHostKeyChecking=no -i ~/ec2-key.pem scripts/restart-app.sh ec2-user@$EC2_HOST_NAME:~
+          ssh -o StrictHostKeyChecking=no -i ~/ec2-key.pem ec2-user@$EC2_HOST_NAME "bash ~/restart-app.sh"
+
   deploy_frontend:
     runs-on: ubuntu-latest
-    # needs: push_api_to_ecr # Ensures frontend deploy waits for the backend job to complete
 
     steps:
       - name: Checkout Code
