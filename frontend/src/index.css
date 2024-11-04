@@ -4,21 +4,8 @@ body * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  --theme-tan: #DDD1C7;
-  --theme-light-green: #C2CFB2;
-  --theme-light-green-transparent: #c2cfb273;
-  --theme-green: #8DB580;
   --theme-green-transparent: #8db5807a;
-  --theme-gray: #7E8987;
-  --theme-purple: #4B4A67;
-  --theme-light-purple: #5B5A75;
-  --theme-red: #B85B5B;
-  --theme-orange: #C78728;
   --theme-background: #DDD1C72C;
-  
-  /* orange options */
-  /* c78728 */
-  /* c29915 */
 }
 
 #root {

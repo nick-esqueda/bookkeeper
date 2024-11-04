@@ -36,7 +36,7 @@ const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
   const convertIdsToOptions = (ids) =>
     ids.map((id) => ({
       value: id,
-      label: bookTags[id].name,
+      label: bookTags[id]?.name,
     }));
 
   if (bookTagsError) {
