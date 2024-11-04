@@ -12,7 +12,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import BookFormData from "../../models/BookFormData";
 import { handleFormChange } from "../../utils/formUtils";
-import LoadingSpinner from "../utils/LoadingSpinner";
 import { fetchBookTagsAsync } from "../../features/bookTags/bookTagsSlice";
 import BookTagMultiSelectInput from "./BookTagMultiSelectInput";
 import {
@@ -33,7 +32,6 @@ const BookForm = ({ onHide, book }) => {
   const {
     entities: bookCategories,
     ids: bookCategoryIds,
-    loading,
     error,
   } = useSelector((state) => state.bookCategories);
 
