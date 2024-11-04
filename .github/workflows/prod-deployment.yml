@@ -3,9 +3,6 @@ name: PROD Deployment
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-    types: [ closed ]
 
 permissions:
   id-token: write # Required for requesting a JWT from the GH OIDC Provider
@@ -13,8 +10,6 @@ permissions:
 
 jobs:
   deploy_backend:
-    if: github.event.pull_request.merged == true
-
     runs-on: ubuntu-latest
 
     steps:
@@ -69,8 +64,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/ec2-key.pem ec2-user@$EC2_HOST_NAME "bash ~/restart-app.sh"
 
   deploy_frontend:
-    if: github.event.pull_request.merged == true
-
     runs-on: ubuntu-latest
 
     steps:
