@@ -13,16 +13,18 @@ const CreateCategoryModal = (props) => {
       centered
       backdrop="static"
     >
-      <Modal.Header closeButton>
+      <Modal.Header
+        closeButton
+        className="bg-success text-light"
+        data-bs-theme="dark"
+      >
         <Modal.Title id="contained-modal-title-vcenter">
+          <FontAwesomeIcon icon={faLayerGroup} className="me-2" />
           Add Category
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <h5>
-          <FontAwesomeIcon icon={faLayerGroup} className="me-2" />
-          Category Name
-        </h5>
+      <Modal.Body className="bg-creme">
+        <h5>Category Name</h5>
         <p>
           Provide a name and click "Save" to create.
           <br />
