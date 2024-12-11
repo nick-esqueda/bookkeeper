@@ -4,15 +4,18 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import LoadingSpinner from "../utils/LoadingSpinner";
+import CategoryListPlaceholders from "../cards/features/CategoryListPlaceholders";
 
 const CategoryList = ({ activeCategoryId, setActiveCategoryId }) => {
   const { ids, entities, loading, error } = useSelector(
     (state) => state.bookCategories
   );
 
+  const defaultStyle =
+    "p-3 border-bottom border-2 text-dark text-decoration-none";
+
   if (loading) {
-    return <LoadingSpinner fixed={false} />;
+    return <CategoryListPlaceholders />;
   }
 
   if (error) {
@@ -22,8 +25,6 @@ const CategoryList = ({ activeCategoryId, setActiveCategoryId }) => {
   return (
     <Stack>
       {ids.map((id) => {
-        const defaultStyle =
-          "p-3 border-bottom border-2 text-dark text-decoration-none";
         const finalStyle =
           id === activeCategoryId ? defaultStyle + " tab-active" : defaultStyle;
 
