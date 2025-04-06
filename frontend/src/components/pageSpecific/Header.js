@@ -36,7 +36,7 @@ const Header = () => {
           onClick={closeNav}
           className="text-light"
         >
-          Lacey Bee's Book Inventory
+          Bookkeeper
         </Navbar.Brand>
         <Navbar.Collapse
           id="basic-navbar-nav"

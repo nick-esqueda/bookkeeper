@@ -1,7 +1,7 @@
 # keep non-test configs in "default" spring profile to ensure they don't get picked up for integration test runs.
 spring:
   application:
-    name: lacey-bees-book-inventory-api
+    name: bookkeeper-api
   config:
     import: file:/run/secrets/db.properties
   flyway:
@@ -15,4 +15,4 @@ spring:
     password: ${DB_PASSWORD}
 log:
   level:
-    com.nickesqueda.laceybeesbookinventoryapi: INFO
+    com.nickesqueda.bookkeeperapi: INFO

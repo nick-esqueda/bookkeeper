@@ -1,6 +1,6 @@
 {
-  "short_name": "Lacey's Books",
-  "name": "Lacey Bee's Book Inventory",
+  "short_name": "Bookkeeper",
+  "name": "Bookkeeper",
   "icons": [],
   "start_url": ".",
   "display": "standalone",

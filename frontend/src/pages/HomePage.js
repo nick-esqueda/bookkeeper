@@ -12,11 +12,7 @@ const HomePage = () => {
     <Container>
       <Row>
         <Col>
-          <h1 id="homepage-brand">
-            Lacey Bee's
-            <br />
-            Book Inventory
-          </h1>
+          <h1 id="homepage-brand">Bookkeeper</h1>
         </Col>
       </Row>
       <Row className="p-4 justify-content-center">
