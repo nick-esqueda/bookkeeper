@@ -38,7 +38,7 @@ const TagForm = ({ onHide, booktag: bookTag }) => {
       await dispatch(createBookTagAsync(bookTag));
       onHide();
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 
@@ -47,7 +47,7 @@ const TagForm = ({ onHide, booktag: bookTag }) => {
       await dispatch(editBookTagAsync(bookTag));
       onHide();
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 

@@ -29,7 +29,7 @@ const BookTagMultiSelectInput = ({ valueIds, setFormData }) => {
       }));
     } catch (error) {
       console.error(error);
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 

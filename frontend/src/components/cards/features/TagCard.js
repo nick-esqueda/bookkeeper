@@ -33,7 +33,7 @@ const TagCard = ({ tagId }) => {
     try {
       await dispatch(deleteBookTagAsync(tag.id));
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 

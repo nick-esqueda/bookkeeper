@@ -43,7 +43,7 @@ const CategoryForm = ({ onHide, category }) => {
       onHide();
       navigate(`/categories/${createdCategory.id}`);
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 
@@ -52,7 +52,7 @@ const CategoryForm = ({ onHide, category }) => {
       await dispatch(editBookCategoryAsync(category));
       onHide();
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 

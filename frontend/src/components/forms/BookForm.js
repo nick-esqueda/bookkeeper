@@ -68,7 +68,7 @@ const BookForm = ({ onHide, book }) => {
       onHide();
       navigate(`/books/${createdBook.id}`);
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 
@@ -77,7 +77,7 @@ const BookForm = ({ onHide, book }) => {
       await dispatch(editBookAsync(formData));
       onHide();
     } catch (error) {
-      alert("Uh-oh, something went wrong. Please tell Nick Bug! \n\n" + error);
+      alert("Uh-oh, something went wrong. \n\n" + error);
     }
   };
 
