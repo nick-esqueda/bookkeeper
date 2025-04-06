@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nickesqueda</groupId>
-	<artifactId>laceybeesbookinventoryapi</artifactId>
+	<artifactId>bookkeeperapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>LaceyBeesBookInventoryAPI</name>
-	<description>CRUD REST API for Lacey Bee&apos;s Book Inventory site</description>
+	<name>Bookkeeper API</name>
+	<description>CRUD REST API for Bookkeeper application</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
